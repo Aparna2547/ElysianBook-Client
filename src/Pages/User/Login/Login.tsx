@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Api from "../../../Services/axios";
 
@@ -17,6 +16,8 @@ const Login: React.FC = () => {
     const handleSubmit = async (e:any) => {
       
       e.preventDefault(); // Add this line to prevent default form submission
+	  console.log('dfjdioj');
+	  
       try {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
