@@ -1,5 +1,5 @@
 import { useState } from "react";
-const App = () => {
+const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const Menus = [
     { title: "Dashboard", src: "Chart_fill" },
@@ -61,4 +61,4 @@ const App = () => {
     // </div>
   );
 };
-export default App;
+export default Sidebar;

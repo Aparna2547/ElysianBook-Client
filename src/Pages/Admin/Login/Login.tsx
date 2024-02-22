@@ -33,7 +33,7 @@ const Login = () => {
           if (res.data.success) {
             toast.success("Signed in...");
             console.log("Navigating to '/'...");
-            navigate('/')
+            navigate('/admin/dashboard')
           }else if(!res.data.status){
             toast.error(res.data.message)
           }
