@@ -15,6 +15,16 @@ const CategoryModal = ({setShowModal}:categoryProps) => {
         e.preventDefault();
         console.log(category,image);
 
+        if (category.trim().length<4) {
+
+          toast.error("Enter category name");
+          return;
+        } else if (!image) {
+
+          toast.error("select image");
+          return;
+        }
+
         const formData = new FormData();
         formData.append('image',image);
         formData.append('category',category);
@@ -23,6 +33,7 @@ const CategoryModal = ({setShowModal}:categoryProps) => {
         console.log(res);
         if(res.data.data){
             toast.success('category added..');
+            setShowModal(false)
         } else {
             toast.error('category existed');
         }

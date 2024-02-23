@@ -20,8 +20,8 @@ const Otp = () => {
           const res = await Api.post("/user/signup",{otp})
           console.log(res);
           if(res.data.status){
-            toast.success("signed up successfully...")
-            navigate('/')
+            toast.success("Registration successfull. Please login")
+            navigate('/login')
           }else if(!res.data.status){
             toast.error(res.data.message)
           }

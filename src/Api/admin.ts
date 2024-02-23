@@ -25,7 +25,7 @@ try {
 
 export const editCategory = async(id:string) =>{
     try {
-        const res = await Api.post(AdminRoutes.editCategory,id)
+        const res = await Api.put(`${AdminRoutes.editCategory}?id=${id}`)
         return res
     } catch (error) {
         console.log(error);
@@ -48,5 +48,15 @@ export const hideCategory = async (id:string)=>{
         return res
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const adminLogout = async ()=>{
+    try{
+        const res = await Api.adminLogout()
+        return res
+    }catch(error){
+        console.log(error);
+        
     }
 }

@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import { signup } from "../../../Api/user";
 import {useNavigate} from "react-router-dom"
+import GoogleAuthSignUp from "../../../Components/User/GoogleAuthSignUp";
 
 const SignUp = () => {
   const [error, setError] = useState(null);
@@ -74,7 +75,7 @@ const SignUp = () => {
                   </h6>
                 </div>
                 <div className="btn-wrapper text-center">
-                  <button
+                  {/* <button
                     className="bg-white active:bg-gray-100 w-full text-gray-800  font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
                     type="button"
                     style={{ transition: "all 0.15s ease 0s" }}
@@ -85,7 +86,8 @@ const SignUp = () => {
                       src="https://banner2.cleanpng.com/20201008/rtv/transparent-google-suite-icon-google-icon-5f7f985ccd60e3.5687494416021975968412.jpg"
                     />
                     Google
-                  </button>
+                  </button> */}
+                  <GoogleAuthSignUp login={false} user={true}/>
                 </div>
                 <hr className="mt-6 border-b-1 border-gray-400" />
               </div>

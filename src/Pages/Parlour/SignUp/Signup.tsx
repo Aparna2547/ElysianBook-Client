@@ -7,6 +7,7 @@ import { TERipple } from 'tw-elements-react';
 import Image from "../../../assets/logo.png"
 import {useNavigate} from "react-router-dom"
 import { signup } from '../../../Api/parlour';
+import GoogleAuthSignUp from '../../../Components/User/GoogleAuthSignUp';
 
 
 const SignUp = () => {
@@ -137,25 +138,7 @@ const SignUp = () => {
             </div>
 
             {/* <!-- Social login buttons --> */}
-            <TERipple rippleColor="light" className="w-full">
-              <a
-                className="mb-3 flex w-full items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                style={{ backgroundColor: "#3b5998" }}
-                href="#!"
-                role="button"
-              >
-                {/* <!-- Facebook --> */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="mr-2 h-3.5 w-3.5"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
-                </svg>
-                Continue with Google
-              </a>
-            </TERipple>
+            <GoogleAuthSignUp login={false} user={false}/>
             <div className="w-2/2 text-right">
              <Link to={'/parlour/'}>
                 <small>

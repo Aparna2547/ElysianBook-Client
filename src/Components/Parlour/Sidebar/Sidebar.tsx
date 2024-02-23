@@ -1,15 +1,22 @@
 import { useState } from "react";
+import logo from "../../../assets/logo.png" 
+import { MdDashboard } from "react-icons/md";
+import { GiShop } from "react-icons/gi";
+import { MdCleaningServices } from "react-icons/md";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { RiLogoutCircleLine } from "react-icons/ri";
+import {Link} from 'react-router-dom'
+
+
+
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
   const Menus = [
-    { title: "Dashboard", src: "Chart_fill" },
-    { title: "Inbox", src: "Chat" },
-    { title: "Accounts", src: "User", gap: true },
-    { title: "Schedule ", src: "Calendar" },
-    { title: "Search", src: "Search" },
-    { title: "Analytics", src: "Chart" },
-    { title: "Files ", src: "Folder", gap: true },
-    { title: "Setting", src: "Setting" },
+    { title: "Dashboard", src: <MdDashboard/>,link:"/parlour/dashboard", gap: true },
+    { title: "Parlour", src: <GiShop/> ,link:"/parlour/parlourdetails", gap: true},
+    { title: "Services", src:<MdCleaningServices/>,link:"/parlour/services", gap: true },
+    { title: "Booking ", src: <FaRegCalendarAlt/> ,link:"/parlour/booking",gap: true },
+    
   ];
 
   return (
@@ -20,14 +27,14 @@ const Sidebar = () => {
         } bg-blue-900 h-screen p-5  pt-8 relative duration-300`}
       >
         <img
-          src="./src/assets/control.png"
-          className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
-           border-2 rounded-full  ${!open && "rotate-180"}`}
+          src={logo}
+          className={`absolute cursor-pointer -right-5 top-9 w-10 bg-white border-purple-900
+           border-2 rounded-full`}
           onClick={() => setOpen(!open)}
         />
         <div className="flex gap-x-4 items-center">
           <img
-            src="./src/assets/logo.png"
+            // src={logo}
             className={`cursor-pointer duration-500 ${
               open && "rotate-[360deg]"
             }`}
@@ -37,26 +44,40 @@ const Sidebar = () => {
               !open && "scale-0"
             }`}
           >
-            Designer
+          ELYSIAN BOOK
           </h1>
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
+            <Link to={Menu.link}>
             <li
               key={index}
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-              ${Menu.gap ? "mt-9" : "mt-2"} ${
+              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-base items-center gap-x-4  
+              ${Menu.gap ? "mt-5" : "mt-2"} ${
                 index === 0 && "bg-light-white"
               } `}
             >
-              <img src={`./src/assets/${Menu.src}.png`} />
+              <h1 className="text-2xl">{Menu.src}</h1>
               <span className={`${!open && "hidden"} origin-left duration-200`}>
                 {Menu.title}
               </span>
             </li>
+            </Link>
           ))}
+
+<li
+              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-base items-center gap-x-4  
+              mt-5 `}
+            >
+              <h1 className="text-2xl"><RiLogoutCircleLine/></h1>
+              <span className={`${!open && "hidden"} origin-left duration-200`}>
+                Logout
+              </span>
+            </li>
         </ul>
       </div>
+
+
       
     // </div>
   );

@@ -8,20 +8,42 @@ import { MdOutlineLocalOffer } from "react-icons/md";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { adminLogout } from "../../../Store/slice/authSlice";
 
 const Home = () => {
   const menus = [
     { name: "Dashboard", link: "/admin/dashboard", icon: MdOutlineDashboard },
     { name: "Users", link: "/admin/user", icon: AiOutlineUser },
-    { name: "Parlours", link: "/admin/", icon: AiOutlineUser },
+    { name: "Parlours", link: "/admin/parlour", icon: AiOutlineUser },
     { name: "Categories", link: "/admin/categories", icon: BiCategory },
     { name: "Request", link: "/admin/", icon: FaCodePullRequest },
     { name: "Banners", link: "/admin/", icon: PiFlagBannerBold },
     { name: "Offers", link: "/admin/", icon: MdOutlineLocalOffer },
-    { name: "Logout", link: "/admin/", icon: RiLogoutCircleLine, margin: true },
-   
+    // {
+    //   name: "Logout",
+    //   link: "/admin/logout",
+    //   icon: RiLogoutCircleLine,
+    //   margin: true,
+    // },
   ];
   const [open, setOpen] = useState(true);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout= async ()=>{
+    try{
+      const res = await adminLogout()
+      console.log(res)
+      dispatch(adminLogout())
+      navigate('/admin')
+    }catch(error){
+      console.log(error);
+      
+    }
+  }
+
   return (
     <section className="flex gap-6">
       <div
@@ -65,9 +87,32 @@ const Home = () => {
               </h2>
             </Link>
           ))}
+          <div onClick={handleLogout}
+              className={` ${
+                "mt-5"
+              } group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md cursor-pointer`}
+            >
+          <div>{React.createElement(RiLogoutCircleLine, { size: "20" })}</div>
+              <h2
+                style={{
+                  transitionDelay: `1000ms`,
+                }}
+                className={`whitespace-pre duration-500 ${
+                  !open && "opacity-0 translate-x-28 overflow-hidden"
+                }`}
+              >
+                Logout
+              </h2>
+              <h2
+                className={`${
+                  open && "hidden"
+                } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              >
+                LOGOUT
+              </h2>
+              </div>
         </div>
       </div>
-     
     </section>
   );
 };

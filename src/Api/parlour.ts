@@ -22,12 +22,23 @@ export const verifyOtp = async (otp:string)=>{
         }
     }
 
-    export const login = async (email:string,password:string)=>{
+    export const parlourLogin = async (email:string,password:string)=>{
         try {
-            const res = await Api.post(parlourRoutes.login,{email,password})
+            const res = await Api.post(parlourRoutes.parlourLogin,{email,password})
             console.log(res)
             return res
         } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
+    export const gParlourSignup = async (name:string,email:string,password:string)=>{
+        try{
+            const res = await Api.post(parlourRoutes.gParlourSignup,{name,email,password})
+            return res
+        }
+        catch(error){
             console.log(error);
             
         }

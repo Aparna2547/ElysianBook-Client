@@ -3,20 +3,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Api from "../../../Services/axios";
+import GoogleAuthSignUp from "../../../Components/User/GoogleAuthSignUp";
+import Navbar from "../../../Components/User/NavBar/Navbar";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../../Store/slice/authSlice";
 
 // import '/Login.cs'
 
 const Login: React.FC = () => {
-
-
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
     const handleSubmit = async (e:any) => {
       
-      e.preventDefault(); // Add this line to prevent default form submission
-	  console.log('dfjdioj');
+      e.preventDefault();
+	  // console.log('dfjdioj');
 	  
       try {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,7 +35,9 @@ const Login: React.FC = () => {
 
         const res = await Api.post("/user/login",{email,password})
         console.log(res);
-        if(res.data.status){
+        if(res.data.success){
+          console.log(res.data)
+          dispatch(setCredentials(res.data.token))
           toast.success("signed in...")
           navigate('/')
         }else if(!res.data.status){
@@ -48,7 +52,8 @@ const Login: React.FC = () => {
 
 
   return (
-
+<>
+    <Navbar/>
     <section className="absolute w-full top-0">
       <div
         className="absolute top-0 w-full h-full"
@@ -71,19 +76,8 @@ const Login: React.FC = () => {
                   </h6>
                 </div>
                 <div className="btn-wrapper text-center">
-                 
-                  <button
-                    className="bg-white active:bg-gray-100 w-full text-gray-800  font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
-                    type="button"
-                    style={{ transition: "all 0.15s ease 0s" }}
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1 text-center"
-                      src="https://banner2.cleanpng.com/20201008/rtv/transparent-google-suite-icon-google-icon-5f7f985ccd60e3.5687494416021975968412.jpg"
-                    />
-                    Google
-                  </button>
+
+                  <GoogleAuthSignUp  login={true} user={true}/>
                 </div>
                 <hr className="mt-6 border-b-1 border-gray-400" />
               </div>
@@ -132,13 +126,13 @@ const Login: React.FC = () => {
                   </div>
                   <div className="flex flex-wrap mt-6">
                     <div className="w-1/2">
-                      <a href="#pablo" className="text-gray-900">
+                      <Link to ={"/forgotpassword"}className="text-gray-900">
                         <small>Forgot password?</small>
-                      </a>
+                      </Link>
                     </div>
                     <div className="w-1/2 text-right">
                       <a href="#pablo" className="text-gray-900">
-                        <Link to={"/verifymail"}><small>Create new account</small></Link>
+                        <Link to={"/signup"}><small>Create new account</small></Link>
                       </a>
                     </div>
                   </div>
@@ -149,6 +143,7 @@ const Login: React.FC = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

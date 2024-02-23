@@ -13,7 +13,9 @@ const Categories = () => {
   const [modal, setModal] = useState(false);
   const [listId, setListId] = useState("");
   const [categories, setCategories] = useState([]);
-
+  // const [modalType,setModalType] = useState(null)
+  // const [,editModal,setEditModal] = useState()
+// 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -37,9 +39,12 @@ const Categories = () => {
     }
   };
 
-  const editCategory= async ()=>{
+  const handleEdit= async (id:string)=>{
     try{
-      const res = await editCategory
+      // setModalType('edit')
+      console.log('hadh')
+      const res = await editCategory(id)
+      console.log(res)
     }catch(error){
       console.log(error);
       
@@ -138,7 +143,7 @@ const Categories = () => {
                           </span>
                         ) : (
                           <span
-                            onClick={() => hideCategory(category._id)} // Add onClick event handler
+                            onClick={() => hideCategory(category._id)}
                             className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
                           >
                             <span className="h-1.5 w-1.5 rounded-full bg-green-600"></span>
@@ -155,7 +160,7 @@ const Categories = () => {
                           >
                             <FaRegEyeSlash />
                           </button>
-                          <button x-data="{ tooltip: 'Edite' }"  >
+                          <button x-data="{ tooltip: 'Edite' }"  onClick={()=>handleEdit(category._id)}>
                             <MdEdit />
                           </button>
                         </div>
@@ -175,7 +180,10 @@ const Categories = () => {
           <div className="text-right">
             <button
               className="bg-gray-900 font-bold rounded-md p-1.5 text-sm text-white mx-4"
-              onClick={() => setShowModal(true)}
+              onClick={() => {
+                setShowModal(true);
+                // setModalType('add')
+              }}
             >
               Add Category
             </button>
@@ -184,6 +192,10 @@ const Categories = () => {
       </div>
       {modal && <ConfirmationModal  setModal = {setModal} listCategory = {listCategory}/>}
       {showModal && <CategoryModal setShowModal={setShowModal} />}
+
+
+      {/* {modalType === 'add' && <CategoryModal setShowModal={setShowModal} />} */}
+{/* {modalType === 'edit' && <CategoryModal setEditModal={setEditModal} />} */}
     </>
   );
 };
