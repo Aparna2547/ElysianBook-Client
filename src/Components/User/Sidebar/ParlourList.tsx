@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import pic from "../../../assets/palour1.jpeg"
 
 const ParlourList = () => {
     const [filterBar,setFilterBar] = useState(false)
@@ -43,7 +44,7 @@ const ParlourList = () => {
                             {/* Filters */}
                             <form className="mt-4 border-t border-gray-200">
                                 <h3 className="sr-only">Categories</h3>
-                                <ul role="list" className="px-2 py-3 font-medium text-gray-900">
+                                {/* <ul role="list" className="px-2 py-3 font-medium text-gray-900">
                                     <li>
                                         <a href="#" className="block px-2 py-3">
                                             Totes
@@ -69,7 +70,7 @@ const ParlourList = () => {
                                             Laptop Sleeves
                                         </a>
                                     </li>
-                                </ul>
+                                </ul> */}
                                 <div className="border-t border-gray-200 px-4 py-6">
                                     <h3 className="-mx-2 -my-3 flow-root">
                                         {/* Expand/collapse section button */}
@@ -254,7 +255,7 @@ const ParlourList = () => {
                                                     htmlFor="filter-mobile-category-0"
                                                     className="ml-3 min-w-0 flex-1 text-gray-500"
                                                 >
-                                                    New Arrivals
+                                                 Parlours near me
                                                 </label>
                                             </div>
                                             <div className="flex items-center">
@@ -459,7 +460,7 @@ const ParlourList = () => {
                 <main className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
                     <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
                         <h1 className="text-4xl font-bold tracking-tight text-gray-900 cursor-pointer" >
-                            New Arrivals
+                         Parlours near me
                         </h1>
                         <div className="flex items-center">
                             <div className="relative inline-block text-left">
@@ -487,16 +488,7 @@ const ParlourList = () => {
                                         </svg>
                                     </button>
                                 </div>
-                                {/*
-Dropdown menu, show/hide based on menu state.
-
-Entering: "transition ease-out duration-100"
-  From: "transform opacity-0 scale-95"
-  To: "transform opacity-100 scale-100"
-Leaving: "transition ease-in duration-75"
-  From: "transform opacity-100 scale-100"
-  To: "transform opacity-0 scale-95"
-*/}
+  
                                 <div
                                     className={`absolute ${!sortOption && 'hidden'} right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none`}
                                     role="menu"
@@ -505,11 +497,7 @@ Leaving: "transition ease-in duration-75"
                                     tabIndex={-1}
                                 >
                                     <div className="py-1" role="none">
-                                        {/*
-    Active: "bg-gray-100", Not Active: ""
 
-    Selected: "font-medium text-gray-900", Not Selected: "text-gray-500"
-  */}
                                         <a
                                             href="#"
                                             className="font-medium text-gray-900 block px-4 py-2 text-sm"
@@ -605,7 +593,7 @@ Leaving: "transition ease-in duration-75"
                             {/* Filters */}
                             <form className={`${!filterBar && 'hidden'} lg:block`}>
                                 <h3 className="sr-only">Categories</h3>
-                                <ul
+                                {/* <ul
                                     role="list"
                                     className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
                                 >
@@ -624,139 +612,8 @@ Leaving: "transition ease-in duration-75"
                                     <li>
                                         <a href="#">Laptop Sleeves</a>
                                     </li>
-                                </ul>
-                                <div className="border-b border-gray-200 py-6">
-                                    <h3 className="-my-3 flow-root">
-                                        {/* Expand/collapse section button */}
-                                        <button
-                                            type="button"
-                                            className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500"
-                                            aria-controls="filter-section-0"
-                                            aria-expanded="false"
-                                        >
-                                            <span className="font-medium text-gray-900">Color</span>
-                                            <span className="ml-6 flex items-center">
-                                                {/* Expand icon, show/hide based on section open state. */}
-                                                <svg
-                                                    className="h-5 w-5"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                    aria-hidden="true"
-                                                >
-                                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                                                </svg>
-                                                {/* Collapse icon, show/hide based on section open state. */}
-                                                <svg
-                                                    className="h-5 w-5"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                    aria-hidden="true"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </span>
-                                        </button>
-                                    </h3>
-                                    {/* Filter section, show/hide based on section state. */}
-                                    <div className="pt-6" id="filter-section-0">
-                                        <div className="space-y-4">
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-color-0"
-                                                    name="color[]"
-                                                    defaultValue="white"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-color-0"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    White
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-color-1"
-                                                    name="color[]"
-                                                    defaultValue="beige"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-color-1"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    Beige
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-color-2"
-                                                    name="color[]"
-                                                    defaultValue="blue"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-color-2"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    Blue
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-color-3"
-                                                    name="color[]"
-                                                    defaultValue="brown"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-color-3"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    Brown
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-color-4"
-                                                    name="color[]"
-                                                    defaultValue="green"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-color-4"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    Green
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-color-5"
-                                                    name="color[]"
-                                                    defaultValue="purple"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-color-5"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    Purple
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </ul> */}
+                                
                                 <div className="border-b border-gray-200 py-6">
                                     <h3 className="-my-3 flow-root">
                                         {/* Expand/collapse section button */}
@@ -766,7 +623,7 @@ Leaving: "transition ease-in duration-75"
                                             aria-controls="filter-section-1"
                                             aria-expanded="false"
                                         >
-                                            <span className="font-medium text-gray-900">Category</span>
+                                            <span className="font-medium text-gray-900">Main services</span>
                                             <span className="ml-6 flex items-center">
                                                 {/* Expand icon, show/hide based on section open state. */}
                                                 <svg
@@ -808,7 +665,7 @@ Leaving: "transition ease-in duration-75"
                                                     htmlFor="filter-category-0"
                                                     className="ml-3 text-sm text-gray-600"
                                                 >
-                                                    New Arrivals
+                                                   Bridals
                                                 </label>
                                             </div>
                                             <div className="flex items-center">
@@ -823,7 +680,7 @@ Leaving: "transition ease-in duration-75"
                                                     htmlFor="filter-category-1"
                                                     className="ml-3 text-sm text-gray-600"
                                                 >
-                                                    Sale
+                                                    PreBridals
                                                 </label>
                                             </div>
                                             <div className="flex items-center">
@@ -838,7 +695,7 @@ Leaving: "transition ease-in duration-75"
                                                     htmlFor="filter-category-2"
                                                     className="ml-3 text-sm text-gray-600"
                                                 >
-                                                    Travel
+                                                   Facial
                                                 </label>
                                             </div>
                                             <div className="flex items-center">
@@ -853,7 +710,7 @@ Leaving: "transition ease-in duration-75"
                                                     htmlFor="filter-category-3"
                                                     className="ml-3 text-sm text-gray-600"
                                                 >
-                                                    Organization
+                                                   Manipadi
                                                 </label>
                                             </div>
                                             <div className="flex items-center">
@@ -868,144 +725,13 @@ Leaving: "transition ease-in duration-75"
                                                     htmlFor="filter-category-4"
                                                     className="ml-3 text-sm text-gray-600"
                                                 >
-                                                    Accessories
+                                                    Threading
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="border-b border-gray-200 py-6">
-                                    <h3 className="-my-3 flow-root">
-                                        {/* Expand/collapse section button */}
-                                        <button
-                                            type="button"
-                                            className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500"
-                                            aria-controls="filter-section-2"
-                                            aria-expanded="false"
-                                        >
-                                            <span className="font-medium text-gray-900">Size</span>
-                                            <span className="ml-6 flex items-center">
-                                                {/* Expand icon, show/hide based on section open state. */}
-                                                <svg
-                                                    className="h-5 w-5"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                    aria-hidden="true"
-                                                >
-                                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                                                </svg>
-                                                {/* Collapse icon, show/hide based on section open state. */}
-                                                <svg
-                                                    className="h-5 w-5"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                    aria-hidden="true"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </span>
-                                        </button>
-                                    </h3>
-                                    {/* Filter section, show/hide based on section state. */}
-                                    <div className="pt-6" id="filter-section-2">
-                                        <div className="space-y-4">
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-size-0"
-                                                    name="size[]"
-                                                    defaultValue="2l"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-size-0"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    2L
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-size-1"
-                                                    name="size[]"
-                                                    defaultValue="6l"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-size-1"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    6L
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-size-2"
-                                                    name="size[]"
-                                                    defaultValue="12l"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-size-2"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    12L
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-size-3"
-                                                    name="size[]"
-                                                    defaultValue="18l"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-size-3"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    18L
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-size-4"
-                                                    name="size[]"
-                                                    defaultValue="20l"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-size-4"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    20L
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <input
-                                                    id="filter-size-5"
-                                                    name="size[]"
-                                                    defaultValue="40l"
-                                                    type="checkbox"
-                                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                                />
-                                                <label
-                                                    htmlFor="filter-size-5"
-                                                    className="ml-3 text-sm text-gray-600"
-                                                >
-                                                    40L
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                               
                             </form>
                             {/* Product grid */}
                             <div className="lg:col-span-3">
@@ -1013,67 +739,61 @@ Leaving: "transition ease-in duration-75"
                                     <div className="max-w-sm rounded overflow-hidden shadow-lg">
                                         <img
                                             className="w-full"
-                                            src="https://v1.tailwindcss.com/img/card-top.jpg"
+                                            src={pic}
                                             alt="Sunset in the mountains"
                                         />
                                         <div className="px-6 py-4">
-                                            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
+                                            <div className="font-bold text-xl mb-2">Youth Beauty Parlour</div>
                                             <p className="text-gray-700 text-base">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-                                                quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-                                                nihil.
+                                            Address: Kozhikode - Palakkad Hwy, Ramanattukara, Kozhikode, Kerala 673633 <br />
+Hours: 
+Open ⋅ Closes 10 pm <br />
+Phone: 096054 57276
                                             </p>
                                         </div>
                                         <div className="px-6 pt-4 pb-2">
                                             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                                #photography
+                                              see details
                                             </span>
+                                            
+                                        </div>
+                                    </div>
+                                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
+                                        <img
+                                            className="w-full"
+                                            src={pic}
+                                            alt="Sunset in the mountains"
+                                        />
+                                        <div className="px-6 py-4">
+                                            <div className="font-bold text-xl mb-2">Nash Make Over Studio
+</div>
+<p className="text-gray-700 text-base">
+                                            Address: Kozhikode - Palakkad Hwy, Ramanattukara, Kozhikode, Kerala 673633 <br />
+Hours: 
+Open ⋅ Closes 10 pm <br />
+Phone: 096054 57276
+                                            </p>
+                                        </div>
+                                        <div className="px-6 pt-4 pb-2">
+                                            
                                             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                                #travel
-                                            </span>
-                                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                                #winter
+                                                see details
                                             </span>
                                         </div>
                                     </div>
                                     <div className="max-w-sm rounded overflow-hidden shadow-lg">
                                         <img
                                             className="w-full"
-                                            src="https://v1.tailwindcss.com/img/card-top.jpg"
+                                            src={pic}
                                             alt="Sunset in the mountains"
                                         />
                                         <div className="px-6 py-4">
-                                            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
+                                            <div className="font-bold text-xl mb-2">Suruma Ladies Beauty Parlour & Uma Ladies Tailoring</div>
                                             <p className="text-gray-700 text-base">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-                                                quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-                                                nihil.
-                                            </p>
-                                        </div>
-                                        <div className="px-6 pt-4 pb-2">
-                                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                                #photography
-                                            </span>
-                                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                                #travel
-                                            </span>
-                                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                                                #winter
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                                        <img
-                                            className="w-full"
-                                            src="https://v1.tailwindcss.com/img/card-top.jpg"
-                                            alt="Sunset in the mountains"
-                                        />
-                                        <div className="px-6 py-4">
-                                            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-                                            <p className="text-gray-700 text-base">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-                                                quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-                                                nihil.
+                                            Address: Kozhikode - Palakkad Hwy, Ramanattukara, Kozhikode, Kerala 673633 <br />
+Hours: 
+Open ⋅ Closes 10 pm <br />
+Phone: 096054 57276
                                             </p>
                                         </div>
                                     </div>

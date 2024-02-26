@@ -43,3 +43,44 @@ export const verifyOtp = async (otp:string)=>{
             
         }
     }
+
+    export const vendorForgotPassword = async ( email:string) =>{
+        try {
+            const res = await Api.post(parlourRoutes.vendorForgotPassword,{email})
+            return res
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
+
+    
+export const vendorverifyOtpForgotPassword = async(otp:string) =>{
+    try {
+        const res = await Api.post(parlourRoutes.vendorverifyOtpForgotPassword,{otp})
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const vendorChangePassword= async (password:string) =>{
+    try {
+        const res =await Api.post(parlourRoutes.vendorChangePassword,{password})
+        return res
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
+export const vendorLogout = async ()=>{
+    try {
+        const res  = await Api.post(parlourRoutes.vendorLogout)
+        return res
+    } catch (error) {
+        console.log(error);
+        
+    }
+}

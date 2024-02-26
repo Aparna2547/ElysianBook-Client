@@ -6,6 +6,9 @@ import { MdCleaningServices } from "react-icons/md";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import {Link} from 'react-router-dom'
+import { vendorLogout } from "../../../Api/parlour";
+import { useDispatch } from "react-redux";
+import { parlourLogout } from "../../../Store/slice/authSlice";
 
 
 
@@ -18,7 +21,18 @@ const Sidebar = () => {
     { title: "Booking ", src: <FaRegCalendarAlt/> ,link:"/parlour/booking",gap: true },
     
   ];
+  const dispatch = useDispatch()
 
+
+  const handleLogout = async ()=>{
+    try{
+      const res = await vendorLogout()
+      console.log(res)
+      dispatch(parlourLogout());
+    }catch(error){
+      console.log(error)
+    }
+  }
   return (
     // <div className="flex">
       <div
@@ -65,7 +79,7 @@ const Sidebar = () => {
             </Link>
           ))}
 
-<li
+<li onClick={handleLogout}
               className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-base items-center gap-x-4  
               mt-5 `}
             >

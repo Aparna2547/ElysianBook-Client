@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { signup } from "../../../Api/user";
 import {useNavigate} from "react-router-dom"
 import GoogleAuthSignUp from "../../../Components/User/GoogleAuthSignUp";
+import Navbar from "../../../Components/User/NavBar/Navbar";
 
 const SignUp = () => {
   const [error, setError] = useState(null);
@@ -53,6 +54,8 @@ const SignUp = () => {
     }
   };
   return (
+    <>
+    <Navbar/>
     <section className="absolute w-full top-0">
       <div
         className="absolute top-0 w-full h-full"
@@ -176,6 +179,7 @@ const SignUp = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

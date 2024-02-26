@@ -3,8 +3,13 @@ import {Link,useNavigate} from "react-router-dom"
 import { toast } from 'react-toastify'
 import { ForgotPassword, verifyOtpForgotPassword } from '../../../Api/user'
 import Api from '../../../Services/axios'
+import { vendorForgotPassword, vendorverifyOtpForgotPassword } from '../../../Api/parlour'
 
-const Email = () => {
+interface forgotPasswordInterface{
+  user:boolean
+}
+
+const Email = ({user}:forgotPasswordInterface) => {
     const [email,setEmail] = useState('')
     const [otp,setOtp] = useState('')
     const [showOtpInput,setShowOtpInput] = useState(false)
@@ -24,12 +29,22 @@ const Email = () => {
         } 
 
 
-        const res = await ForgotPassword(email)
+        if(user){
+          const res = await ForgotPassword(email)
         console.log(res);
         if(res.data.data){          
           setShowOtpInput(true)
         }else if(!res.data.status){
           toast.error("invalid email")
+        }
+        }else{
+          const res = await vendorForgotPassword(email)
+          console.log(res)
+          if(res.data.data){
+            setShowOtpInput(true)
+          }else {
+            toast.error("invalid email")
+          }
         }
         
         
@@ -43,13 +58,25 @@ const Email = () => {
         try {
             console.log('hey');
             
-            const res = await verifyOtpForgotPassword(otp)
+            if(user){
+              const res = await verifyOtpForgotPassword(otp)
             console.log(res)
             if(!res.data){
                 toast.error("Invalid otp")
             }else{
                 navigate('/changePassword')
             }
+
+            }else{
+                const res = await vendorverifyOtpForgotPassword(otp)
+                console.log(res);
+                if(res.data){
+                  navigate('/parlour/changePassword')
+                }else{
+                  toast.error("invalid otp")
+                }
+            }
+
         } catch (error) {
             console.log(error);
         }

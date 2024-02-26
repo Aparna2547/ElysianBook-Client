@@ -2,8 +2,12 @@ import React, { useState } from 'react'
 import { passwordChange } from '../../../Api/user'
 import { toast } from 'react-toastify'
 import {useNavigate} from "react-router-dom"
+import { vendorChangePassword } from '../../../Api/parlour'
 
-const PasswordChange = () => {
+interface forgotPasswordInterface{
+  user:boolean
+}
+const PasswordChange = ({user}: forgotPasswordInterface) => {
     const [password,setPassword] =useState('')
     const [changePassword,setChangePassword] = useState('')
 const navigate = useNavigate()
@@ -11,13 +15,28 @@ const navigate = useNavigate()
     const changePasswordHandle =async (e)=>{
         e.preventDefault()
         try {
+          if(password.trim().length<6){
+            toast.error("Password length should be minimum 6")
+          }else if(password!==changePassword){
+            toast.error("password not match")
+          }
 
+           if(user){
             const res = await passwordChange(password)
             console.log(res)
             if(res.data.acknowledged){
                 toast.success('password changed successfully.Please login')
                 navigate('/login')
             }
+           }else{
+            const res = await vendorChangePassword(password)
+            console.log(res)
+            if(res.data.acknowledged){
+              toast.success("password changed succesfully.Please login")
+              navigate('/parlour')
+            }
+           }
+
         } catch (error) {
             console.log(error)
         }

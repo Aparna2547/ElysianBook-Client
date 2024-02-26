@@ -7,6 +7,8 @@ import Dashboard from "../Pages/Parlour/Dashboard/Dashboard";
 import ParlourDetails from "../Pages/Parlour/ParlourDetails/ParlourDetails";
 import ParlourLoggedOut from "../Components/Parlour/ParlourLoggedOut";
 import ParlourProtect from "../Components/Parlour/ParlourProtect";
+import Email from "../Pages/User/Email/Email";
+import PasswordChange from "../Pages/User/PasswordChange/PasswordChange";
 
 const VendorRoutes = () => {
   return (
@@ -15,6 +17,8 @@ const VendorRoutes = () => {
         <Route path="" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="verifyOtp" element={<Otp />} />
+        <Route path = 'forgotPassword' element={<Email user={false}/>} />
+        <Route path="changePassword" element={<PasswordChange  user={false}/>} />
       </Route>
 
       <Route path="" element={<ParlourProtect />}>

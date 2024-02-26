@@ -23,8 +23,8 @@ const Otp = () => {
           const res = await verifyOtp(otp)
           console.log(res);
           if(res.data.status){
-            toast.success("signed up successfully...")
-            navigate('/')
+            toast.success("signed up successfully..Please Login")
+            navigate('/parlour')
           }else if(!res.data.status){
             toast.error(res.data.message)
           }

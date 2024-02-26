@@ -7,14 +7,22 @@ import { MdEdit } from "react-icons/md";
 import ConfirmationModal from "../../../Components/Admin/ConfirmationModal";
 import { hideCategory,editCategory } from "../../../Api/admin";
 import { toast } from "react-toastify";
+import EditCategory from "../../../Components/Admin/EditCategory";
 
 const Categories = () => {
   const [showModal, setShowModal] = useState(false);
+  const [categories, setCategories] = useState([]);
+
   const [modal, setModal] = useState(false);
   const [listId, setListId] = useState("");
-  const [categories, setCategories] = useState([]);
-  // const [modalType,setModalType] = useState(null)
-  // const [,editModal,setEditModal] = useState()
+  //
+  //for edit
+  const [editModal,setEditModal] = useState(false)
+  const [categoryForEdit,setCategoryForEdit] = useState({_id:'',
+    catName:'',
+    image:''})
+  const [imageForEdit,setImageForEdit] = useState(null)
+
 // 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -39,16 +47,32 @@ const Categories = () => {
     }
   };
 
-  const handleEdit= async (id:string)=>{
+  const handleEdit= async (index:number)=>{
     try{
-      // setModalType('edit')
       console.log('hadh')
-      const res = await editCategory(id)
-      console.log(res)
+      setCategoryForEdit(categories[index])
+      setEditModal(true)
+
+
+      // const res = await editCategory(id)
+      // console.log(res)
     }catch(error){
       console.log(error);
       
     }
+  }
+
+
+  const handleEditSubmit = (e)=>{
+    e.preventDefault()
+    console.log(categoryForEdit,imageForEdit) 
+    const nameExist = categories.map((e)=>(e.catName==categoryForEdit.catName && e._id != categoryForEdit._id))
+    if(nameExist){
+      toast.error("category already exist")
+    }
+
+
+    const formData = new FormData()
   }
 
   const listCategory = async ()=>{
@@ -122,7 +146,7 @@ const Categories = () => {
               </thead>
               <tbody className="divide-y divide-gray-100 border-t border-gray-100">
                 {categories.length > 0 ? (
-                  categories.map((category) => (
+                  categories.map((category,index) => (
                     <tr className="hover:bg-gray-50" key={category._id}>
                       <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                         <div className="relative h-10 w-10">
@@ -160,7 +184,7 @@ const Categories = () => {
                           >
                             <FaRegEyeSlash />
                           </button>
-                          <button x-data="{ tooltip: 'Edite' }"  onClick={()=>handleEdit(category._id)}>
+                          <button x-data="{ tooltip: 'Edite' }"  onClick={()=>handleEdit(index)}>
                             <MdEdit />
                           </button>
                         </div>
@@ -192,6 +216,9 @@ const Categories = () => {
       </div>
       {modal && <ConfirmationModal  setModal = {setModal} listCategory = {listCategory}/>}
       {showModal && <CategoryModal setShowModal={setShowModal} />}
+      {editModal && <EditCategory  setCategoryForEdit ={setCategoryForEdit} categoryForEdit = {categoryForEdit} 
+      imageForEdit = {imageForEdit} setImageForEdit = {setImageForEdit} handleEditSubmit={handleEditSubmit}
+      />}
 
 
       {/* {modalType === 'add' && <CategoryModal setShowModal={setShowModal} />} */}

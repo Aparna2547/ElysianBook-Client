@@ -9,6 +9,7 @@ import Email from '../Pages/User/Email/Email'
 import ParloursPage from '../Pages/User/Parlour/ParloursPage'
 import PasswordChange from '../Pages/User/PasswordChange/PasswordChange'
 import UserLoggedOut from '../Components/User/UserLoggedOut'
+import UserProtect from '../Components/User/UserProtect'
 
 const UserRoutes = () => {
   return (
@@ -19,12 +20,13 @@ const UserRoutes = () => {
      <Route path='login' element={<Login />} />
     <Route path='signup' element={<SignUp />} />
     <Route path='verifyOtp' element={<Otp/>} />
-    <Route path = 'forgotPassword' element={<Email/>} />
-    <Route path="changePassword" element={<PasswordChange/>} />
-    <Route path = 'parlourlist' element = {<ParloursPage/>} />
+    <Route path = 'forgotPassword' element={<Email user={true}/>} />
+    <Route path="changePassword" element={<PasswordChange  user={true}/>} />
 
 </Route>
-
+<Route path='' element={<UserProtect/>} >
+<Route path = 'parlourlist' element = {<ParloursPage/>} />
+</Route>
     
 
 </Routes>

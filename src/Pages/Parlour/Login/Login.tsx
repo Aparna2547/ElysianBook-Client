@@ -6,13 +6,15 @@ import "react-toastify/dist/ReactToastify.css";
 import {  parlourLogin } from '../../../Api/parlour';
 import GoogleAuthSignUp from '../../../Components/User/GoogleAuthSignUp';
 import logo from "../../../assets/logo.png"
+import { useDispatch } from 'react-redux';
+import { setParlourCredentials } from '../../../Store/slice/authSlice';
 
 const Login = () => {
     
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
     const handleSubmit = async (e:any) => {
       
       e.preventDefault(); // Add this line to prevent default form submission
@@ -32,6 +34,7 @@ const Login = () => {
         const res = await parlourLogin(email,password)
         console.log(res);
         if (res.data.success) {
+          dispatch(setParlourCredentials(res.data.token))
           toast.success("Signed in...");
           console.log("Navigating to '/'...");
           navigate('/parlour/dashboard')
@@ -114,7 +117,7 @@ const Login = () => {
                         <small>Forgot password?</small>
                       </Link>
                     </div>
-                    <div className="w-1/2 text-right">
+                    <div className="w-1/  2 text-right">
                         <Link to={"/parlour/signup"}><small>Create new account</small></Link>
                     </div>
                   </div>

@@ -50,6 +50,8 @@ const SignUp = () => {
      console.log(res);
      if(!res.data.data){
       navigate('/parlour/verifyOtp')
+     }else{
+      toast.error("parlour already exist")
      }
      
 
