@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import {useNavigate,Link} from 'react-router-dom'
 import Api from '../../Services/axios';
@@ -6,8 +6,44 @@ import Api from '../../Services/axios';
 const Otp = () => {
     const [ otp,setOtp] = useState('')
     const navigate = useNavigate()
+
+
+    const [seconds, setSeconds] = useState(59);
+    const [resendOtp, setResendOtp] = useState(false);
+    
+    //otp timer
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setSeconds((prevSeconds) => {
+        if (prevSeconds === 0) {
+          clearInterval(intervalId);
+          setResendOtp(true);
+          return 0;
+        }
+        return prevSeconds - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+
+  //forr resend otp
+  const handleResendOtp = async (e:any)=>{
+    e.preventDefault();
+    setResendOtp(false)
+    setSeconds(59)
+    const res = await Api.post("/user/signup",{otp})
+    console.log(res);
+    if(res.data.status){
+      toast.success("Registration successfull. Please login")
+      navigate('/login')
+    }else if(!res.data.status){
+      toast.error(res.data.message)
+    }
+  }
+
     const handleSubmit = async (e:any) => {
-      
         e.preventDefault();
         try {
          if (otp.trim().length !== 4) {
@@ -83,6 +119,8 @@ const Otp = () => {
 
                
                 <div className="text-center mt-6">
+
+                  {!resendOtp ?
                   <button
                     className="bg-purple-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
                     type="submit"
@@ -90,6 +128,21 @@ const Otp = () => {
                   >
                     Sign In
                   </button>
+                  :
+                   <button
+                    className="bg-purple-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                    type="submit"
+                    style={{ transition: "all 0.15s ease 0s" }}
+                    onClick={handleResendOtp}
+                  >
+                  Resend OTP
+                  </button>
+
+                  }
+                   {!resendOtp &&
+                      <div className="countdown-text">
+                        <p>Time Remaining: 00:{seconds<10 ? `0${seconds}` :seconds}</p>
+                      </div>}
                 </div>
                 
               </form>

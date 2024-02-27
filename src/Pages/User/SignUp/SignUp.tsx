@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
@@ -16,13 +16,16 @@ const SignUp = () => {
   const navigate = useNavigate();
 
 
+
+
+
+
   const handleSubmit = async (e: any) => {
 
     e.preventDefault();
-    console.log('kdfpo');
-
     
 
+    console.log('kdfpo');
     try {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -78,18 +81,7 @@ const SignUp = () => {
                   </h6>
                 </div>
                 <div className="btn-wrapper text-center">
-                  {/* <button
-                    className="bg-white active:bg-gray-100 w-full text-gray-800  font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
-                    type="button"
-                    style={{ transition: "all 0.15s ease 0s" }}
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1 text-center"
-                      src="https://banner2.cleanpng.com/20201008/rtv/transparent-google-suite-icon-google-icon-5f7f985ccd60e3.5687494416021975968412.jpg"
-                    />
-                    Google
-                  </button> */}
+                
                   <GoogleAuthSignUp login={false} user={true}/>
                 </div>
                 <hr className="mt-6 border-b-1 border-gray-400" />
