@@ -15,7 +15,7 @@ const Categories = () => {
 
   const [modal, setModal] = useState(false);
   const [listId, setListId] = useState("");
-  //
+  
   //for edit
   const [editModal,setEditModal] = useState(false)
   const [categoryForEdit,setCategoryForEdit] = useState({_id:'',
@@ -70,11 +70,10 @@ const Categories = () => {
     if(nameExist){
       toast.error("category already exist")
     }
-
-
     const formData = new FormData()
   }
 
+  
   const listCategory = async ()=>{
     try {
         const res = await hideCategory(listId)

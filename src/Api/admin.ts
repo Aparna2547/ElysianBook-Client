@@ -13,6 +13,19 @@ export const login = async (email:string,password:string)=>{
     }
 }
 
+
+export const listUser = async(id:string)=>{
+    try {
+        const res = await Api.put(`${AdminRoutes.listUser}?id=${id}`)
+        console.log('kii',id);
+        
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 export const addCategory = async(category:FormData) =>{
 try {
     const res = await Api.post(AdminRoutes.addCategory,category)
@@ -50,6 +63,9 @@ export const hideCategory = async (id:string)=>{
         console.log(error)
     }
 }
+
+
+
 
 export const adminLogout = async ()=>{
     try{
