@@ -85,9 +85,34 @@ export const addFacility =  async (facility:string)=>{
     }
 }
 
+
+export const allParlours = async ()=>{
+    try {
+        const res = await Api.get(AdminRoutes.allParlours)
+        return res
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
+export const getParlourDetails = async (id:string) =>{
+    try {
+        const res = await Api.get(`${AdminRoutes.singleParlour}?id=${id}`)
+        return res
+    } catch (error) {
+     console.log(error)   
+    }
+}
+
+
+
+export const ParlourRequestConfirmation = async (value:string,id:string) =>{
+
+} 
 export const adminLogout = async ()=>{
     try{
-        const res = await Api.adminLogout()
+        const res = await Api.post(AdminRoutes.adminLogout)
         return res
     }catch(error){
         console.log(error);

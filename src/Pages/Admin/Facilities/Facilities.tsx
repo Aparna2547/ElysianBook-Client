@@ -35,18 +35,7 @@ const Facilities = () => {
 
           <div className="text-right p-3 flex ">
             <div className="w-3/4"></div>
-            <div className="w-1/4">
-              <form className="search-box p-1   border border-gray rounded-s-xl mx-9">
-                <input
-                  type="text"
-                  name="search"
-                  className="form-control d-inline"
-                  placeholder="Enter the name"
-                  // value={searchTerm}
-                  // onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </form>
-            </div>
+            
           </div>
           <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
             <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
@@ -58,12 +47,12 @@ const Facilities = () => {
                   >
                     Facility
                   </th>
-                  <th
+                  {/* <th
                     scope="col"
                     className="px-6 py-4 font-medium text-gray-900"
                   >
                     Status
-                  </th>
+                  </th> */}
                   <th
                     scope="col"
                     className="px-6 py-4 font-medium text-gray-900"
@@ -76,13 +65,13 @@ const Facilities = () => {
         {facilityObj.facilities.map((facility, i) => (
           <tr key={i} className="hover:bg-gray-50">
             <td className="px-6 py-4">{facility}</td>
-            <td className="px-6 py-4">
-              <div>
-                <button x-data="{ tooltip: 'Edite' }">
-                  <MdEdit />
-                </button>
-              </div>
-            </td>
+              {/* <td className="px-6 py-4">
+                <div>
+                  <button x-data="{ tooltip: 'Edite' }">
+                    <MdEdit />
+                  </button>
+                </div>
+              </td> */}
           </tr>
         ))}
       </React.Fragment>

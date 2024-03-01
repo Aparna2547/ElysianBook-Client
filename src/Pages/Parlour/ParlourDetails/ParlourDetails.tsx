@@ -11,8 +11,8 @@ const ParlourDetails = () => {
     const fetchParlour = async () => {
       try {
         const res = await getParlourDetails();
-        console.log(res);
         setParlourDetails(res.data.data);
+        
       } catch (error) {
         console.log(error);
       }
@@ -25,7 +25,8 @@ const ParlourDetails = () => {
       {parlourDetails.status == "Registered" ? (
         <Form />
       ) : (
-        <SinglePageComponent />
+
+        <SinglePageComponent ParlourDetails={parlourDetails}  />
       )}
     </div>
   );

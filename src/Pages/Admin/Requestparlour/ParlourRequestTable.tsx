@@ -1,28 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import Home from '../../../Components/Admin/Sidebar/Sidebarcheck';
-import { allParlours } from '../../../Api/admin';
+import React, { useEffect, useState } from 'react'
+import { allParlours } from '../../../Api/admin'
 import {Link} from "react-router-dom"
+import Home from '../../../Components/Admin/Sidebar/Sidebarcheck'
 
-const Parlour = () => {
-  const [parlourDetails, setParlourDetails] = useState([]);
 
-  useEffect(() => {
-    const fetchParlour = async () => {
-      try {
-        const res = await allParlours();
-        setParlourDetails(res.data.data);
-        console.log('daks',res.data.data)
-      } catch (error) {
-        console.error('Error fetching parlour details:', error);
-      }
-    };
+const ParlourRequest = () => {
+  const [parlourDetails,setParlourDetails] = useState({})
 
-    fetchParlour();
-  }, []);
+  useEffect(()=>{
+   const fetchParlours = async ()=>{
+    try {
+      const res = await allParlours();
+      console.log(res.data.data)
+      setParlourDetails(res.data.data)
+    } catch (error) {
+      console.log(error);
+      
+    }
+   }
+   fetchParlours()
+  },[])
+
+
 
   return (
-    <>
-      <div className="flex">
+ <>
+   <div className="flex">
         <Home />
         <div className="flex w-full">
           <div className="block w-full">
@@ -52,8 +55,8 @@ const Parlour = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-                  {parlourDetails.length > 0 ? (
-                    parlourDetails.map((parlour) => (
+                  {parlourDetails.length > 0  ? (
+                    parlourDetails.filter(parlour => parlour.status=="Pending").map((parlour) => (
                       <tr key={parlour._id} className="hover:bg-gray-50">
                         <td className="px-6 py-4">{parlour.name}</td> 
                         <td className="px-6 py-4">{parlour.email}</td> 
@@ -64,7 +67,8 @@ const Parlour = () => {
                           <td>Registered</td>
                       
                         ):(
-                          <Link to={`/admin/singleParlour/${parlour._id}`}>                    
+                          // <Link to={`/admin/parlourRequestApproval/${parlour._id}`}>                    
+                          <Link to={`/admin/parlourRequestApproval/${parlour._id}`}>                    
                           <td className="px-6 py-4">
                           <button className="border border-black bg-black text-white font-bold px-2 px-3">view</button>
                         </td>
@@ -84,8 +88,8 @@ const Parlour = () => {
           </div>
         </div>
       </div>
-    </>
-  );
-};
+ </>
+  )
+}
 
-export default Parlour;
+export default ParlourRequest

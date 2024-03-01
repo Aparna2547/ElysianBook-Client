@@ -14,6 +14,10 @@ const AdminRoutes ={
 
     addFacility:"/admin/addfacility",
 
+    allParlours:"/admin/parlours",
+
+    singleParlour:"/admin/singleParlour",
+
     adminLogout:"/admin/adminlogout"
 }
 export default AdminRoutes

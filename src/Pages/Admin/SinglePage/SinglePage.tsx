@@ -1,14 +1,34 @@
-import React from 'react'
-import SinglePageComponent from '../../../Components/SinglePageParlour/SinglePageComponent'
+import React, { useEffect, useState } from "react";
+import SinglePageComponent from "../../../Components/SinglePageParlour/SinglePageComponent";
+import Home from "../../../Components/Admin/Sidebar/Sidebarcheck";
+import { getParlourDetails } from "../../../Api/admin";
+import { useParams } from "react-router-dom";
 
 const SinglePage = () => {
+  const [parlourDetails, setParlourDetails] = useState({});
+  const { id } = useParams();
+  console.log("dahdfahhfoahfhofh", id, "id");
+  useEffect(() => {
+    const fetchParlour = async (id:string) => {
+      try {
+        console.log("dahdfahhfoahfhofh", id, "id");
+        const res = await getParlourDetails(id as string);
+        setParlourDetails(res.data.data)
+        console.log(res)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchParlour(id);
+  }, []);
   return (
-   
     <>
-    {/* <Navbar/> */}
-        <SinglePageComponent/>
+    <div className="flex">
+      <Home />
+      <SinglePageComponent ParlourDetails={parlourDetails}/>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default SinglePage
+export default SinglePage;

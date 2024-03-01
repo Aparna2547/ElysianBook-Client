@@ -19,7 +19,7 @@ const Home = () => {
     { name: "Parlours", link: "/admin/parlour", icon: AiOutlineUser },
     { name: "Categories", link: "/admin/categories", icon: BiCategory },
     { name: "Facilities", link: "/admin/facilites", icon: BiCategory },
-    { name: "Request", link: "/admin/", icon: FaCodePullRequest },
+    { name: "Request", link: "/admin/parlourRequest", icon: FaCodePullRequest },
     { name: "Banners", link: "/admin/", icon: PiFlagBannerBold },
     { name: "Offers", link: "/admin/", icon: MdOutlineLocalOffer },
     // {

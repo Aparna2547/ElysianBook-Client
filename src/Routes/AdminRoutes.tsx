@@ -10,6 +10,8 @@ import AdminLoggedOut from "../Components/Admin/AdminLoggedOut";
 import AdminProtect from "../Components/Admin/AdminProtect";
 import Facilities from "../Pages/Admin/Facilities/Facilities";
 import SinglePage from "../Pages/Admin/SinglePage/SinglePage";
+import ParlourRequest from "../Pages/Admin/Requestparlour/ParlourRequestTable";
+import ParlourRequestCheck from "../Pages/Admin/Requestparlour/ParlourRequestCheck";
 
 const AdminRoutes = () => {
   return (
@@ -24,7 +26,9 @@ const AdminRoutes = () => {
         <Route path="categories" element={<Categories />} />
         <Route path="parlour" element={<Parlour />} />
         <Route path="facilites" element={<Facilities/>} />
-        <Route path='singleParlour' element={<SinglePage/>} />
+        <Route path='singleParlour/:id' element={<SinglePage/>} />
+        <Route path = 'parlourRequest' element={<ParlourRequest/>} />
+        <Route path = 'parlourRequestApproval/:id' element={<ParlourRequestCheck/>}/>
       </Route>
     </Routes>
   );
