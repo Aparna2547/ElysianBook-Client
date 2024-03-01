@@ -18,6 +18,8 @@ const AdminRoutes ={
 
     singleParlour:"/admin/singleParlour",
 
+    parlourRequestConfirmation:"/admin/parlourRequestConfirmation",
+
     adminLogout:"/admin/adminlogout"
 }
 export default AdminRoutes

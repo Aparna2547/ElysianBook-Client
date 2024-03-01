@@ -1,23 +1,28 @@
 import React, { useState } from "react";
 import Home from "../../../Components/Admin/Sidebar/Sidebarcheck";
 import RequestParlourConfirm from "../../../Components/Admin/RequestParlourConfirm";
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
+import { ParlourRequestConfirmation } from "../../../Api/admin";
 
 
 
 const ParlourRequestCheck = () => {
-  const [confirmation, setConfirmation] = useState("");
-    const {id} = useParams();
+    const { id } = useParams();
+    console.log(id);
+    const navigate = useNavigate()
+    
+    const handleRequestConfirmation = async (value: string) => {
+      try {
+        console.log('confirmation value:', value);
+        console.log('id:', id);
+        const res = await ParlourRequestConfirmation(value, id as string);
+        navigate('/admin/parlourRequest')
+        return res;
 
-  const handleRequestConfirmation = async (value:string,id:string) => {
-    try {
-        console.log(confirmation,'confrimfafl',id)
-        const res = await ParlourRequestConfirmation(value,id)
-        return res
-    } catch (error) {
-      console.log(error);
-    }
-  };
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
   return (
     <div className="flex">
@@ -32,12 +37,12 @@ const ParlourRequestCheck = () => {
             <br />
             <div className="flex justify-center gap-4">
               <button className="bg-green-800 text-white p-2 font-bold border border-green-900"
-              onChange={()=>handleRequestConfirmation('accept')}
+              onClick={()=>handleRequestConfirmation('Active')}
               >
                 accept
               </button>
               <button className="bg-red-800 text-white p-2 text-x font-bold border border-red-900"
-              onClick={()=>handleRequestConfirmation('reject')}
+              onClick={()=>handleRequestConfirmation('Rejected')}
               >
                 Reject
               </button>
@@ -47,7 +52,7 @@ const ParlourRequestCheck = () => {
           <div className="max-w-sm rounded overflow-hidden shadow-lg"></div>
         </div>
         <div>
-          <RequestParlourConfirm />
+          <RequestParlourConfirm id={id} />
         </div>
       </div>
     </div>

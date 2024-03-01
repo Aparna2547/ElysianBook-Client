@@ -108,7 +108,12 @@ export const getParlourDetails = async (id:string) =>{
 
 
 export const ParlourRequestConfirmation = async (value:string,id:string) =>{
-
+        try{
+        const response  = await Api.post(AdminRoutes.parlourRequestConfirmation,{value,id})
+        return response;
+        }catch(error){
+            console.log(error)
+        }
 } 
 export const adminLogout = async ()=>{
     try{

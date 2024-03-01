@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaLocationPinLock } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
 import { VscActivateBreakpoints } from "react-icons/vsc";
+import {useParams} from "react-router-dom"
+    import { getParlourDetails } from "../../Api/admin";
+
+
 
 const parlourRequestConfirm = () => {
+const [parlourDetails,setParlourDetails] =useState({})
+const {id} = useParams()
+    useEffect(()=>{
+        const parlourFetch = async ()=>{
+            try{
+                const res = await getParlourDetails(id as string)
+                setParlourDetails(res.data.data)
+                console.log('faf',res.data.data)
+            }catch(error){
+                console.log(error)
+            }
+        }
+        parlourFetch(id)
+    },[])
+
+
 return (
     <>
     {/* <Navbar /> */}
@@ -26,11 +46,11 @@ return (
         <div className="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
             <div className="">
             <h2 className="text-gray-900 font-bold text-3xl mb-2">
-                Vendor Details
+                Vendor Details 
             </h2>
 
-            <h1 className="text-gray-900   mb-2" >Vendor name :</h1>
-            <h1 className="text-gray-900   mb-2" >Vendor Email :</h1>
+            <h1 className="text-gray-900 mb-2 text-xl" >Vendor name :{parlourDetails.name} </h1>
+            <h1 className="text-gray-900 mb-2 text-xl" >Vendor Email :{parlourDetails.email}</h1>
 
             {/* <div className="text-gray-700  mt-2 flex gap-2">
                 <VscActivateBreakpoints className="mt-1" /> car parking
@@ -40,18 +60,18 @@ return (
         <div className="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
             <div className="">
             <h1 className="text-gray-900 font-bold text-3xl mb-2">
-                Parlour Name
+                {parlourDetails.parlourName}
             </h1>
 
             <h1 className="text-gray-700 t mt-2 flex me-6">
                 
-                Location
-                <a
-                href="#"
+                {parlourDetails.locality}
+                <p
+               
                 className="text-indigo-600 ms-2 font-medium hover:text-gray-900 transition duration-500 me-3 ease-in-out"
                 >
-                Place
-                </a>
+               {parlourDetails.landmark}
+                </p>
             </h1>
             <h1 className="text-gray-700 t mt-2 flex me-6">
                 <FaLocationPinLock className="mt-1 me-2 font-medium" /> map
@@ -63,7 +83,7 @@ return (
                 href="#"
                 className="text-indigo-600  ms-2 font-medium hover:text-gray-900 transition duration-500 ease-in-out"
                 >
-                10.00AM
+               {parlourDetails.openingTime}
                 </a>
             </h2>
 
@@ -74,7 +94,7 @@ return (
                 href="#"
                 className="text-indigo-600  ms-2 font-medium hover:text-gray-900 transition duration-500 ease-in-out"
                 >
-                10.00AM
+                {parlourDetails.closingTime}
                 </a>
             </h2>
             </div>
@@ -85,9 +105,17 @@ return (
                
                 Facilities
             </h2>
-            <div className="text-gray-700  mt-2 flex gap-2">
-                <VscActivateBreakpoints className="mt-1" /> car parking
-            </div>
+            {parlourDetails.facilities ? (
+            parlourDetails.facilities.map((facility, index) => (
+                <div key={index} className="text-gray-700 mt-2 flex gap-2 ">
+                    <div className="flex gap-1 items-center">
+                    <VscActivateBreakpoints /> {facility}
+                    </div>
+                </div>
+            ))
+        ) : (
+            <p className="text-gray-700 mt-2">Loading facilities...</p>
+        )}
             </div>
         </div>
 

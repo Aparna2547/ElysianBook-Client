@@ -12,6 +12,8 @@ const userRoutes={
 
     changePassword :"/user/passwordChange",
 
+    allParlours:"/user/allParlours",
+
     userLogout :"/user/logout"
 
 }

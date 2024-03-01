@@ -25,14 +25,14 @@
         <>
         {/* <Navbar /> */}
         <div className="max-w-screen-xl w-full  p-5 sm:p-8 relative shadow-md border border-gray-200">
-            <div
-            className="bg-cover h-64 text-center overflow-hidden"
-            style={{
-                height: "20rem",
-                backgroundImage: `url('https://m.media-amazon.com/images/I/71wqLLW7d7L._AC_UF1000,1000_QL80_.jpg')`,
-                backgroundPositionY: "center",
-            }}
-            ></div>
+        <div
+  className="bg-cover h-64 text-center overflow-hidden"
+  style={{ backgroundImage: `url(${ParlourDetails.banners?.[0]})`,
+  backgroundSize:'cover',
+  backgroundPosition:'center'
+  }}
+></div>
+
             <div className="max-w-2xl flex justify-between">
             <div className="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r flex flex-col justify-between leading-normal">
                 <div className="">

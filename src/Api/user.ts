@@ -61,6 +61,16 @@ export const passwordChange= async (password:string) =>{
     }
 }
 
+export const allParlours = async () =>{
+    try {
+        const res = await Api.get(UserRoutes.allParlours)
+        return res
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
 export const userLogout = async ()=>{
     try {
         const res = await Api.post(UserRoutes.userLogout)

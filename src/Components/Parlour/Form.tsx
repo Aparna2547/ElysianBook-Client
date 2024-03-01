@@ -3,21 +3,10 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { addParlour } from "../../Api/parlour";
 import Api from "../../Services/axios";
+import {useNavigate} from "react-router-dom"
 
 const Form = () => {
-  // const [parlourDetails,setParlourDetails] = useState({
-  //   parlourName:'',
-  //   landMark:'',
-  //   locality:'',
-  //   district:'',
-  //   openingTime:'',
-  //   closingTime:'',
-  //   contact:'',
-  //   seats:0,
-  //   latitude:'',
-  //   longitude:'',
-  //   facilities:[]
-  // })
+
   const [facilities, setFacilities] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
   const [formData, setFormData] = useState({
@@ -35,14 +24,7 @@ const Form = () => {
     banners: ["", "", ""],
   });
   const [images, setImages] = useState("");
-
-  // const handleCheckBox = async (facility)=>{
-  //   if(checkedItems.includes(facility)){
-  //     setCheckedItems(checkedItems.filter(item=>item !== facility));
-  //   }else{
-  //     setCheckedItems([...checkedItems,facility])
-  //   }
-  // };
+ const navigate = useNavigate()
 
   const handleCheckBox = async (facility: any) => {
     const updatedFacilities = checkedItems.includes(facility)
@@ -146,30 +128,15 @@ const Form = () => {
         }
       });
 
-      // Object.entries(formData).forEach(([key, value]) => {
-      //   if (Array.isArray(value)) {
-      //     value.forEach((item, index) => {
-      //       if (typeof item !== 'string') {
-      //         formDataToSend.append(`${key}[${index}]`, item);
-      //       } else {
-      //         formDataToSend.append(key, item);
-      //       }
-      //     });
-      //   } else {
-      //     formDataToSend.append(key, value);
-      //   }
-      // });
 
       const res = await addParlour(formDataToSend);
       const data = res?.data;
       if (data.status) {
-        toast.success("parlour added");
-        // setLoading(false)
-        // router.replace('/vendor/restaurants')
+        toast.success("parlour sent for approval");
+       navigate('/parlour/parlourDetails')
       }
 
-      // console.log(response.data);
-      // toast.success('Parlour details submitted successfully!');
+     
     } catch (error) {
       console.error(error);
       toast.error("An error occurred while submitting the form.");
