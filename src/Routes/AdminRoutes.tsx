@@ -8,6 +8,8 @@ import Categories from "../Pages/Admin/Categories/Categories";
 import Parlour from "../Pages/Admin/Parlour/Parlour";
 import AdminLoggedOut from "../Components/Admin/AdminLoggedOut";
 import AdminProtect from "../Components/Admin/AdminProtect";
+import Facilities from "../Pages/Admin/Facilities/Facilities";
+import SinglePage from "../Pages/Admin/SinglePage/SinglePage";
 
 const AdminRoutes = () => {
   return (
@@ -21,6 +23,8 @@ const AdminRoutes = () => {
         <Route path="user" element={<User />} />
         <Route path="categories" element={<Categories />} />
         <Route path="parlour" element={<Parlour />} />
+        <Route path="facilites" element={<Facilities/>} />
+        <Route path='singleParlour' element={<SinglePage/>} />
       </Route>
     </Routes>
   );

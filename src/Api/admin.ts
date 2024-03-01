@@ -65,7 +65,25 @@ export const hideCategory = async (id:string)=>{
 }
 
 
+// export const allFacilities = async() =>{
+//     try {
+//         const res = await Api.get(AdminRoutes.allFacilities)
+//         return res
+//     } catch (error) {
+//         console.log(error);
+        
+//     }
+// }
 
+export const addFacility =  async (facility:string)=>{
+    try {
+        const res = await Api.post(AdminRoutes.addFacility,{facility})
+        return res
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
 
 export const adminLogout = async ()=>{
     try{

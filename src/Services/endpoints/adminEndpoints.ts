@@ -10,6 +10,10 @@ const AdminRoutes ={
     
     hideCategory: "/admin/hidecategory",
 
+    allFacilities:"/admin/facilities",
+
+    addFacility:"/admin/addfacility",
+
     adminLogout:"/admin/adminlogout"
 }
 export default AdminRoutes

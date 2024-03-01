@@ -12,6 +12,10 @@ const parlourRoutes = {
 
     vendorChangePassword :"/parlour/vendorPasswordChange",
 
+    addParlour:"/parlour/addParlour",
+
+    getParlourDetails:"/parlour/getParlourDetails",
+
     vendorLogout : "/parlour/vendorLogout"
 }
 

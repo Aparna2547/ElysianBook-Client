@@ -18,6 +18,7 @@ const Home = () => {
     { name: "Users", link: "/admin/user", icon: AiOutlineUser },
     { name: "Parlours", link: "/admin/parlour", icon: AiOutlineUser },
     { name: "Categories", link: "/admin/categories", icon: BiCategory },
+    { name: "Facilities", link: "/admin/facilites", icon: BiCategory },
     { name: "Request", link: "/admin/", icon: FaCodePullRequest },
     { name: "Banners", link: "/admin/", icon: PiFlagBannerBold },
     { name: "Offers", link: "/admin/", icon: MdOutlineLocalOffer },

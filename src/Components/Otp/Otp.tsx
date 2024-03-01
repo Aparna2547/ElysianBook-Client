@@ -47,7 +47,6 @@ const Otp = () => {
         e.preventDefault();
         try {
          if (otp.trim().length !== 4) {
-  
             toast.error("Enter password with minimum 6 characters");
             return;
           }

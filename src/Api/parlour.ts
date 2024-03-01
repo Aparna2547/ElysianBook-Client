@@ -75,6 +75,28 @@ export const vendorChangePassword= async (password:string) =>{
     }
 }
 
+
+export const addParlour = async (parlour:FormData) =>{
+    try{
+        const res = await Api.post(parlourRoutes.addParlour,parlour)
+        return res
+    }catch(error){
+        console.log(error)
+    }
+}
+
+
+
+export const getParlourDetails = async ()=>{
+    try{
+        const res = await Api.get(parlourRoutes.getParlourDetails)
+        return res
+    }catch(error){
+        console.log(error)
+    }
+}
+
+
 export const vendorLogout = async ()=>{
     try {
         const res  = await Api.post(parlourRoutes.vendorLogout)
@@ -84,3 +106,5 @@ export const vendorLogout = async ()=>{
         
     }
 }
+
+

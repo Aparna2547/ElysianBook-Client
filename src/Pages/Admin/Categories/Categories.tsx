@@ -63,7 +63,7 @@ const Categories = () => {
   }
 
 
-  const handleEditSubmit = (e)=>{
+  const handleEditSubmit = (e:any)=>{
     e.preventDefault()
     console.log(categoryForEdit,imageForEdit) 
     const nameExist = categories.map((e)=>(e.catName==categoryForEdit.catName && e._id != categoryForEdit._id))
@@ -220,8 +220,6 @@ const Categories = () => {
       />}
 
 
-      {/* {modalType === 'add' && <CategoryModal setShowModal={setShowModal} />} */}
-{/* {modalType === 'edit' && <CategoryModal setEditModal={setEditModal} />} */}
     </>
   );
 };
