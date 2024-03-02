@@ -36,13 +36,12 @@ try {
 }
 }
 
-export const editCategory = async(id:string) =>{
+export const editCategory = async(id:string,formData:FormData) =>{
     try {
-        const res = await Api.put(`${AdminRoutes.editCategory}?id=${id}`)
+        const res = await Api.put(`${AdminRoutes.editCategory}?id=${id}`,formData)
         return res
     } catch (error) {
         console.log(error);
-        
     }
 }
 

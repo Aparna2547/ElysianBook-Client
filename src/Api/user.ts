@@ -61,9 +61,9 @@ export const passwordChange= async (password:string) =>{
     }
 }
 
-export const allParlours = async () =>{
+export const allParlours = async (currentPage:number) =>{
     try {
-        const res = await Api.get(UserRoutes.allParlours)
+        const res = await Api.get(`${UserRoutes.allParlours}?page=${currentPage}`)
         return res
     } catch (error) {
         console.log(error);

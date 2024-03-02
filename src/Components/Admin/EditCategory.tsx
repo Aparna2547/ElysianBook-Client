@@ -10,12 +10,13 @@ interface editCategoryProps{
     setCategoryForEdit: ()=>void,
     imageForEdit: null | object,
     setImageForEdit: (value : null | object)=>void,
-    handleEditSubmit : (e)=>void
+    handleEditSubmit : (e)=>void,
+    setEditModal :(value:boolean)=>void
 
 }
 
 
-const EditCategory = ({categoryForEdit,setCategoryForEdit,imageForEdit,setImageForEdit,handleEditSubmit}:editCategoryProps) => {
+const EditCategory = ({categoryForEdit,setCategoryForEdit,imageForEdit,setImageForEdit,handleEditSubmit,setEditModal}:editCategoryProps) => {
 
 
 
@@ -69,7 +70,7 @@ const handleImageChange = (e)=>{
                                 Submit
                             </button>
                             <p
-                                // onClick={()=>setShowModal(false)}
+                                onClick={()=>setEditModal(false)}
                                 className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
                             >
                                 Cancel

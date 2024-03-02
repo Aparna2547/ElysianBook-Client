@@ -34,7 +34,7 @@ const Categories = () => {
       }
     };
     fetchCategories();
-  }, [modal,showModal]);
+  }, [modal,editModal]);
 
   //for listing
   const handleModal = async (id: string) => {
@@ -63,14 +63,22 @@ const Categories = () => {
   }
 
 
-  const handleEditSubmit = (e:any)=>{
+  const handleEditSubmit = async (e:any)=>{
     e.preventDefault()
     console.log(categoryForEdit,imageForEdit) 
-    const nameExist = categories.map((e)=>(e.catName==categoryForEdit.catName && e._id != categoryForEdit._id))
-    if(nameExist){
+    const nameExist = categories.filter((e)=>(e.catName==categoryForEdit.catName && e._id != categoryForEdit._id))
+    console.log('sdd',nameExist)
+    if(nameExist.length != 0){
       toast.error("category already exist")
     }
     const formData = new FormData()
+    formData.append('catName',categoryForEdit.catName)
+    formData.append('image',imageForEdit)
+
+    const res = await editCategory(categoryForEdit._id,formData)
+    console.log(res)
+    setEditModal(false)
+    toast.success("category edited")
   }
 
   
@@ -217,6 +225,7 @@ const Categories = () => {
       {showModal && <CategoryModal setShowModal={setShowModal} />}
       {editModal && <EditCategory  setCategoryForEdit ={setCategoryForEdit} categoryForEdit = {categoryForEdit} 
       imageForEdit = {imageForEdit} setImageForEdit = {setImageForEdit} handleEditSubmit={handleEditSubmit}
+      setEditModal={setEditModal}
       />}
 
 
