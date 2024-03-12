@@ -35,7 +35,7 @@ return (
         className="bg-cover h-64 text-center overflow-hidden"
         style={{
             height: "20rem",
-            backgroundImage: `url('https://m.media-amazon.com/images/I/71wqLLW7d7L._AC_UF1000,1000_QL80_.jpg')`,
+            backgroundImage:parlourDetails && parlourDetails.banners && parlourDetails.banners[1] ? `url(${parlourDetails.banners[1]})` : null,
             backgroundPositionY: "center",
         }}
         ></div>

@@ -71,6 +71,16 @@ export const allParlours = async (currentPage:number) =>{
     }
 }
 
+
+export const singleParlourDetails = async (id:string)=>{
+    try{
+        const res = await Api.get(`${UserRoutes.parlourDetails}/${id}`)
+        return res
+    }catch(error){
+        console.log(error);
+        
+    }
+}
 export const userLogout = async ()=>{
     try {
         const res = await Api.post(UserRoutes.userLogout)

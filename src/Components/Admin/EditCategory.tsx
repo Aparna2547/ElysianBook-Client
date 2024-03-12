@@ -59,6 +59,7 @@ const handleImageChange = (e)=>{
             name='image'
             // onChange={(e)=>setCategoryForEdit({...categoryForEdit,image:e.target.files[0]})}
             onChange={(e) => handleImageChange(e)}
+            accept='image/*'
 
             className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-16 text-sm border-gray-300 rounded border"
         />

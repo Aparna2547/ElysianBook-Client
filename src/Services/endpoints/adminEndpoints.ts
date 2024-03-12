@@ -1,6 +1,7 @@
 const AdminRoutes ={
     login: "/admin/login",
-    // category:"/admin/category",
+
+    allCategory:"/admin/category",
 
     listUser :"/admin/userblock",
     

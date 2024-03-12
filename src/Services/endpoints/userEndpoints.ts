@@ -14,6 +14,8 @@ const userRoutes={
 
     allParlours:"/user/allParlours",
 
+    parlourDetails : "/user/parlourDetails",
+
     userLogout :"/user/logout"
 
 }

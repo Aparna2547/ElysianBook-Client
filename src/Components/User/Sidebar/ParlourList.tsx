@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import pic from "../../../assets/palour1.jpeg";
-import { allParlours } from "../../../Api/user";
+import { allParlours, parlourDetails } from "../../../Api/user";
+import { Link } from "react-router-dom";
 
 const ParlourList = () => {
   const [filterBar, setFilterBar] = useState(false);
   const [sortOption, setSortOption] = useState(false);
   const [parlourDetails, setParlourDetails] = useState([]);
-  const [currentPage,setCurrentPage] = useState(1)
-  const [totalPages,setTotalPages] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchParlours = async () => {
@@ -15,7 +16,7 @@ const ParlourList = () => {
         const res = await allParlours(currentPage);
         console.log(res.data.data);
         setParlourDetails(res.data.data.parlours);
-        setTotalPages(res.data.data.totalPages)
+        setTotalPages(res.data.data.totalPages);
       } catch (error) {
         console.log(error);
       }
@@ -704,21 +705,23 @@ const ParlourList = () => {
                       {/* {parlourDetails.length > 0 && */}
                       {parlourDetails.map((parlour) => (
                         <div className="max-w-sm rounded overflow-hidden shadow-lg  cursor-pointer">
-                          <img
-                            className="w-full"
-                            src={parlour.banners[0]}
-                            alt="Sunset in the mountains"
-                          />
-                          <div className="px-6 py-4">
-                            <div className="font-bold text-xl mb-1">
-                              {parlour.parlourName}
+                          <Link to={`/parlourDetails/${parlour._id}`}>
+                            <img
+                              className="w-full"
+                              src={parlour.banners[0]}
+                              alt="Sunset in the mountains"
+                            />
+                            <div className="px-6 py-4">
+                              <div className="font-bold text-xl mb-1">
+                                {parlour.parlourName}
+                              </div>
+                              <p className="text-gray-700 text-base">
+                                {parlour.landmark},{parlour.locality} <br />
+                                Hours: Open ⋅{parlour.openingTime} Closes{" "}
+                                {parlour.closingTime} <br />
+                              </p>
                             </div>
-                            <p className="text-gray-700 text-base">
-                              {parlour.landmark},{parlour.locality} <br />
-                              Hours: Open ⋅{parlour.openingTime} Closes{" "}
-                              {parlour.closingTime} <br />
-                            </p>
-                          </div>
+                          </Link>
                         </div>
                       ))}
                       {/* } */}
@@ -730,114 +733,75 @@ const ParlourList = () => {
           </div>
         </div>
 
-
-
-{/* 
-        <div className="bg-white p-4 flex items-center flex-wrap justify-end">
-          <nav aria-label="Page navigation">
-            <ul className="inline-flex">
-              <li>
-                <button className="px-4 py-2 text-green-600 transition-colors duration-150 bg-white border border-r-0 border-green-600 rounded-l-lg focus:shadow-outline hover:bg-green-100">
-                  Prev
+        <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+          <div className="flex flex-1 justify-between sm:hidden">
+            <a
+              href="#"
+              className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              Previous
+            </a>
+            <a
+              href="#"
+              className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              Next
+            </a>
+          </div>
+          <div className="hidden sm:flex sm:flex-1 sm:items-center justify-end">
+            <div>
+              <nav
+                className="isolate inline-flex -space-x-px rounded-md shadow-sm"
+                aria-label="Pagination"
+              >
+                <button
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                  disabled={currentPage == 1}
+                  className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                >
+                  <span className="sr-only">Previous</span>
+                  <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                 </button>
-              </li>
-              <li>
-                <button className="px-4 py-2 text-green-600 transition-colors duration-150 bg-white border border-r-0 border-green-600 focus:shadow-outline">
-                  1
+                <p
+                  aria-current="page"
+                  className="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  {currentPage}
+                </p>
+                <button
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                  disabled={totalPages + 1 == currentPage}
+                  className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                >
+                  <span className="sr-only">Next</span>
+                  <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                 </button>
-              </li>
-              <li>
-                <button className="px-4 py-2 text-white transition-colors duration-150 bg-green-600 border border-r-0 border-green-600 focus:shadow-outline">
-                  2
-                </button>
-              </li>
-              <li>
-                <button className="px-4 py-2 text-green-600 transition-colors duration-150 bg-white border border-r-0 border-green-600 focus:shadow-outline hover:bg-green-100">
-                  3
-                </button>
-              </li>
-              <li>
-                <button className="px-4 py-2 text-green-600 transition-colors duration-150 bg-white border border-green-600 rounded-r-lg focus:shadow-outline hover:bg-green-100">
-                  Next
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </div> */}
-
-
-
-<div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-  <div className="flex flex-1 justify-between sm:hidden">
-    <a
-      href="#"
-      className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-    >
-      Previous
-    </a>
-    <a
-      href="#"
-      className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-    >
-      Next
-    </a>
-  </div>
-  <div className="hidden sm:flex sm:flex-1 sm:items-center justify-end">
-    
-    <div>
-      <nav
-        className="isolate inline-flex -space-x-px rounded-md shadow-sm"
-        aria-label="Pagination"
-      >
-        <button
-        onClick={()=>setCurrentPage(currentPage-1)}
-        disabled={currentPage==1}
-          className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-        >
-          <span className="sr-only">Previous</span>
-          <svg
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              fillRule="evenodd"
-              d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-        <p
-          aria-current="page"
-          className="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          {currentPage}
-        </p>
-        <button
-        onClick={()=>setCurrentPage(currentPage+1)}
-        disabled={totalPages+1 == currentPage}
-        className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-        >
-          <span className="sr-only">Next</span>
-          <svg
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              fillRule="evenodd"
-              d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-      </nav>
-    </div>
-  </div>
-</div>
-
+              </nav>
+            </div>
+          </div>
+        </div>
       </>
     </div>
   );

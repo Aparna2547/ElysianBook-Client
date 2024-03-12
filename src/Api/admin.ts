@@ -45,14 +45,15 @@ export const editCategory = async(id:string,formData:FormData) =>{
     }
 }
 
-// export const category = async(category:FormData)=>{
-//     try {
-//         const res = await Api.get(AdminRoutes.category,category)
-//     } catch (error) {
-//         console.log(error);
+export const allCategory = async(search:string,page:number)=>{
+    try {
+        const res = await Api.get(`${AdminRoutes.allCategory}?search=${search}&page=${page}`)
+        return res
+    } catch (error) {
+        console.log(error);
         
-//     }
-// }
+    }
+}
 
 export const hideCategory = async (id:string)=>{
     try {
@@ -85,9 +86,9 @@ export const addFacility =  async (facility:string)=>{
 }
 
 
-export const allParlours = async ()=>{
+export const allParlours = async (search:string,page:number)=>{
     try {
-        const res = await Api.get(AdminRoutes.allParlours)
+        const res = await Api.get(`${AdminRoutes.allParlours}?search=${search}&page=${page}`)
         return res
     } catch (error) {
         console.log(error);
