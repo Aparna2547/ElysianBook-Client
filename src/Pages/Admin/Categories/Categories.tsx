@@ -136,7 +136,7 @@ const Categories = () => {
                   x="0px"
                   y="0px"
                   viewBox="0 0 56.966 56.966"
-                  style={{ enableBackground: "new 0 0 56.966 56.966" }}
+                  style={{ enableBackground: "new 0 0 56.966 56.966" } as React.CSSProperties}
                   xmlSpace="preserve"
                   width="512px"
                   height="512px"

@@ -96,6 +96,25 @@ export const getParlourDetails = async ()=>{
     }
 }
 
+export const categoriesToShow = async () =>{
+    try{
+        const res = await Api.get(parlourRoutes.categoriesToShow)
+        return res
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export const addService = async (formData:FormData) => {
+    try {
+        const res = await Api.post(parlourRoutes.addService,formData);
+        return res
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
 
 export const vendorLogout = async ()=>{
     try {

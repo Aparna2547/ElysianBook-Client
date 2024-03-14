@@ -16,6 +16,10 @@ const parlourRoutes = {
 
     getParlourDetails:"/parlour/getParlourDetails",
 
+    categoriesToShow:"/parlour/categoriesToShow",
+
+    addService:"/parlour/addService",
+
     vendorLogout : "/parlour/vendorLogout"
 }
 

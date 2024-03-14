@@ -9,6 +9,7 @@ import ParlourLoggedOut from "../Components/Parlour/ParlourLoggedOut";
 import ParlourProtect from "../Components/Parlour/ParlourProtect";
 import Email from "../Pages/User/Email/Email";
 import PasswordChange from "../Pages/User/PasswordChange/PasswordChange";
+import Services from "../Pages/Parlour/Services/Services";
 
 const VendorRoutes = () => {
   return (
@@ -24,6 +25,7 @@ const VendorRoutes = () => {
       <Route path="" element={<ParlourProtect />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="parlourDetails" element={<ParlourDetails />} />
+        <Route path = 'services' element ={<Services/>} />
       </Route>
     </Routes>
   );

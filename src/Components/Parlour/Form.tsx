@@ -99,6 +99,14 @@ const Form = () => {
       if (formData.banners[0] === "") {
         toast.error("Select banners");
         return;
+      }else if(formData.banners[0]){
+        const fileType = formData.banners[0].type;
+        if(!fileType.startsWith('image/')){
+          console.log('imsge');
+          toast.error('select image')
+          return; 
+          
+      }
       }
 
       console.log(formData);
@@ -327,19 +335,10 @@ const Form = () => {
                 </React.Fragment>
               ))}
 
-              {/* <input
-         id="grid-password"
-         type="checkbox"
-       /> <p className='text-gray-500 mx-1'>WIFI</p> */}
+            
             </div>
 
-            {/* <div className='flex'>
-       
-       <input
-         id="grid-password"
-         type="checkbox"
-       /> <p className='text-gray-500 mx-1'>Cards accepted</p>
-     </div> */}
+          
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-2">
@@ -351,25 +350,7 @@ const Form = () => {
               Select Banners
             </label>
             <div className="flex w-full">
-              {/* <input
-          className="appearance-none  mx-4 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          id="grid-city"
-          type="file"
-          placeholder="Albuquerque"
-        />
-        <input
-          className="appearance-none mx-2 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          id="grid-city"
-          type="file"
-          placeholder="Albuquerque"
-        />
-        <input
-          className="appearance-none mx-2 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-          id="grid-city"
-          type="file"
-          placeholder="Albuquerque"
-        /> */}
-
+           
               {formData.banners.map((banner, index) => (
                 <div key={index} className="mb-4">
                   <label

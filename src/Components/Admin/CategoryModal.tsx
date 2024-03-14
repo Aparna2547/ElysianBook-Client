@@ -11,7 +11,7 @@ const CategoryModal = ({setShowModal}:categoryProps) => {
     const [category,setCategory] = useState('');
     const [image,setImage] = useState(null);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(category,image);
 
@@ -47,7 +47,7 @@ const CategoryModal = ({setShowModal}:categoryProps) => {
         }
     };
 
-    const handleImageChange = (e) => {
+    const handleImageChange = (e:React.FormEvent<HTMLFormElement>) => {
         if(e.target.files && e.target.files[0]){
             const selectedImage = e.target.files[0];
             setImage(selectedImage);

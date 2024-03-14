@@ -51,7 +51,6 @@ export const allCategory = async(search:string,page:number)=>{
         return res
     } catch (error) {
         console.log(error);
-        
     }
 }
 
