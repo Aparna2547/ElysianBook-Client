@@ -20,7 +20,9 @@ const parlourRoutes = {
 
     addService:"/parlour/addService",
 
-    allService:"/parlour/allService",
+    allService:"/parlour/allServices",
+
+    listService:"/parlour/listService",
 
     vendorLogout : "/parlour/vendorLogout"
 }

@@ -115,9 +115,18 @@ export const addService = async (formData:FormData) => {
     }
 }
 
-export const allService = async () =>{
+export const allService = async (search:string,page:number) =>{
     try {
-        const res = await Api.get(parlourRoutes.allService);
+        const res = await Api.get(`${parlourRoutes.allService}?search=${search}&page=${page}`);
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const listService = async (id:string) =>{
+    try {
+        const res = await Api.put(`${parlourRoutes.listService}?id=${id}`)
         return res
     } catch (error) {
         console.log(error)

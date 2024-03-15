@@ -2,28 +2,127 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../../Components/Parlour/Sidebar/Sidebar";
 import Pagination from "../../../Components/Parlour/Pagination";
 import ServiceModal from "../../../Components/Parlour/ServiceModal";
-import { allService } from "../../../Api/parlour";
+import { allService, listService } from "../../../Api/parlour";
+import { FaEdit } from "react-icons/fa";
+import { toast } from "react-toastify";
+import Confirmation from "../../../Components/Parlour/Confirmation";
 
+
+type serviceType = {
+image:object,
+serviceName:string,
+category:string,
+duration:number,
+price:number
+}
 const Services = () => {
-  const [services,setServices] = useState({})
+  const [services,setServices] = useState<serviceType[]>([])
   const[showModal,setShowModal] = useState(false)
+  const [searchTerm,setSearchTerm]  = useState('')
+  const [totalPages,setTotalPages] = useState(0)
+  const [currentPage,setCurrentPage] = useState(1)
 
+  //for listing
+  const [modal,setModal] = useState(false)
+  const [listId,setListId] = useState("")
   
+
+  //for edit
+  const [editModal,setEditModal] = useState('')
+  const [serviceForEdit,setServiceForEdit] = useState({
+    _id:'',
+    serviceName:'',
+    category:'',
+    duration:0,
+    price:0,
+    description:'',
+    image:''
+  })
+  const [imageForEdit,setImageForEdit] = useState(null)
+
+
+
 
   useEffect(()=>{
     const fetchServices = async ()=>{
       try{
-        const res = await allService();
-        console.log(res)
+        const res = await allService(searchTerm,currentPage);
+        console.log('this',res.data.data)
+        setServices(res.data.data.allservices)
+        setTotalPages(res.data.data.totalPages)
 
       }catch(error){
         console.log(error)
       }
     }
     fetchServices()
-  },[showModal])
+  },[showModal,searchTerm])
 
-  return (
+
+
+  //for listing
+  const handleModal = async (id:string) =>{
+    try{
+      setListId(id)
+      setModal(true)
+      console.log(id);
+      
+    }catch(error){
+      console.log(error)
+    }
+
+  }
+
+
+  const handleEditSubmit = async (e:any) =>{
+    e.preventDefault()
+    const serviceNameExist = services.filter((e)=>(e.serviceName == serviceForEdit.serviceName && e._id !== serviceForEdit._id))
+    console.log(serviceNameExist);
+    if(serviceNameExist.length !==0){
+      toast.error('service exist')
+    }
+    const formData = new FormData()
+    formData.append('serviceName',serviceForEdit.serviceName)
+    formData.append('category',serviceForEdit.category)
+    formData.append('duration',serviceForEdit.duration.toString())
+    formData.append('price',serviceForEdit.price.toString())
+    formData.append('description',serviceForEdit.description)
+    formData.append('image',serviceForEdit.image)
+    
+    const res = await editService(serviceForEdit._id,formData)
+    console.log(res)
+    setEditModal(false)
+    toast.success("service edited")
+  }
+
+  const listServices = async () =>{
+    try {
+      const res = await listService(listId)
+      console.log((res));
+      if(res.data.data){
+        setModal(false)
+        toast.success("service list changed")
+      }
+      console.log('hey');
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
+  const handleEdit = async (index:number) =>{
+    try {
+      console.log('kii');
+      setServiceForEdit(services[index])
+      setEditModal(true)
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+   return (
     <>
       <div className="flex">
         <div>
@@ -40,8 +139,8 @@ const Services = () => {
                   type="search"
                   name="search"
                   placeholder="Search"
-                  // value={searchTerm}
-                  // onChange={(e) => setSearchTerm(e.target.value)}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <button
                   type="submit"
@@ -87,40 +186,80 @@ const Services = () => {
                      
                     </div>
                   </th>
+
+                  
                   <th scope="col" className="px-6 py-3">
                     <div className="flex items-center">
-                      Status
+                      duration
                      
                     </div>
                   </th>
                   <th scope="col" className="px-6 py-3">
+                    <div className="flex items-center">
+                      Price
+                     
+                    </div>
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    <span className="sr-only">Status</span>
+                  </th>
+                  <th scope="col" className="px-6 py-3">
                     <span className="sr-only">Edit</span>
                   </th>
+                
                 </tr>
               </thead>
-              <tbody>
-             
-                <tr className="bg-white ">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-                  >
-                    Microsoft Surface Pro
-                  </th>
-                  <td className="px-6 py-4">White</td>
-                  <td className="px-6 py-4">Laptop PC</td>
-                  <td className="px-6 py-4">$1999</td>
-                  <td className="px-6 py-4 text-right">
-                    <a
-                      href="#"
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                    >
-                      Edit
-                    </a>
-                  </td>
-                </tr>
+{services ? (
+  <tbody>
+    {services.map((service, index) => (
+      <tr className="bg-white" key={service._id}>
+        <th
+          scope="row"
+          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+        >
+          <div className="relative h-10 w-10">
+            <img
+              className="h-full w-full rounded-full object-cover object-center"
+              src={service.image}
+              alt="image"
+            />
+          </div>
+        </th>
+        <td className="px-6 py-4">{service.serviceName}</td>
+        <td className="px-6 py-4">{service.category}</td>
+        <td className="px-6 py-4">{service.duration}</td>
+        <td className="px-6 py-4">₹{service.price}</td>
+        <td className="px-6 py-4">
+          {/* {service.isListed ? (
+          <button onClick={()=> handleModal(service._id)} className="bg-red-600 px-4 text-white font-bold">list</button>
+
+          ) : (
+            <button onClick={()=> handleModal(service._id)} className="bg-red-600 px-4 text-white font-bold">Unlist</button>
+
+          )} */}
+          <button onClick={()=> handleModal(service._id)} className="bg-red-600 px-4 text-white font-bold">list</button>
+          </td>
+        <td className="px-6 py-4 text-right">
+          <button onClick={()=>handleEdit(index)}
+            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          >
+           <FaEdit />
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+) : (
+  <tbody>
+    <tr>
+      
+        <h1 className="text-center text-red-500">No data available</h1>
+    </tr>
+  </tbody>
+)}
+
+               
                 
-              </tbody>
             </table>
         </div>
 <div className="flex justify-end">
@@ -135,10 +274,18 @@ const Services = () => {
 
       </div>
 
-      {/* <Pagination/> */}
+      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
 
 
+{/* for listing */}
+{modal && <Confirmation setModal={setModal} listServices={listServices} />}
+{/* //for adding */}
       {showModal && <ServiceModal setShowModal ={setShowModal} />}
+
+      {/* for editing */}
+      {editModal && <EditService setServiceForEdit={setServiceForEdit} serviceForEdit={serviceForEdit}
+      imageForEdit={imageForEdit} setImageForEdit={setImageForEdit} handleEditSubmit = {handleEditSubmit} 
+      setEditModal={setEditModal}/>}
     </>
 
 
