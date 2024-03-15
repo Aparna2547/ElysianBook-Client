@@ -1,14 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../../Components/Parlour/Sidebar/Sidebar";
 import Pagination from "../../../Components/Parlour/Pagination";
 import ServiceModal from "../../../Components/Parlour/ServiceModal";
+import { allService } from "../../../Api/parlour";
 
 const Services = () => {
+  const [services,setServices] = useState({})
   const[showModal,setShowModal] = useState(false)
-  const [services,setServices] = useState([])
 
   
 
+  useEffect(()=>{
+    const fetchServices = async ()=>{
+      try{
+        const res = await allService();
+        console.log(res)
+
+      }catch(error){
+        console.log(error)
+      }
+    }
+    fetchServices()
+  },[showModal])
 
   return (
     <>

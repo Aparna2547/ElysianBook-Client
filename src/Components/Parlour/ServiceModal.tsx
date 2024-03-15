@@ -7,82 +7,81 @@ interface serviceProps {
 }
 
 const ServiceModal = ({ setShowModal }: serviceProps) => {
-  const [services,setServices] = useState('');
-  const [image,setImage] = useState(null)
-    const [categories,setCategories] = useState([])
-    const [loading,setLoading] = useState(false)
-    const [formData,setFormData] = useState({
-      serviceName:"",
-      category:'',
-      duration:"",
-      image:''
-    })
+  const [services, setServices] = useState("");
+  const [image, setImage] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    serviceName: "",
+    category: "",
+    duration: 0,
+    description: "",
+    price:0,
+    image: [],
+  });
 
-    console.log();
-    
-    useEffect(()=>{
-        const fetchCategories = async()=>{
-          setLoading(true)
-            try {
-                const response = await categoriesToShow()
-                console.log(response.data.data)
-                setCategories(response.data.data)
-            } catch (error) {
-                console.log(error);
-                
-            }finally{
-              setLoading(false)
-            }
-        }
-        fetchCategories();
-    },[])
+  console.log();
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setLoading(true);
       try {
-        e.preventDefault();
-        
-    
-        // if (formData.serviceName.trim().length < 3) {
-        //   toast.error('Please enter a valid service name');
-        //   return;
-        // } else if (!formData.image || formData.image.length === 0) {
-        //   toast.error('Please select an image');
-        //   return;
-        // } else {
-        //   const fileType = formData.image[0].type;
-        //   if (!fileType.startsWith('image/')) {
-        //     toast.error('Please select a valid image file');
-        //     return;
-        //   }
-        // }
-    
-        const formDataToSend = new FormData();
-        formDataToSend.append('serviceName', formData.serviceName);
-        formDataToSend.append('category', formData.category);
-        formDataToSend.append('duration', formData.duration);
-        formDataToSend.append('image', formData.image[0]); 
-    
-        const res = await addService(formDataToSend);
-        console.log(res);
-        if (res.data.data) {
-          toast.success('Service added successfully');
-          setShowModal(false);
-        } else {
-          toast.error('Service already exists');
-        }
+        const response = await categoriesToShow();
+        console.log(response.data.data);
+        setCategories(response.data.data);
       } catch (error) {
-        console.error('Error adding service:', error);
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
-    
-    const handleImageChange = (e:React.FormEvent<HTMLFormElement>) => {
-      if(e.target.files && e.target.files[0]){
-          const selectedImage = e.target.files[0];
-          setImage(selectedImage);
-      } else {
-          setImage(null);
+    fetchCategories();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+
+      const formDataToSend = new FormData();
+      formDataToSend.append("serviceName", formData.serviceName);
+      formDataToSend.append("category", formData.category);
+      formDataToSend.append("duration", formData.duration.toString());
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("price",formData.price.toString());
+      if (formData.image && formData.image.length > 0) {
+        formData.image.forEach((file: File) => {
+          formDataToSend.append("image", file);
+        });
       }
+
+      console.log("cat",formData);
+
+          const res = await addService(formDataToSend);
+          console.log(res);
+          if (res.data.data) {
+            toast.success("Service added successfully");
+            setShowModal(false);
+          } else {
+            toast.error("Service already exists");
+          }
+    } catch (error) {
+      console.error("Error adding service:", error);
+    }
   };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedImages = Array.from(e.target.files); // Convert FileList to array
+      setFormData({ ...formData, image: selectedImages });
+    } else {
+      setFormData({ ...formData, image: null });
+    }
+  };
+
+  const handleCategoryChange = (e :React.ChangeEvent<HTMLInputElement>)=>{
+    console.log('ppp',e.target.value)
+    setFormData({...formData,category:e.target.value})
+  }
 
   return (
     <>
@@ -94,7 +93,10 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
           role="alert"
           className="container mx-auto w-11/12 md:w-2/3 max-w-lg"
         >
-          <form onSubmit={handleSubmit} className="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+          <form
+            onSubmit={handleSubmit}
+            className="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400"
+          >
             <h1 className="text-gray-800 font-lg font-bold tracking-normal leading-tight text-center mb-4">
               ADD SERVICE
             </h1>
@@ -107,7 +109,9 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
             <input
               id="name"
               name="serviceName"
-              onChange={(e) => setFormData({ ...formData, serviceName: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, serviceName: e.target.value })
+              }
               className="mb-0 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
             />
 
@@ -115,27 +119,71 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
               htmlFor="name"
               className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
             >
-              Category 
-            </label><br />
-                    <select name='category' className=" w-full mt-2 p-2 border border-gray-300 rounded">
-                              {categories && categories.map((category, index) => (
-                      <option key={index} value={category._id}>{category.catName}</option>
-                  ))}
-                    </select>
-           <br />
+              Category
+            </label>
+            <br />
+            <select
+              name="category"
+              className=" w-full mt-2 p-2 border border-gray-300 rounded"
+              value={formData.category}
+              onChange={handleCategoryChange}
+            >
+              <option value="" defaultValue={"select a category"}> select a category</option>
+              {categories &&
+                categories.map((category, index) => (
+                  <option key={index} value={category._id}>
+                    {category.catName}
+                  </option>
+                ))}
+            </select>
+            <br />
 
-           <label
+            <label
               htmlFor="name"
               className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
             >
-             Duration (in minutes)
+              Duration (in minutes)
             </label>
             <input
               id="name"
               name="duration"
               placeholder="10 "
               type="number"
-              onChange={(e)=>setFormData({...formData, duration:e.target.value})}
+              onChange={(e) =>
+                setFormData({ ...formData, duration:parseFloat(e.target.value) || 0})
+              }
+              className="mb-0 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+            />
+
+            <label
+              htmlFor="name"
+              className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+            >
+             Description
+            </label>
+                      <textarea
+            cols={10}
+            rows={5} 
+            id="description"
+            name="description"
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
+            className="mb-0 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full flex items-center pl-3 text-sm border-gray-300 rounded border"
+/>
+<label
+              htmlFor="name"
+              className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+            >
+             Price
+            </label>
+            <input
+              id="name"
+              name="price"
+              type="number"
+              onChange={(e) =>
+                setFormData({ ...formData, price: parseFloat(e.target.value) || 0 })
+              }
               className="mb-0 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
             />
 
@@ -157,7 +205,6 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
                 name="image"
                 accept="image/*"
                 onChange={handleImageChange}
-
                 className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-16 text-sm border-gray-300 rounded border"
               />
               {/* ) */}

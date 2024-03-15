@@ -115,6 +115,14 @@ export const addService = async (formData:FormData) => {
     }
 }
 
+export const allService = async () =>{
+    try {
+        const res = await Api.get(parlourRoutes.allService);
+        return res
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const vendorLogout = async ()=>{
     try {
