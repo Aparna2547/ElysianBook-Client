@@ -18,18 +18,18 @@ const Navbar = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const logoutHandle = async ()=>{
-        try{
-            const response = await userLogout()
-            console.log(response)
-            dispatch(logout())
-            toast.success("Logged out succeesfully")
-            navigate('/login')
+    // const logoutHandle = async ()=>{
+    //     try{
+    //         const response = await userLogout()
+    //         console.log(response)
+    //         dispatch(logout())
+    //         toast.success("Logged out succeesfully")
+    //         navigate('/login')
 
-        }catch(error){
-            console.log(error)
-        }
-    }
+    //     }catch(error){
+    //         console.log(error)
+    //     }
+    // }
     return (
         <>
             {/* component */}
@@ -69,7 +69,10 @@ const Navbar = () => {
                     {userInfo ? 
                         
                         <div className="order-2 md:order-3">
-                        <button className="px-4 py-2 bg-red-500 hover:bg-red-600 text-gray-50 rounded-xl flex items-center gap-2" onClick={logoutHandle}>
+                        <Link to={'/profilePage'}>
+                        <button className="px-4 py-2 bg-red-500 hover:bg-red-600 text-gray-50 rounded-xl flex items-center gap-2" 
+                        // onClick={logoutHandle}
+                        >
                             {/* Heroicons - Login Solid */}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -83,8 +86,9 @@ const Navbar = () => {
                                     clipRule="evenodd"
                                 />
                             </svg>
-                            <span>LogOut</span>
+                            <span>Profile</span>
                         </button>
+                        </Link>
                     </div>
                         :
                     <div className="order-2 md:order-3">

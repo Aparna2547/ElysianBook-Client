@@ -10,6 +10,8 @@ import ParlourProtect from "../Components/Parlour/ParlourProtect";
 import Email from "../Pages/User/Email/Email";
 import PasswordChange from "../Pages/User/PasswordChange/PasswordChange";
 import Services from "../Pages/Parlour/Services/Services";
+import Profile from "../Pages/Parlour/Profile/Profile";
+import EditProfile from "../Pages/Parlour/Profile/EditProfile";
 
 const VendorRoutes = () => {
   return (
@@ -18,14 +20,18 @@ const VendorRoutes = () => {
         <Route path="" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="verifyOtp" element={<Otp />} />
-        <Route path = 'forgotPassword' element={<Email user={false}/>} />
-        <Route path="changePassword" element={<PasswordChange  user={false}/>} />
+        {/* <Route path = 'forgotPassword' element={<Email user={false}/>} />
+        <Route path="changePassword" element={<PasswordChange  user={false}/>} /> */}
       </Route>
+      <Route path = 'forgotPassword' element={<Email user={false}/>} />
+        <Route path="changePassword" element={<PasswordChange  user={false}/>} />
 
       <Route path="" element={<ParlourProtect />}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="parlourDetails" element={<ParlourDetails />} />
         <Route path = 'services' element ={<Services/>} />
+        <Route path = "vendorProfile" element={<Profile/>}/>
+        <Route path = "editVendorProfile" element={<EditProfile/>}/>
       </Route>
     </Routes>
   );

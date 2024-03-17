@@ -2,18 +2,23 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../../Components/Parlour/Sidebar/Sidebar";
 import Pagination from "../../../Components/Parlour/Pagination";
 import ServiceModal from "../../../Components/Parlour/ServiceModal";
-import { allService, listService } from "../../../Api/parlour";
+import { allService, editService, listService } from "../../../Api/parlour";
 import { FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Confirmation from "../../../Components/Parlour/Confirmation";
+import EditService from "../../../Components/Parlour/EditService";
 
 
 type serviceType = {
+  _id:string,
 image:object,
 serviceName:string,
 category:string,
 duration:number,
-price:number
+price:number,
+description:string,
+isListed:boolean,
+catName:string
 }
 const Services = () => {
   const [services,setServices] = useState<serviceType[]>([])
@@ -28,7 +33,7 @@ const Services = () => {
   
 
   //for edit
-  const [editModal,setEditModal] = useState('')
+  const [editModal,setEditModal] = useState(false)
   const [serviceForEdit,setServiceForEdit] = useState({
     _id:'',
     serviceName:'',
@@ -56,7 +61,7 @@ const Services = () => {
       }
     }
     fetchServices()
-  },[showModal,searchTerm])
+  },[showModal,searchTerm,modal])
 
 
 
@@ -74,32 +79,11 @@ const Services = () => {
   }
 
 
-  const handleEditSubmit = async (e:any) =>{
-    e.preventDefault()
-    const serviceNameExist = services.filter((e)=>(e.serviceName == serviceForEdit.serviceName && e._id !== serviceForEdit._id))
-    console.log(serviceNameExist);
-    if(serviceNameExist.length !==0){
-      toast.error('service exist')
-    }
-    const formData = new FormData()
-    formData.append('serviceName',serviceForEdit.serviceName)
-    formData.append('category',serviceForEdit.category)
-    formData.append('duration',serviceForEdit.duration.toString())
-    formData.append('price',serviceForEdit.price.toString())
-    formData.append('description',serviceForEdit.description)
-    formData.append('image',serviceForEdit.image)
-    
-    const res = await editService(serviceForEdit._id,formData)
-    console.log(res)
-    setEditModal(false)
-    toast.success("service edited")
-  }
-
   const listServices = async () =>{
     try {
       const res = await listService(listId)
-      console.log((res));
-      if(res.data.data){
+      console.log('list',res);
+      if(res.data){
         setModal(false)
         toast.success("service list changed")
       }
@@ -111,17 +95,65 @@ const Services = () => {
     }
   }
 
-  const handleEdit = async (index:number) =>{
+  
+
+  
+
+  const handleEdit = async (index: number) => {
     try {
       console.log('kii');
-      setServiceForEdit(services[index])
-      setEditModal(true)
-      
+      // Assuming services is an array of serviceType
+      const selectedService = services[index];
+      if (selectedService) {
+        setServiceForEdit({
+          _id: selectedService._id,
+          serviceName: selectedService.serviceName,
+          category: selectedService.category,
+          duration: selectedService.duration,
+          price: selectedService.price,
+          description: selectedService.description || "",
+          image: selectedService.image
+        });
+        setEditModal(true); 
+      }
     } catch (error) {
       console.log(error);
-      
     }
   }
+
+
+  
+  const handleEditSubmit = async (e: any) => {
+    e.preventDefault();
+    const serviceNameExist = services.filter((e) => (e.serviceName == serviceForEdit.serviceName && e._id !== serviceForEdit._id));
+    console.log(serviceNameExist);
+    if (serviceNameExist.length !== 0) {
+      toast.error('Service exists');
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append('serviceName', serviceForEdit.serviceName);
+    formData.append('category', serviceForEdit.category); // Assuming category is already a valid value here
+    formData.append('duration', serviceForEdit.duration.toString());
+    formData.append('price', serviceForEdit.price.toString());
+    formData.append('description', serviceForEdit.description);
+    formData.append('image', imageForEdit);
+
+    console.log('serviceForedit',serviceForEdit);
+    
+    try {
+      const res = await editService(serviceForEdit._id, formData);
+      console.log(res);
+      setEditModal(false);
+      toast.success('Service edited');
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to edit service');
+    }
+  };
+  
+  
    return (
     <>
       <div className="flex">
@@ -225,19 +257,18 @@ const Services = () => {
             />
           </div>
         </th>
-        <td className="px-6 py-4">{service.serviceName}</td>
-        <td className="px-6 py-4">{service.category}</td>
-        <td className="px-6 py-4">{service.duration}</td>
-        <td className="px-6 py-4">₹{service.price}</td>
-        <td className="px-6 py-4">
-          {/* {service.isListed ? (
-          <button onClick={()=> handleModal(service._id)} className="bg-red-600 px-4 text-white font-bold">list</button>
+        <td className="px-6 py-4 text-gray-800">{service.serviceName}</td>
+        <td className="px-6 py-4  text-gray-800">{service.category.catName}</td>
+        <td className="px-6 py-4  text-gray-800">{service.duration}</td>
+        <td className="px-6 py-4  text-gray-800">₹{service.price}</td>
+        <td className="px-6 py-4  text-gray-800">
+          {service.isListed ? (
+          <button onClick={()=> handleModal(service._id)} className="border border-green-600 text-green-600 px-4 font-bold">list</button>
 
           ) : (
-            <button onClick={()=> handleModal(service._id)} className="bg-red-600 px-4 text-white font-bold">Unlist</button>
+            <button onClick={()=> handleModal(service._id)} className="border border-red-600 text-red-600 px-3 font-bold">Unlist</button>
 
-          )} */}
-          <button onClick={()=> handleModal(service._id)} className="bg-red-600 px-4 text-white font-bold">list</button>
+          )}
           </td>
         <td className="px-6 py-4 text-right">
           <button onClick={()=>handleEdit(index)}
@@ -278,7 +309,7 @@ const Services = () => {
 
 
 {/* for listing */}
-{modal && <Confirmation setModal={setModal} listServices={listServices} />}
+{modal && <Confirmation setModal={setModal} changeItemStatus={listServices} />}
 {/* //for adding */}
       {showModal && <ServiceModal setShowModal ={setShowModal} />}
 

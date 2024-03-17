@@ -124,15 +124,63 @@ export const allService = async (search:string,page:number) =>{
     }
 }
 
+export const editService = async (id:string,formData:FormData)  =>{
+    try {
+        const res = await Api.put(`${parlourRoutes.editService}?id=${id}`,formData)
+        console.log('hai')
+        return res
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
 export const listService = async (id:string) =>{
     try {
         const res = await Api.put(`${parlourRoutes.listService}?id=${id}`)
+        console.log('deyy')
         return res
     } catch (error) {
         console.log(error)
     }
 }
 
+export const vendorProfile = async () =>{
+    try{
+        const res = await Api.get(parlourRoutes.vendorProfile)
+        return res
+    }catch(error){
+        console.log(error);
+        
+    }
+    }
+
+    export const changeName = async (name:string) =>{
+        try{
+            const res = await Api.put(parlourRoutes.editVendorName,name )
+            return res
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+
+    export const changePasswordProfile = async(currentPassword:string,newPassword:string) =>{
+        try { 
+            const res = await Api.put(parlourRoutes.editVendorPassword,{currentPassword,newPassword})
+            return res
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
+    export const changeEmailProfile = async (email:string) =>{
+        try{
+            const res = await Api.put(parlourRoutes.editVendorEmail,email)
+            return res
+        }catch(error){
+            console.log(error)
+        }
+    }
 export const vendorLogout = async ()=>{
     try {
         const res  = await Api.post(parlourRoutes.vendorLogout)
@@ -142,5 +190,7 @@ export const vendorLogout = async ()=>{
         
     }
 }
+
+
 
 

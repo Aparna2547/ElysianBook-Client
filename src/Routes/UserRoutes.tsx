@@ -11,6 +11,9 @@ import PasswordChange from '../Pages/User/PasswordChange/PasswordChange'
 import UserLoggedOut from '../Components/User/UserLoggedOut'
 import UserProtect from '../Components/User/UserProtect'
 import ParlourDetails from '../Pages/User/ParlourDetails/ParlourDetails'
+import Profile from '../Pages/User/Profile/Profile'
+import EditProfile from '../Pages/User/Profile/EditProfile'
+import Sidebar from "../Components/User/Sidebar"
 
 const UserRoutes = () => {
   return (
@@ -28,6 +31,9 @@ const UserRoutes = () => {
 <Route path='' element={<UserProtect/>} >
 <Route path = 'parlourlist' element = {<ParloursPage/>} />
 <Route path = 'parlourDetails/:id' element =  {<ParlourDetails/>}/>
+<Route path = 'profilePage' element={<Sidebar/>} />
+<Route path='profile' element={<Profile/>} />
+<Route path='EditProfile' element={<EditProfile/>} />
 </Route>
     
 

@@ -25,14 +25,14 @@ const navigate = useNavigate()
             const res = await passwordChange(password)
             console.log(res)
             if(res.data.acknowledged){
-                toast.success('password changed successfully.Please login')
+                toast.success('password changed successfully.Please Login')
                 navigate('/login')
             }
            }else{
             const res = await vendorChangePassword(password)
             console.log(res)
             if(res.data.acknowledged){
-              toast.success("password changed succesfully.Please login")
+              toast.success("password changed succesfully.Please Login")
               navigate('/parlour')
             }
            }

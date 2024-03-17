@@ -21,8 +21,18 @@ const parlourRoutes = {
     addService:"/parlour/addService",
 
     allService:"/parlour/allServices",
+    
+    editService:"/parlour/editService",
 
     listService:"/parlour/listService",
+
+    vendorProfile:"/parlour/vendorProfile",
+
+    editVendorName:"/parlour/editVendorName",
+
+    editVendorEmail:"/parlour/editVendorEmail",
+
+    editVendorPassword :"/parlour/editVendorPassword",
 
     vendorLogout : "/parlour/vendorLogout"
 }

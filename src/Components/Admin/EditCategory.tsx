@@ -10,7 +10,7 @@ interface editCategoryProps{
     setCategoryForEdit: ()=>void,
     imageForEdit: null | object,
     setImageForEdit: (value : null | object)=>void,
-    handleEditSubmit : (e)=>void,
+    handleEditSubmit : (e:any)=>void,
     setEditModal :(value:boolean)=>void
 
 }
