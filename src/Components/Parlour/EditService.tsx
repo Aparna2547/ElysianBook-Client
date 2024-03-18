@@ -105,7 +105,7 @@ const EditService = ({
             <select
               name="category"
               className=" w-full mt-2 p-2 border border-gray-300 rounded"
-              value={serviceForEdit.category.catName} 
+              value={serviceForEdit.category} 
               onChange={(e) => {
                 setServiceForEdit({
                   ...serviceForEdit,
@@ -113,10 +113,10 @@ const EditService = ({
                 });
               }}
             >
-              <option value="" defaultValue={"select a category"}> select a category</option>
+              {/* <option value="" defaultChecked> select a category</option> */}
               {categories &&
                 categories.map((category, index) => (
-                  <option key={index} value={category._id}>
+                  <option key={index} value={category._id} defaultChecked={serviceForEdit.category == category._id}>
                     {category.catName}
                   </option>
                 ))}

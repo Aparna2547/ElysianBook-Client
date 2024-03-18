@@ -33,7 +33,7 @@ const Profile = () => {
       }
     }
     fetchProfile();
-  }, []);
+  }, [emailModal]);
 
   //chanfe name
   const nameChange = () =>{
@@ -126,7 +126,7 @@ const Profile = () => {
                       <tr>
                         <td className="px-2 py-2 text-gray-500 font-semibold">Email</td>
                         <td className="px-2 py-2">{profile.email}</td>
-                        <td className="px-2 py-2"><button className='bg-blue-800 text-white font-bold px-3 py-1' onClick={()=>setEmailModal(true  )}>Change</button></td>
+                        <td className="px-2 py-2"><button className='bg-blue-800 text-white font-bold px-3 py-1' onClick={()=>setEmailModal(true)}>Change</button></td>
                       </tr>
                       <tr>
                         <td className="px-2 py-2 text-gray-500 font-semibold">Password</td>

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import {useNavigate} from 'react-router-dom'
 import {changePasswordProfile} from "../../Api/parlour"
+import { useDispatch } from 'react-redux';
+import { parlourLogout } from '../../Store/slice/authSlice';
+
 
 interface ModalProps {
   setPasswordModal: (value: boolean) => void;
@@ -13,6 +16,9 @@ const ChangePasswordModal = ({ setPasswordModal,user }: ModalProps) => {
   const [newPassword,setNewPassword] = useState('')
   const [confirmPassword,setConfirmPassword] = useState('')
   const navigate = useNavigate()
+
+  const dispatch = useDispatch()
+
 
   const changePasswordHandle = async (e) =>{
     e.preventDefault()
@@ -40,6 +46,7 @@ const ChangePasswordModal = ({ setPasswordModal,user }: ModalProps) => {
         console.log('password changed')
         if(res.data.data){
           toast.success('password changed successfully.Please Login')
+          dispatch(parlourLogout())
           navigate('/parlour')
         }
       // }else{

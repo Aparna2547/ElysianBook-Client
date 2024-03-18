@@ -1,6 +1,8 @@
 import User from "../Pages/Admin/User/User";
 import Api from "../Services/axios";
 import UserRoutes from "../Services/endpoints/userEndpoints";
+import errorHandle from "../Api/errorHandle"
+
 
 export const signup = async (name:string,email:string,password:string)=>{
     try {
@@ -8,6 +10,7 @@ export const signup = async (name:string,email:string,password:string)=>{
         return res
     } catch (error) {
         console.log(error);
+        errorHandle(error as Error)
         
     }
 }
@@ -17,6 +20,7 @@ export const gsignup = async (name:string,email:string,password:string)=>{
         const res = await Api.post(UserRoutes.gsignUp,{name,email,password})
         return res;
     } catch (error) {
+        errorHandle(error as Error)
         
     }
 }
@@ -27,6 +31,8 @@ export  const userLogin = async (email:string,password:string) =>{
         return res
     } catch (error) {
         console.log(error);
+        errorHandle(error as Error)
+
         
     }
 }
@@ -37,6 +43,8 @@ export const ForgotPassword = async ( email:string) =>{
         return res
     } catch (error) {
         console.log(error);
+        errorHandle(error as Error)
+
         
     }
 }
@@ -47,6 +55,8 @@ export const verifyOtpForgotPassword = async(otp:string) =>{
         return res
     } catch (error) {
         console.log(error)
+        errorHandle(error as Error)
+
     }
 }
 
@@ -57,6 +67,8 @@ export const passwordChange= async (password:string) =>{
         return res
     } catch (error) {
         console.log(error);
+        errorHandle(error as Error)
+
         
     }
 }
@@ -67,6 +79,8 @@ export const allParlours = async (currentPage:number) =>{
         return res
     } catch (error) {
         console.log(error);
+        errorHandle(error as Error)
+
         
     }
 }
@@ -78,9 +92,94 @@ export const singleParlourDetails = async (id:string)=>{
         return res
     }catch(error){
         console.log(error);
+        errorHandle(error as Error)
         
     }
 }
+
+
+export const userprofile = async ()=>{
+    try{
+        const res = await Api.get(UserRoutes.profile)
+        return res
+    }catch(error){
+        
+
+        console.log(error)
+        errorHandle(error as Error)
+
+    }
+}
+
+export const changeUserName = async (name:string)=>{
+    try{
+        const res = await Api.put(UserRoutes.changeUserName,{name})
+        return res
+    }catch(error){
+        console.log(error)
+        errorHandle(error as Error)
+
+    }
+}
+
+
+export const changeUserPassword = async (currentPassword:string,newPassword:string)=>{
+    try{
+        const res = await Api.put(UserRoutes.changeUserPassword,{currentPassword,newPassword})
+        return res
+    }catch(error){
+        console.log(error)
+        errorHandle(error as Error)
+
+    }
+}
+
+
+export const changeUserEmail = async (email:string)=>{
+    try{
+        const res = await Api.put(UserRoutes.changeUserEmail,{email})
+        return res
+    }catch(error){
+        console.log(error)
+        errorHandle(error as Error)
+
+    }
+}
+
+export const changeUserEmailSave = async (otp:number)=>{
+    try{
+        const res = await Api.put(UserRoutes.changeUserEmailSave,{otp})
+        return res
+    }catch(error){
+        console.log(error)
+        errorHandle(error as Error)
+
+    }
+}
+
+export const deleteProfilePicture = async ()=>{
+    try{
+        const res = await Api.put(UserRoutes.deleteProfilePicture)
+        return res
+    }catch(error){
+        console.log(error)
+        errorHandle(error as Error)
+        
+    }
+}
+
+export const changeProfilePicture = async (formData:FormData)=>{
+    try{
+        const res = await Api.put(UserRoutes.changeProfilePicture,formData)
+        return res
+    }catch(error){
+        console.log(error)
+        errorHandle(error as Error)
+
+    }
+}
+
+
 export const userLogout = async ()=>{
     try {
         const res = await Api.post(UserRoutes.userLogout)

@@ -16,6 +16,20 @@ const userRoutes={
 
     parlourDetails : "/user/parlourDetails",
 
+    profile:"/user/profile",
+
+    changeUserName:"/user/changeUserName",
+
+    changeUserPassword:"/user/changeUserPassword",
+
+    changeUserEmail:"/user/changeUserEmail",
+
+    changeUserEmailSave:"/user/changeUserEmailSave",
+
+    deleteProfilePicture:"/user/deleteProfilePicture",
+
+    changeProfilePicture:"/user/changeProfilePicture",
+
     userLogout :"/user/logout"
 
 }

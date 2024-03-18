@@ -1,13 +1,13 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { addParlour } from "../../Api/parlour";
-import Api from "../../Services/axios";
-import {useNavigate} from "react-router-dom"
+import React,{useState,useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-toastify'
+import Sidebar from "../../../Components/Parlour/Sidebar/Sidebar";
+import axios from 'axios';
+import Api from '../../../Services/axios';
+import { getParlourDetails ,editParlour} from "../../../Api/parlour";
 
 
-const Form = () => {
-
+const EditParlour = () => {
   const [facilities, setFacilities] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
   const [formData, setFormData] = useState({
@@ -35,6 +35,23 @@ const Form = () => {
     setFormData({ ...formData, facilities: updatedFacilities });
   };
 
+
+  useEffect(()=>{
+const fetchParlour = async () =>{
+  try{
+    const res = await getParlourDetails();
+    setFormData(res.data.data)
+    console.log('jii',res.data.data)
+      setCheckedItems(res.data.data.facilities);
+      console.log('ao',formData.banners)
+  }catch(error){    
+    console.log(error)
+  }
+}
+fetchParlour()
+  },[])
+
+
   useEffect(() => {
     const fetchFacilities = async () => {
       try {
@@ -48,14 +65,20 @@ const Form = () => {
     fetchFacilities();
   }, [formData]);
 
+
+
   const handleFileChange = (e: any, index: number) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
       const newBanners = [...formData.banners];
-      newBanners[index] = file; // Store file object directly
-      setFormData({ ...formData, banners: newBanners });
+      newBanners[index] = file;
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        banners: newBanners,
+      }));
     }
   };
+  
 
   // const api = process.env.REACT_APP_GEOPIFY_API;
 
@@ -65,52 +88,52 @@ const Form = () => {
     try {
       e.preventDefault();
 
-      if (formData.parlourName.trim().length === 0) {
-        toast.error("Enter parlour name");
-        return;
-      }
-      if (formData.landMark.trim().length === 0) {
-        toast.error("Enter the landmark");
-        return;
-      }
-      if (formData.locality.trim().length === 0) {
-        toast.error("Enter the locality");
-        return;
-      }
-      if (formData.district.trim().length === 0) {
-        toast.error("Enter the district");
-        return;
-      }
-      if (formData.openingTime.trim().length === 0) {
-        toast.error("Enter the opening time");
-        return;
-      }
-      if (formData.closingTime.trim().length === 0) {
-        toast.error("Enter the closing time");
-        return;
-      }
-      if (formData.contact.trim().length !== 10) {
-        toast.error("Enter a 10-digit contact number");
-        return;
-      }
-      if (formData.seats < 0) {
-        toast.error("Enter a valid number of seats");
-        return;
-      }
-      if (formData.banners[0] === "") {
-        toast.error("Select banners");
-        return;
-      }else if(formData.banners[0]){
-        const fileType = formData.banners[0].type;
-        if(!fileType.startsWith('image/')){
-          console.log('imsge');
-          toast.error('select image')
-          return; 
+      // if (formData.parlourName.trim().length === 0) {
+      //   toast.error("Enter parlour name");
+      //   return;
+      // }
+      // if (formData.landMark.trim().length === 0) {
+      //   toast.error("Enter the landmark");
+      //   return;
+      // }
+      // if (formData.locality.trim().length === 0) {
+      //   toast.error("Enter the locality");
+      //   return;
+      // }
+      // if (formData.district.trim().length === 0) {
+      //   toast.error("Enter the district");
+      //   return;
+      // }
+      // if (formData.openingTime.trim().length === 0) {
+      //   toast.error("Enter the opening time");
+      //   return;
+      // }
+      // if (formData.closingTime.trim().length === 0) {
+      //   toast.error("Enter the closing time");
+      //   return;
+      // }
+      // if (formData.contact.trim().length !== 10) {
+      //   toast.error("Enter a 10-digit contact number");
+      //   return;
+      // }
+      // if (formData.seats < 0) {
+      //   toast.error("Enter a valid number of seats");
+      //   return;
+      // }
+      // if (formData.banners[0] === "") {
+      //   toast.error("Select banners");
+      //   return;
+      // }else if(formData.banners[0]){
+      //   const fileType = formData.banners[0].type;
+      //   if(!fileType.startsWith('image/')){
+      //     console.log('imsge');
+      //     toast.error('select image')
+      //     return; 
           
-      }
-      }
+      // }
+      // }
 
-      console.log(formData);
+      console.log('formdata',formData);
 
       const formDataToSend = new FormData();
       formDataToSend.append("parlourName", formData.parlourName);
@@ -138,10 +161,11 @@ const Form = () => {
       });
 
 
-      const res = await addParlour(formDataToSend);
+      const res = await editParlour(formDataToSend);
+      // console.log(res.data)
       const data = res?.data;
       if (data.status) {
-        toast.success("parlour sent for approval");
+        toast.success("parlour edited");
        navigate('/parlour/parlourDetails')
       }
 
@@ -181,11 +205,18 @@ const Form = () => {
     }
   };
   return (
+    <div className='flex'>
+      <div>
+        <Sidebar/>
+      </div>
+    <div>
+    
+
     <div className="px-6 w-full">
       <form
         className="  border border-grey p-3 mt-10 "
         onSubmit={handleSubmit}
-        enctype="multipart/form-data"
+        encType="multipart/form-data" 
       >
         <h1 className="text-center my-3 font-bold">Parlour Details</h1>
         <div className="flex flex-wrap -mx-3 mb-6">
@@ -318,25 +349,23 @@ const Form = () => {
           </label>
           <div className="w-full px-3 flex">
             <div className="flex mx-1">
-              {facilities.map((facilityObj, index) => (
-                <React.Fragment key={index}>
-                  {facilityObj.facilities.map((facility, i) => (
-                    <>
-                      <input
-                        key={i}
-                        id="grid-password"
-                        type="checkbox"
-                        value={facility}
-                        checked={checkedItems.includes(facility)}
-                        onChange={() => handleCheckBox(facility)}
-                      />{" "}
-                      <p className="text-gray-500 mx-1">{facility}</p>
-                    </>
-                  ))}
+            {facilities.map((facilityObj, index) => (
+            <div key={index}>
+              {facilityObj.facilities.map((facility, i) => (
+                <React.Fragment key={i}>
+                  <input
+                    type="checkbox"
+                    value={facility}
+                    checked={checkedItems.includes(facility)}
+                    onChange={() => handleCheckBox(facility)}
+                    className='px-2'
+                  />
+                  <label className='px-2'>{facility}</label>
                 </React.Fragment>
               ))}
+            </div>
+          ))}
 
-            
             </div>
 
           
@@ -351,40 +380,48 @@ const Form = () => {
               Select Banners
             </label>
             <div className="flex w-full">
-           
-              {formData.banners.map((banner, index) => (
-                <div key={index} className="mb-4">
-                  <label
-                    htmlFor={`banner-image-${index + 1}`}
-                    className="block font-medium"
-                  >
-                    Banner Image {index + 1}
-                  </label>
-                  <input
-                    id={`banner-image-${index + 1}`}
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleFileChange(e, index)}
-                    name="banners"
-                  />
-                  {banner && typeof banner !== "string" && (
+  {formData.banners.map((bannerUrl, index) => (
+    <div key={index} className="mb-4">
+      <label
+        htmlFor={`banner-image-${index + 1}`}
+        className="block font-medium"
+      >
+        Banner Image {index + 1}
+      </label>
+      <img
+        src={bannerUrl}
+        alt={`Banner Image ${index + 1}`}
+        className="mt-2 max-w-xs"
+      />
+      <input
+        id={`banner-image-${index + 1}`}
+        type="file"
+        accept="image/*"
+        onChange={(e) => handleFileChange(e, index)}
+        name="banners"
+      />
+       {bannerUrl && typeof bannerUrl !== "string" && (
                     <img
-                      src={URL.createObjectURL(banner)}
+                      src={URL.createObjectURL(bannerUrl)}
                       alt={`Banner Image ${index + 1}`}
                       className="mt-2 max-w-xs"
                     />
                   )}
-                </div>
-              ))}
-            </div>
+    </div>
+  ))}
+</div>
+
+
           </div>
         </div>
         <button className="w-full border border-blue-500 bg-blue-900 p-2 mt-3 text-white font-bold">
-          Request Admin For Approval
+          EDIT PARLOUR
         </button>
       </form>
     </div>
-  );
-};
+    </div>
+    </div>
+  )
+}
 
-export default Form;
+export default EditParlour

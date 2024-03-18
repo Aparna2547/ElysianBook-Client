@@ -1,84 +1,46 @@
 import React from 'react'
+import ProfileDetails from "../../../Components/User/ProfileDetails"
+import Navbar from "../../../Components/User/NavBar/Navbar"
 
 const EditProfile = () => {
   return (
-    <div>
-        <div className="flex items-center h-screen w-full justify-center">
-          <div className="max-w-xs">
-            <div className="bg-white shadow-xl rounded-lg py-3">
-              <div className="photo-wrapper p-2">
-                <img
-                  className="w-32 h-32 rounded-full mx-auto text black"
-                  src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fprofile-image&psig=AOvVaw11L04RYVnmT8Ao7pvZFvyf&ust=1710689932977000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNirl9GO-YQDFQAAAAAdAAAAABAE"
-                  alt="John Doe djhk"
-                />
-              </div>
-              <div className="p-2">
-                <form className="text-xs my-3">
-                  <div className='flex flex-wrap -mx-3 '>
-                    <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                      <label
-                        className="appearance-none block w-full text-gray-700  py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                      >
+  <>
+  <div className='flex'>
+    <Navbar/>
+
+  </div>
+  <div>
+  <div className="rounded p-6 w-full md:w-1/2 ">
+            <div className="pb-6 flex justify-between items-center border-b-2 mb-2">
+                <div>
+                    <label htmlFor="name" className="font-semibold text-gray-700 block pb-1">
                         Name
-                      </label>
-                    </div>
-                    <div className="w-full md:w-3/4 px-3 md:mb-0">
-                      <input
-                        className="appearance-none block w-full border-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name"
-                        type="text"
-                        placeholder="Name"
-                        // value={name}
-                        //   onChange={}
-                      />
-                    </div>
-                  </div>
-                  <div className='flex flex-wrap -mx-3 '>
-                    <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                      <label
-                        className="appearance-none block w-full text-gray-700  py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                      >
-                        Email
-                      </label>
-                    </div>
-                    <div className="w-full md:w-3/4 px-3 mb-6 md:mb-0">
-                      <label
-                        className="appearance-none block w-full border-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                      >Email </label>
-                    </div>
-                  </div>
-                  <div className='flex flex-wrap -mx-3'>
-                    <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                      <label
-                        className="appearance-none block w-full text-gray-700  py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name"
-                      >Mobile
-                      </label>
-                    </div>
-                    <div className="w-full md:w-3/4 px-3 mb-6 md:mb-0">
-                      <input
-                        className="appearance-none block w-full border-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="grid-first-name"
-                        type="number"
-                      //   value={mobile}
-                      //   onChange={}
-                      />
-                    </div>
-                  </div>
-                </form>
-                <div className="text-center my-3">
-                  <button
-                    className="text-xs bg-blue-800 text-white py-1 w-full  font-medium"
-                  >
-                    Save
-                  </button>
+                    </label>
+                    <h1>John</h1>
                 </div>
-              </div>
+                <button className="py-1 px-3 bg-slate-600 text-sm text-white font-bold rounded-md">CHANGE</button>
             </div>
-          </div>
+            <div className="pb-6 flex justify-between items-center border-b-2 mb-2">
+                <div>
+                    <label htmlFor="about" className="font-semibold text-gray-700 block pb-1">
+                        Email
+                    </label>
+                    <h1>Hohn@gmail.com</h1>
+                </div>
+                <button className="py-1 px-3 bg-slate-600 text-sm text-white font-bold rounded-md">CHANGE</button>
+            </div>
+            <div className="pb-6 flex justify-between items-center border-b-2 mb-2">
+                <div>
+                    <label htmlFor="about" className="font-semibold text-gray-700 block pb-1">
+                        Password
+                    </label>
+                    <h1>**************</h1>
+                </div>
+                <button className="py-1 px-3 bg-slate-600 text-sm text-white font-bold rounded-md">CHANGE</button>
+            </div>
         </div>
-    </div>
+  </div>
+  </>
   )
 }
 

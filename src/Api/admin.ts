@@ -1,5 +1,6 @@
 import Api from "../Services/axios";
 import AdminRoutes from "../Services/endpoints/adminEndpoints";
+import errorHandle from "../Api/errorHandle"
 
 export const login = async (email:string,password:string)=>{
     try {
@@ -9,6 +10,7 @@ export const login = async (email:string,password:string)=>{
         
     } catch (error) {
         console.log(error);
+        errorHandle(error)
         
     }
 }
@@ -22,6 +24,7 @@ export const listUser = async(id:string)=>{
         return res;
     } catch (error) {
         console.log(error);
+        errorHandle(error as Error)
     }
 }
 
@@ -32,6 +35,8 @@ try {
     return res
 } catch (error) {
     console.log(error);
+    errorHandle(error as Error)
+
     
 }
 }
@@ -42,6 +47,8 @@ export const editCategory = async(id:string,formData:FormData) =>{
         return res
     } catch (error) {
         console.log(error);
+        errorHandle(error as Error)
+
     }
 }
 
@@ -51,6 +58,8 @@ export const allCategory = async(search:string,page:number)=>{
         return res
     } catch (error) {
         console.log(error);
+        errorHandle(error as Error)
+
     }
 }
 
@@ -60,6 +69,8 @@ export const hideCategory = async (id:string)=>{
         return res
     } catch (error) {
         console.log(error)
+        errorHandle(error as Error)
+
     }
 }
 
@@ -80,6 +91,8 @@ export const addFacility =  async (facility:string)=>{
         return res
     } catch (error) {
         console.log(error);
+        errorHandle(error as Error)
+
         
     }
 }
@@ -91,7 +104,7 @@ export const allParlours = async (search:string,page:number)=>{
         return res
     } catch (error) {
         console.log(error);
-        
+        errorHandle(error as Error)
     }
 }
 
@@ -100,7 +113,9 @@ export const getParlourDetails = async (id:string) =>{
         const res = await Api.get(`${AdminRoutes.singleParlour}?id=${id}`)
         return res
     } catch (error) {
-     console.log(error)   
+     console.log(error)  
+     errorHandle(error as Error)
+
     }
 }
 
@@ -112,6 +127,8 @@ export const ParlourRequestConfirmation = async (value:string,id:string) =>{
         return response;
         }catch(error){
             console.log(error)
+        errorHandle(error as Error)
+
         }
 } 
 export const adminLogout = async ()=>{
@@ -120,6 +137,8 @@ export const adminLogout = async ()=>{
         return res
     }catch(error){
         console.log(error);
+        errorHandle(error as Error)
+
         
     }
 }

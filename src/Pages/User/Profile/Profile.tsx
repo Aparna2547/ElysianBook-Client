@@ -1,67 +1,103 @@
-import React from 'react'
+import { useState } from "react"
+import ProfileDetails from "../../../Components/User/ProfileDetails"
+import Navbar from "../../../Components/User/NavBar/Navbar"
 
 const Profile = () => {
-  return (
-    <div>
-        <div className="flex items-center h-screen w-full justify-center">
-  <div className="max-w-xs">
-  {/* {parlourInfo ?  */}
-    <div className="bg-white shadow-xl rounded-lg py-3">
 
-      <div className="photo-wrapper p-2">
-        <img
-          className="w-32 h-32 rounded-full mx-auto"
-        //   src={parlourInfo.image ?
-        //   parlourInfo.image:
-        //   'https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0='}
-        // }
-          src="https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0="
-          alt="John Doe"
-        />
-      </div>
-      <div className="p-2">
-        <h3 className="text-center text-xl text-gray-900 font-medium leading-8">
-         {/* {parlourInfo.vendorNa} */}
-        </h3>
-        
-        <table className="text-xs my-3">
-          <tbody>
-           
-            <tr>
-              <td className="px-2 py-2 text-gray-500 font-semibold">Parlour Name</td>
-              <td className="px-2 py-2">Top studio</td>
-            </tr>
-            <tr>
-              <td className="px-2 py-2 text-gray-500 font-semibold">Email</td>
-              <td className="px-2 py-2">john@exmaple.com</td>
-              <td className="px-2 py-2"><button className='bg-blue-800 text-white font-bold px-3 py-1'>Change</button></td>
-            </tr>
-            <tr>
-              <td className="px-2 py-2 text-gray-500 font-semibold">Phone</td>
-              <td className="px-2 py-2">+977 9955221114</td>
-            </tr>
-           
-          </tbody>
-        </table>
-        <div className="text-center my-3">
-          <button
-            className="text-xs bg-blue-800 text-white py-1 w-full  font-medium"
-          >
-            Edit Profile
-          </button>
-          <button
-            className="text-xs  bg-blue-800  text-white py-1 w-full font-medium"
-          >
-           Change Password
-          </button>
-        </div>
-      </div>
-    </div>
-{/* } */}
-  </div>
-</div>
-    </div>
-  )
+    const [page, setPage] = useState('profile')
+
+    return (
+      <>
+      <Navbar/>
+        <main className="profile-page">
+            <section className="relative block h-500-px m">
+                <div
+                    className="absolute top-0 w-full h-full bg-center bg-cover"
+                    style={{
+                        backgroundImage:
+                            'url("https://t4.ftcdn.net/jpg/01/11/92/63/360_F_111926384_lD1WksOGslwnrpI9xClpRyWdSFN6WHm8.jpg")'
+                    }}
+                >
+                    <span
+                        id="blackOverlay"
+                        className="w-full h-full absolute opacity-50 bg-black"
+                    />
+                </div>
+                <div
+                    className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
+                    style={{ transform: "translateZ(0px)" }}
+                >
+                    <svg
+                        className="absolute bottom-0 overflow-hidden"
+                        xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="none"
+                        version="1.1"
+                        viewBox="0 0 2560 100"
+                        x={0}
+                        y={0}
+                    >
+                        <polygon
+                            className="text-blueGray-200 fill-current"
+                            points="2560 0 2560 100 0 100"
+                        />
+                    </svg>
+                </div>
+            </section>
+            <section className="relative py-16 bg-blueGray-200">
+                <div className="container mx-auto px-4">
+                    <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64 min-h-96">
+                        <div className="px-6">
+                            <div className="flex flex-wrap justify-center">
+                                <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
+                                    <div className="relative">
+                                        {/* <img
+                                            alt="..."
+                                            src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                                            className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
+                                        /> */}
+                                    </div>
+                                </div>
+                                <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
+                                </div>
+                                <div className="w-full lg:w-4/12 px-4 lg:order-1">
+                                    <div className="flex justify-center py-10 lg:pt-4 pt-8">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className=" mt-12 flex flex-col w-full justify-center items-center">
+                                <div className="w-full md:w-1/2 flex justify-center font-bold">
+                                    <div className={`px-2 pb-1 cursor-pointer ${page == 'profile' && 'border-b-4 border-b-orange-400'}`} onClick={() => setPage('profile')}>
+                                        <h1>PROFILE</h1>
+                                    </div>
+                                    <div className={`px-2 pb-1 cursor-pointer ${page == 'booking' && 'border-b-4 border-b-orange-400'}`} onClick={() => setPage('booking')}>
+                                        <h1>BOOKINGS</h1>
+                                    </div>
+                                    <div className={`px-2 pb-1 cursor-pointer ${page == 'wallet' && 'border-b-4 border-b-orange-400'}`} onClick={() => setPage('wallet')}>
+                                        <h1>WALLET</h1>
+                                    </div>
+                                </div>
+
+
+                                {page === 'profile' ? (
+                                    <ProfileDetails />
+                                ) : page === 'booking' ? (
+                                    <h1 className="p-4">Booking section</h1>
+                                ) : page === 'wallet' ? (
+                                    <h1>Wallet</h1>
+                                ) : null}
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+        </>
+    )
 }
 
 export default Profile

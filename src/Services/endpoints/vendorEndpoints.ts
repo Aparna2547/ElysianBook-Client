@@ -16,6 +16,8 @@ const parlourRoutes = {
 
     getParlourDetails:"/parlour/getParlourDetails",
 
+    editParlour :"/parlour/editParlour",
+
     categoriesToShow:"/parlour/categoriesToShow",
 
     addService:"/parlour/addService",
@@ -33,6 +35,8 @@ const parlourRoutes = {
     editVendorEmail:"/parlour/editVendorEmail",
 
     editVendorPassword :"/parlour/editVendorPassword",
+
+    emailChangeVerifyOtp : '/parlour/editVendorEmailOtp',
 
     vendorLogout : "/parlour/vendorLogout"
 }
