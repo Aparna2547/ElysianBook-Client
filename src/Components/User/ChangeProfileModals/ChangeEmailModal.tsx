@@ -7,10 +7,11 @@ import { logout } from '../../../Store/slice/authSlice';
 
 interface ModalProps {
   setEmailModal :(value:boolean) =>void 
+  emailProps:string
 }
 
-const ChangeEmailModal = ({setEmailModal}:ModalProps) => {
-  const [email,setEmail] = useState('')
+const ChangeEmailModal = ({setEmailModal,emailProps}:ModalProps) => {
+  const [email,setEmail] = useState(emailProps)
   const [otp,setOtp] = useState('')
   const [otpInput,setOtpInput] = useState(false)
   const dispatch = useDispatch()
@@ -19,9 +20,17 @@ const ChangeEmailModal = ({setEmailModal}:ModalProps) => {
     e.preventDefault()
 
     try {
-      // if(email.trim().length){
-      //   toast.error('Enter valid email')
-      // }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            console.log('hi')
+            toast.error("Enter valid email");
+            return;
+          }
+          if (emailProps.toLowerCase() === email.toLowerCase()) {
+            console.log('jj',emailProps.toLowerCase(),email.toLowerCase())
+            toast.error("This is the current email");
+            return;
+          }
 
       const res = await changeUserEmail(email)
       if(!res.data.data){
@@ -39,11 +48,16 @@ const ChangeEmailModal = ({setEmailModal}:ModalProps) => {
   const verifyOtp = async(e)=>{
     e.preventDefault()
     try{
+      if(otp.trim().length!==4){
+        toast.error("enter otp")
+      }
       const res = await changeUserEmailSave(otp)
       if(res.data.data){
         setEmailModal(false)
         toast.success("email changed successfully")
         dispatch(logout())
+      }else{
+        toast.error('wrong otp')
       }
     }catch(error){
       console.log(error)
@@ -119,6 +133,7 @@ const ChangeEmailModal = ({setEmailModal}:ModalProps) => {
           type="number"
           placeholder="Enter otp"
           value={otp}
+          name='otp'
           onChange={(e)=>setOtp(e.target.value)}
           className="px-4 py-3 bg-white text-[#333] w-full text-sm border-2 outline-[#007bff] rounded-lg"
         />

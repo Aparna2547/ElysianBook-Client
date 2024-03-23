@@ -26,6 +26,7 @@ const ProfileDetails = () => {
         password:''
     })
     
+    const [emailProps,setEmailProps] = useState('')
     const [nameModal,setNameModal] = useState(false)
     const [passwordModal,setPasswordModal] = useState(false)
     const [emailModal,setEmailModal] = useState(false)
@@ -38,6 +39,7 @@ const ProfileDetails = () => {
                 const res = await userprofile();
                 console.log(res)
                 setProfile(res.data.data)
+                setEmailProps(res.data.data.email)
             }catch(error){
                 console.log(error)
             }
@@ -96,7 +98,7 @@ const ProfileDetails = () => {
 
 
         {nameModal && <ChangeNameModal setNameModal={setNameModal} />}
-        {emailModal && <ChangeEmailModal setEmailModal={setEmailModal} />}
+        {emailModal && <ChangeEmailModal setEmailModal={setEmailModal} emailProps={emailProps} />}
         {passwordModal && <ChangePasswordModal setPasswordModal={setPasswordModal} />}
         {/* {imageModal && <ChangeImageModal setImageModal={setImageModal} />} */}
     </>

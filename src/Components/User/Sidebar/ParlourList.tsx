@@ -706,11 +706,13 @@ const ParlourList = () => {
                       {parlourDetails.map((parlour) => (
                         <div className="max-w-sm rounded overflow-hidden shadow-lg  cursor-pointer">
                           <Link to={`/parlourDetails/${parlour._id}`}>
+                            <div className="max-h-44 overflow-hidden">
                             <img
                               className="w-full"
                               src={parlour.banners[0]}
                               alt="Sunset in the mountains"
                             />
+                            </div>
                             <div className="px-6 py-4">
                               <div className="font-bold text-xl mb-1">
                                 {parlour.parlourName}

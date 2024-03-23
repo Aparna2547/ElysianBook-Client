@@ -2,9 +2,20 @@ import React, { useEffect, useState } from "react";
 import Home from "../../../Components/Admin/Sidebar/Sidebarcheck";
 import { allParlours } from "../../../Api/admin";
 import { Link } from "react-router-dom";
+import Pagination from "../../../Components/Admin/Pagination"
+
+
+type parlourType = {
+_id:string,
+name:string,
+email:string,
+parlourName:string,
+status:string,
+locality:string,
+}
 
 const Parlour = () => {
-  const [parlourDetails, setParlourDetails] = useState([]);
+  const [parlourDetails, setParlourDetails] = useState<parlourType[]>([]);
   const [searchTerm,setSearchTerm] = useState("")
   const [currentPage,setCurrentPage] = useState(1)
   const [totalPages,setTotalPages] = useState(0)
@@ -16,6 +27,7 @@ const Parlour = () => {
         const res = await allParlours(searchTerm,currentPage);
         setParlourDetails(res.data.data.showVendors);
         console.log("daks", res.data.data);
+        setTotalPages(res.data.data.totalPages)
       } catch (error) {
         console.error("Error fetching parlour details:", error);
       }
@@ -57,7 +69,6 @@ const Parlour = () => {
                   x="0px"
                   y="0px"
                   viewBox="0 0 56.966 56.966"
-                  style={{ enableBackground: "new 0 0 56.966 56.966" }}
                   xmlSpace="preserve"
                   width="512px"
                   height="512px"
@@ -149,7 +160,7 @@ const Parlour = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="4" className="text-center py-4">
+                      <td colSpan={4} className="text-center py-4">
                         No parlour data found.
                       </td>
                     </tr>
@@ -159,7 +170,7 @@ const Parlour = () => {
             </div>
 
             
-          <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+          {/* <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
         <div className="flex flex-1 justify-between sm:hidden">
           <a
             href="#"
@@ -227,7 +238,11 @@ const Parlour = () => {
             </nav>
           </div>
         </div>
-      </div>
+      </div> */}
+      <Pagination currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+            />
           </div>
         </div>
       </div>

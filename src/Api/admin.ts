@@ -10,7 +10,7 @@ export const login = async (email:string,password:string)=>{
         
     } catch (error) {
         console.log(error);
-        errorHandle(error)
+        errorHandle(error as Error)
         
     }
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import {useNavigate,Link} from 'react-router-dom'
 import Api from '../../Services/axios';
+import logo from '../../assets/logo.png'
 
 const Otp = () => {
     const [ otp,setOtp] = useState('')
@@ -33,7 +34,7 @@ const Otp = () => {
     e.preventDefault();
     setResendOtp(false)
     setSeconds(59)
-    const res = await Api.post("/user/signup",{otp})
+    const res = await Api.post("/user/resendotp",{otp})
     console.log(res);
     if(res.data.status){
       toast.success("Registration successfull. Please login")
@@ -47,7 +48,7 @@ const Otp = () => {
         e.preventDefault();
         try {
          if (otp.trim().length !== 4) {
-            toast.error("Enter password with minimum 6 characters");
+            toast.error("Enter otp with minimum 4 characters");
             return;
           }
   
@@ -80,13 +81,13 @@ const Otp = () => {
     />
     <div className="container mx-auto px-4 h-full">
       <div className="flex content-center items-center justify-center h-full">
-        <div className="w-full lg:w-4/12 px-4 pt-32">
+        <div className="w-full lg:w-5/12 px-4 pt-32">
           <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white bg-opacity-60 border-0">
             <div className="rounded-t mb-0 px-6 py-0">
-              <div className="text-center">
+              <div className="flex justify-between">
                       <img
-                        className="mx-auto w-48"
-                        src="src/assets/Colorful_Makeup_Artist_Logo-removebg-preview.png"
+                        className="mx-auto w-50 h-20"
+                        src={logo}
                         alt="logo"
                       />
                     </div>

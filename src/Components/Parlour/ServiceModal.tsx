@@ -41,6 +41,27 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      console.log(formData)
+      if(formData.serviceName.trim().length<3){
+        toast.error("Enter the name of service")
+        return
+      }else if(formData.category ==='select a catgory'){
+        toast.error('kdhk')
+        return 
+      }else if(formData.duration<=0){
+        toast.error("Enter the duration of the service")
+        return
+      }else if(formData.description.trim().length<5){
+        toast.error("Enter the description")
+        return 
+      } 
+      else if(formData.price <= 0){
+        toast.error("Enter the price of the service")
+        return
+      }else if (!formData.image[0]) {
+        toast.error("Select image");
+        return;
+      }
 
       const formDataToSend = new FormData();
       formDataToSend.append("serviceName", formData.serviceName);
@@ -123,19 +144,23 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
             </label>
             <br />
             <select
-              name="category"
-              className=" w-full mt-2 p-2 border border-gray-300 rounded"
-              value={formData.category}
-              onChange={handleCategoryChange}
-            >
-              <option value="" defaultValue={"select a category"}> select a category</option>
-              {categories &&
-                categories.map((category, index) => (
-                  <option key={index} value={category._id}>
-                    {category.catName}
-                  </option>
-                ))}
-            </select>
+  name="category"
+  className="w-full mt-2 p-2 border border-gray-300 rounded"
+  value={formData.category}
+  onChange={handleCategoryChange}
+>
+  <option value="">Select a category</option>
+  {categories &&
+    categories
+      // .filter(category => category.hide === 'true')
+      .map((category, index) => (
+        <option key={index} value={category._id}>
+          {category.catName}
+        </option>
+      ))}
+      
+</select>
+
             <br />
 
             <label
@@ -164,6 +189,7 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
                       <textarea
             cols={10}
             rows={5} 
+            
             id="description"
             name="description"
             onChange={(e) =>

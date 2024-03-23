@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ForgotPassword, verifyOtpForgotPassword } from "../../../Api/user";
 import Api from "../../../Services/axios";
+import Navbar from "../../../Components/User/NavBar/Navbar"
 import {
   vendorForgotPassword,
   vendorverifyOtpForgotPassword,
@@ -100,7 +101,11 @@ const Email = ({ user }: forgotPasswordInterface) => {
   };
 
   return (
-    <section className="absolute w-full top-0">
+    <div>
+      <div>
+    <Navbar />
+      </div>
+      <section className="absolute w-full top-0">
       <div
         className="absolute top-0 w-full h-full"
         style={{
@@ -114,7 +119,7 @@ const Email = ({ user }: forgotPasswordInterface) => {
       />
       <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
-          <div className="w-full lg:w-4/12 px-4 pt-32">
+          <div className="w-full lg:w-5/12 px-4 pt-32">
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-white bg-opacity-60 border-0">
               <div className="rounded-t mb-0 px-6 py-6">
                 <div className="text-center mb-3">
@@ -122,8 +127,9 @@ const Email = ({ user }: forgotPasswordInterface) => {
                     Forgot Password
                   </h6>
                 </div>
-                <div className="btn-wrapper text-center"></div>
-                <hr className="mt-6 border-b-1 border-gray-400" />
+                <div className="btn-wrapper text-center">
+
+                </div>
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <form>
@@ -200,6 +206,7 @@ const Email = ({ user }: forgotPasswordInterface) => {
         </div>
       </div>
     </section>
+    </div>
   );
 };
 

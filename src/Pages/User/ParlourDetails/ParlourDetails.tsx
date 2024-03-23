@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../../Components/User/NavBar/Navbar'
-import SinglePageComponent from '../../../Components/SinglePageParlour/SinglePageComponent'
+import SinglePageParlourDetails from '../../../Components/User/SinglePage/SinglePageParlourDetails'
 import {  singleParlourDetails } from "../../../Api/user";
 import {useParams} from "react-router-dom"
+import DatePicker from "../../../Components/User/DatePicker"
 
 
 const ParlourDetails = () => {
@@ -27,8 +28,11 @@ const ParlourDetails = () => {
     <>
        <Navbar/>
 
-    <div>
-       <SinglePageComponent ParlourDetails={parlourDetails} />
+    <div className='pt-20 px-4 lg:px-10  bg-pink-50' style={{overflowX:'hidden'}}>
+       <SinglePageParlourDetails ParlourDetails={parlourDetails} />
+       <div className='py-3'>
+       {/* <DatePicker/> */}
+       </div>
     </div>
     </>
   )

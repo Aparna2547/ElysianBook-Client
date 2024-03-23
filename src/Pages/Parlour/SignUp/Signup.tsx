@@ -71,21 +71,19 @@ const SignUp = () => {
       <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
         {/* <!-- Left column container with background--> */}
         <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
-          <div>
+
+          <div className='w-25 h-25 mt-0'>
           <img
             src={Image}
-            className="w-full"
+            className="mt-0"
             alt="Phone image"
+            style={{backgroundPosition:'cover'}}
           />
-        
-          </div>
-          <div>
-          <h1>Welcome Vendor</h1>
           </div>
         </div>
 
         {/* <!-- Right column container with form --> */}
-        <div className="md:w-8/12 lg:ml-6 lg:w-5/12 border border-grey  p-5">
+        <div className="md:w-8/12 lg:ml-6 lg:w-5/12 border border-grey  p-10">
           <form onSubmit={handleSubmit}>
           <input
               type="text"
@@ -125,7 +123,7 @@ const SignUp = () => {
 
 
             <button
-              className="bg-purple-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+              className="bg-purple-900 mt-5 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
               type="submit"
               style={{ transition: "all 0.15s ease 0s" }}
             >

@@ -99,7 +99,7 @@ const Login = () => {
                     type="submit"
                     style={{ transition: "all 0.15s ease 0s" }}
                   >
-                    Sign Up
+                    <h1>LOGIN</h1>
                   </button> 
     
                   {/* <!-- Divider --> */}

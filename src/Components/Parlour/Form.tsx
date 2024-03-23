@@ -185,7 +185,7 @@ const Form = () => {
       <form
         className="  border border-grey p-3 mt-10 "
         onSubmit={handleSubmit}
-        enctype="multipart/form-data"
+        encType="multipart/form-data"
       >
         <h1 className="text-center my-3 font-bold">Parlour Details</h1>
         <div className="flex flex-wrap -mx-3 mb-6">

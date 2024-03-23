@@ -3,7 +3,6 @@
     import { FaClock } from "react-icons/fa";
     import { VscActivateBreakpoints } from "react-icons/vsc";
 
-
     interface parlourProps{
         ParlourDetails:{
             parlourName:string,

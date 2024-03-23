@@ -8,11 +8,12 @@ import {changeEmailProfile, changeEmailVerifyOtp} from '../../Api/parlour'
 interface ModalProps {
     setEmailModal: (value: boolean) => void;
     user:boolean
+    emailProps:string
   }
 
-const ChangeEmailModal = ({setEmailModal,user}:ModalProps) => {
+const ChangeEmailModal = ({setEmailModal,user,emailProps}:ModalProps) => {
 
-    const [email,setEmail] = useState('')
+    const [email,setEmail] = useState(emailProps)
     const [otp,setOtp] = useState('')
     const [otpInput,setOtpInput] = useState(false)
     const navigate = useNavigate();
@@ -22,11 +23,17 @@ const ChangeEmailModal = ({setEmailModal,user}:ModalProps) => {
         e.preventDefault()
 
         try{
-            // if(email.trim().length!==0){
-            //     toast.error('eter valid email')
-            //     return
-            // }
-
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            console.log('hi')
+            toast.error("Enter valid email");
+            return;
+          }
+          if (emailProps.toLowerCase() === email.toLowerCase()) {
+            console.log('jj',emailProps.toLowerCase(),email.toLowerCase())
+            toast.error("This is the current email");
+            return;
+          }
             if(!user){
                 const res = await changeEmailProfile(email)
                 if(!res.data.data){
@@ -44,7 +51,9 @@ const ChangeEmailModal = ({setEmailModal,user}:ModalProps) => {
     const verifyOtp = async (e)=>{
         try{
         e.preventDefault()
-
+          if(otp.trim().length!==4){
+            toast.error('Enter valid otp')
+          }
             const res = await changeEmailVerifyOtp(otp)
             console.log(res)
             if(res.data.data){
@@ -106,6 +115,7 @@ const ChangeEmailModal = ({setEmailModal,user}:ModalProps) => {
                     type="number"
                     id="form3"
                     value={otp}
+                    name='otp'
                     onChange={(e)=>setOtp(e.target.value)}
                     className="peer h-full w-full  border border-white border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal  !text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-white focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50  bg-white rounded shadow focus:outline-none focus:shadow-outline"
                     placeholder=" "

@@ -215,70 +215,71 @@ const Services = () => {
                 </tr>
               </thead>
               {services ? (
-                <tbody>
-                  {services.map((service, index) => (
-                    <tr className="bg-white" key={service._id}>
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                      >
-                        <div className="relative h-10 w-10">
-                          <img
-                            className="h-full w-full rounded-full object-cover object-center"
-                            src={service.image}
-                            alt="image"
-                          />
-                        </div>
-                      </th>
-                      <td className="px-6 py-4 text-gray-800">
-                        {service.serviceName}
-                      </td>
-                      <td className="px-6 py-4  text-gray-800">
-                        {service.category.catName}
-                      </td>
-                      <td className="px-6 py-4  text-gray-800">
-                        {service.duration}
-                      </td>
-                      <td className="px-6 py-4  text-gray-800">
-                        ₹{service.price}
-                      </td>
-                      <td className="px-6 py-4  text-gray-800">
-                        {service.isListed ? (
-                          <button
-                            onClick={() => handleModal(service._id)}
-                            className="border border-green-600 text-green-600 px-4 font-bold"
-                          >
-                            list
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => handleModal(service._id)}
-                            className="border border-red-600 text-red-600 px-3 font-bold"
-                          >
-                            Unlist
-                          </button>
-                        )}
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        <button
-                          onClick={() => handleEdit(index)}
-                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                        >
-                          <FaEdit />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              ) : (
-                <tbody>
-                  <tr>
-                    <h1 className="text-center text-red-500">
-                      No data available
-                    </h1>
-                  </tr>
-                </tbody>
-              )}
+  <tbody>
+    {services.map((service, index) => (
+      <tr className="bg-white" key={service._id}>
+        <th
+          scope="row"
+          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+        >
+          <div className="relative h-10 w-10">
+            <img
+              className="h-full w-full rounded-full object-cover object-center"
+              src={service.image}
+              alt="image"
+            />
+          </div>
+        </th>
+        <td className="px-6 py-4 text-gray-800">
+          {service.serviceName}
+        </td>
+        <td className="px-6 py-4  text-gray-800">
+          {service.category ? service.category.catName : 'N/A'}
+        </td>
+        <td className="px-6 py-4  text-gray-800">
+          {service.duration}
+        </td>
+        <td className="px-6 py-4  text-gray-800">
+          ₹{service.price}
+        </td>
+        <td className="px-6 py-4  text-gray-800">
+          {service.isListed ? (
+            <button
+              onClick={() => handleModal(service._id)}
+              className="border border-green-600 text-green-600 px-4 font-bold"
+            >
+              list
+            </button>
+          ) : (
+            <button
+              onClick={() => handleModal(service._id)}
+              className="border border-red-600 text-red-600 px-3 font-bold"
+            >
+              Unlist
+            </button>
+          )}
+        </td>
+        <td className="px-6 py-4 text-right">
+          <button
+            onClick={() => handleEdit(index)}
+            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          >
+            <FaEdit />
+          </button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+) : (
+  <tbody>
+    <tr>
+      <h1 className="text-center text-red-500">
+        No data available
+      </h1>
+    </tr>
+  </tbody>
+)}
+
             </table>
           </div>
           <div className="flex justify-end">
