@@ -30,6 +30,12 @@ const userRoutes={
 
     changeProfilePicture:"/user/changeProfilePicture",
 
+    getAllCategories:"/user/getAllCategories",
+
+    getAllServices:"/user/getServices",
+    
+    bookingServices:"/user/bookingServices",
+
     userLogout :"/user/logout"
 
 }

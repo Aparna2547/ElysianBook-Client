@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
+
 }
 
 /* :root {

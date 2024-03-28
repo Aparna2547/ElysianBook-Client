@@ -29,10 +29,11 @@ const ParlourDetails = () => {
        <Navbar/>
 
     <div className='pt-20 px-4 lg:px-10  bg-pink-50' style={{overflowX:'hidden'}}>
+    {/* <div className='py-3'>
+       <DatePicker/>
+       </div> */}
        <SinglePageParlourDetails ParlourDetails={parlourDetails} />
-       <div className='py-3'>
-       {/* <DatePicker/> */}
-       </div>
+      
     </div>
     </>
   )

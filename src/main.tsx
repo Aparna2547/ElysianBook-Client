@@ -6,6 +6,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import store from './Store/Store.ts'
 import {Provider} from 'react-redux'
 
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store} >
   <React.StrictMode>

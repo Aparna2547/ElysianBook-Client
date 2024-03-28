@@ -6,10 +6,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdminRoutes from "./Routes/AdminRoutes";
 
+
+
 function App() {
   return (
     <>
     <ToastContainer />
+    
       <Router>
         <Routes>
           <Route path="/*" element={<UserRoutes />} />
