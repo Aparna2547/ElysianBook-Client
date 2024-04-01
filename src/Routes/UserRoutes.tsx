@@ -13,6 +13,7 @@ import UserProtect from '../Components/User/UserProtect'
 import ParlourDetails from '../Pages/User/ParlourDetails/ParlourDetails'
 import Profile from '../Pages/User/Profile/Profile'
 import EditProfile from '../Pages/User/Profile/EditProfile'
+import BookingSuccess from '../Components/User/BookingSuccess'
 
 
 
@@ -35,6 +36,7 @@ const UserRoutes = () => {
 <Route path = 'profilePage' element={<Profile/>} />
 <Route path='profile' element={<Profile/>} />
 <Route path='EditProfile' element={<EditProfile/>} />
+<Route path='bookingSuccessful' element={<BookingSuccess/>} />
 </Route>
     
 

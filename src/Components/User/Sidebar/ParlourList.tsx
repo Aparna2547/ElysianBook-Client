@@ -717,7 +717,7 @@ const ParlourList = () => {
                               <div className="font-bold text-xl mb-1">
                                 {parlour.parlourName}
                               </div>
-                              <p className="text-gray-700 text-base">
+                              <p className="text-gray-700 text-sm">
                                 {parlour.landmark},{parlour.locality} <br />
                                 Hours: Open ⋅{parlour.openingTime} Closes{" "}
                                 {parlour.closingTime} <br />

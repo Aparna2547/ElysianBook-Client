@@ -34,7 +34,9 @@ const userRoutes={
 
     getAllServices:"/user/getServices",
     
-    bookingServices:"/user/bookingServices",
+    proceedForPayment:"/user/proceedForPayment",
+
+    allUserBookings:"/user/allUserBooking",
 
     userLogout :"/user/logout"
 

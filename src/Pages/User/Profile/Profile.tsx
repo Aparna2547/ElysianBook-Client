@@ -1,6 +1,7 @@
 import { useState } from "react"
 import ProfileDetails from "../../../Components/User/ProfileDetails"
 import Navbar from "../../../Components/User/NavBar/Navbar"
+import BookingHistory from "../Booking/BookingHistory"
 
 const Profile = () => {
 
@@ -83,7 +84,7 @@ const Profile = () => {
                                 {page === 'profile' ? (
                                     <ProfileDetails />
                                 ) : page === 'booking' ? (
-                                    <h1 className="p-4">Booking section</h1>
+                                   <BookingHistory/>
                                 ) : page === 'wallet' ? (
                                     <h1>Wallet</h1>
                                 ) : null}

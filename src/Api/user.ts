@@ -7,7 +7,17 @@ import errorHandle from "../Api/errorHandle";
 interface Services{
   serviceName:string,
   price:number,
-  duration:number
+  duration:number,
+  category:string,
+}
+
+interface BookingDetails{
+date:string,
+startingTime:string,
+endingTime:string,
+totalDuration:number,
+totalPrice:number,
+services:Services[]
 }
 
 export const signup = async (name: string, email: string, password: string) => {
@@ -192,12 +202,22 @@ export const getAllServices = async (id: string) => {
 
 
 //booking
-export const bookingServices = async (services:Services[],id:string) =>{
+export const proceedForPayment = async (bookingDetails:BookingDetails,id:string) =>{
   try{
-    const res = await Api.post(`${UserRoutes.bookingServices}?id=${id}&services=${services}}`)
+    const res = await Api.post(`${UserRoutes.proceedForPayment}?id=${id}`,{bookingDetails})
     return res
   }catch(error){
     errorHandle(error as Error)
+  }
+}
+
+//showing bookingsin user side
+export const allUserBookings = async (page:number) =>{
+  try{
+    const res = await Api.get(`${UserRoutes.allUserBookings}?page=${page}`)
+    return res
+  }catch(error){
+    console.log(error)
   }
 }
 

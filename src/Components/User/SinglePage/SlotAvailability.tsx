@@ -31,8 +31,8 @@ endDate.setDate(today.getDate()+7)
             />
             <div  className='mt-2 w-full'>
                 <input type="time" className='w-full' 
-                value={bookingDetails.startTime}
-                onChange={(e)=>setBookingDetails({...bookingDetails,startTime:e.target.value})}
+                value={bookingDetails.startingTime}
+                onChange={(e)=>setBookingDetails({...bookingDetails,startingTime:e.target.value})}
                  />
             </div>
         </div>

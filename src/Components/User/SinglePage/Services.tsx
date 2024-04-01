@@ -3,9 +3,10 @@ import { useParams } from "react-router-dom";
 import palour1 from "../../../assets/palour1.jpeg";
 import { FaClock } from "react-icons/fa";
 import Scrollbar from "../SinglePage/Scrollbar";
-import { getAllServices, bookingServices } from "../../../Api/user";
+import { getAllServices, proceedForPayment } from "../../../Api/user";
 import { IoCloseSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
+import {loadStripe} from "@stripe/stripe-js"
 
 interface bookingProps {
   bookingDetails: object;
@@ -24,6 +25,9 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
   const { id } = useParams();
   const [categorySelected, setCategorySelected] = useState([]);
   const [selectedServices, setSelectedServices] = useState([]);
+
+
+
   useEffect(() => {
     const fetchServices = async () => {
       const res = await getAllServices(id as string);
@@ -45,7 +49,7 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
     );
     // console.log('isalready',isAlreadySelected,service.id)
     if (!isAlreadySelected) {
-      if (!bookingDetails.startTime) {
+      if (!bookingDetails.startingTime) {
         return toast.error("Please select date and time");
       }
 
@@ -66,7 +70,7 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
       );
 
       const endingTime = calculateEndingTime(
-        bookingDetails.startTime,
+        bookingDetails.startingTime,
         totalTime
       );
 
@@ -124,12 +128,28 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
   };
   const { totalTime, totalPrice } = calculateTotal();
 
+
+
+
+
   //booking services
   const handleBooking = async () => {
     console.log("services", bookingDetails);
-    console.log(id);
-    const response = await bookingServices(bookingDetails);
+    // const date = new Date(bookingDetails.date).toISOString()
+    // const newDate = new Date(date)
+    // newDate.setHours(0,0,0,0)
+    // console.log('string',newDate)
+    const stripe = await loadStripe("pk_test_51OzZPkSAPPq3vrauWeZc5vQeWbax9qRxdlBMpnuOB4s7LpFBtzf2vDRwl8H6ho9oOXQkD48Gl3iqm0gpbHdyZc2600teCQntzP")
+    console.log('stripe',stripe);
+    
+     
+    const response = await proceedForPayment(bookingDetails,id);
     console.log(response);
+    let sessionId = response.data
+     
+    const result = stripe?.redirectToCheckout({
+      sessionId:sessionId
+    })
   };
 
   return (
@@ -168,7 +188,7 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
                   <div className="block text-sm">{service.description}</div>
                   <div className="flex mt-2">
                     <button
-                      className="w-full bg-blue-700 text-white font -bold"
+                      className="w-full bg-pink-800 text-white font -bold"
                       onClick={() => handleSelectedServices(service)}
                     >
                       SELECT
@@ -183,6 +203,18 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
         <div className=" lg:w-2/6 w-full m-1 border border-gray-300 bg-red-200 rounded-lg">
           {/* <h1 className="text-center mt-3 text-xl font-bold mb-3"></h1> */}
           <div className="p-2 w-full">
+
+                <div>
+                  <div>
+                    selected date
+                  </div>
+                  <div>
+                    Starting time
+                  </div>
+                  <div>
+                    Ending Time :
+                  </div>
+                </div>
             <h1>Selected Services</h1>
             <div className="w-full">
               {/* <tr className="flex justify-between">
@@ -191,7 +223,7 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
               </tr> */}
               <hr className="border-b border-gray-800 w-full mb-3" />
               {selectedServices.map((service, index) => (
-                <div className="border flex border-gray-100 px-2 shadow-md bg-white mt-1 w-full">
+                <div className="border flex border-gray-100 p-2  font-bold  mt-1 shadow-lg rounded-full bg-white  w-full">
                   <div className="text-sm w-3/4">{service.serviceName}</div>
                   <div className="text-sm w-1/4">{service.price}/-</div>
                   <button className="mt-1" onClick={() => handleDelete(index)}>
@@ -203,15 +235,15 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
                 <div>
                   <div className="flex justify-between">
                     <p>Total time required:</p>
-                    {totalTime}
+                    {totalTime} Mins
                   </div>
                   <div className="flex justify-between">
                     <p>Total Price:</p>
-                    {totalPrice}
+                    ₹   {totalPrice}
                   </div>
                 </div>
                 <button
-                  className="bg-blue-900 px-3 w-full font-bold  text-white"
+                  className="bg-red-900 px-3 w-full font-bold mt-2 text-white"
                   onClick={handleBooking}
                 >
                   BOOK
