@@ -38,6 +38,8 @@ const parlourRoutes = {
 
     emailChangeVerifyOtp : '/parlour/editVendorEmailOtp',
 
+    allBookings:"/parlour/allBookings",
+
     vendorLogout : "/parlour/vendorLogout"
 }
 

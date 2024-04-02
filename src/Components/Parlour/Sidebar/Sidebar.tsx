@@ -18,7 +18,7 @@ const Sidebar = () => {
     { title: "Dashboard", src: <MdDashboard/>,link:"/parlour/dashboard", gap: true },
     { title: "Parlour", src: <GiShop/> ,link:"/parlour/parlourdetails", gap: true},
     { title: "Services", src:<MdCleaningServices/>,link:"/parlour/services", gap: true },
-    { title: "Booking ", src: <FaRegCalendarAlt/> ,link:"/parlour/booking",gap: true },
+    { title: "Booking ", src: <FaRegCalendarAlt/> ,link:"/parlour/bookings",gap: true },
     { title: "Profile ", src: <FaRegCalendarAlt/> ,link:"/parlour/vendorprofile",gap: true },
     
   ];

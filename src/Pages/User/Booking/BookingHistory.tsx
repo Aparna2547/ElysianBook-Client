@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import ViewBooking from "../../../Components/User/ViewBooking"
 import { FaArrowRight } from "react-icons/fa";
 import {allUserBookings } from '../../../Api/user'
+import CancelModal from '../../../Components/User/CancelModal';
 
 type bookingDetails ={
     _id:string;
@@ -16,7 +17,8 @@ type bookingDetails ={
     };
     userId:{
         name:string
-    }
+    },
+    cancelReason:string
     
 }
 
@@ -25,21 +27,35 @@ const BookingHistory = () => {
     const [bookings,setBookings] =  useState<bookingDetails[]>([])
     const [currentPage,setCurrentPage] = useState(1)
     const [totalPages,setTotalPages] = useState(0)
+    const [selectedBookingId,setSelectedBookingId] = useState('')
+
+    const [cancelModal,setCancelModal] = useState(false)
 
     useEffect(()=>{
         const fetchBookings  = async () =>{
             const res = await allUserBookings(currentPage)
             console.log(res.data.data)
-            setBookings(res.data.data)
+            setBookings(res.data.data.bookingDetails)
+            setTotalPages(res.data.data.totalPages)
         } 
         fetchBookings()
-    },[])
+    },[cancelModal,currentPage])
+
+
+    const handleCancelClick = (bookingId:string) => {
+      console.log('bookingId',bookingId)
+      setSelectedBookingId(bookingId);
+      setCancelModal(true);
+  };
+
+
   return (
     <>
     <div className='block w-full '>
         { bookings.map((booking)=>(
  <div className='border border-gray-400 mt-3 p-3 mx-10'>
- <h1 className='text-sm mb-1'>orderid :{`ORD${booking._id}`}</h1>
+ <h1 className='text-sm mb-1'>orderId : <b>  {`ORD${booking._id}`}</b>
+</h1>
  <div className='flex gap-10 justify-between'>
     <div className='flex'>
     <div className='me-3'>
@@ -48,10 +64,16 @@ const BookingHistory = () => {
      <div className='block mx-4'>
      <h1 className='text-md font-bold'>{booking.parlourId.parlourName}</h1>
      <h1 className='text-sm'>{booking.parlourId.locality}</h1>
-     <div className='flex mt-2'>
-        <button className='bg-red-600 px-2 py-1 rounded font-bold text-xs text-white'>Cancel</button>
-
-     </div>
+     {booking.status!=='cancelled' ?
+  <div className='flex mt-2'>
+  <button className='bg-red-600 px-2 py-1 rounded font-bold text-xs text-white' onClick={() => handleCancelClick(booking._id)}>Cancel</button>
+</div>:
+  <div className=' mt-2'>
+  <div className='bg-red-600 px-2 py-1 w-20 rounded font-bold text-xs text-white'>Cancelled</div>
+  <div className='flex' >Reason: {booking.cancelReason} </div>
+</div>
+     }
+   
      </div>
     </div>
      <div className='ms-2'>
@@ -71,7 +93,8 @@ const BookingHistory = () => {
      </div>
      </div>
  </div>
- <button className='flex justify-between font-bold text-sm' onClick={()=>setModal(true)}>view services<FaArrowRight className='mt-2 ms-2 text-sm'/></button>
+ 
+ <button className='flex justify-between font-bold text-sm' >view services<FaArrowRight className='mt-2 ms-2 text-sm'/></button>
 </div>
         ))}
 
@@ -124,7 +147,7 @@ const BookingHistory = () => {
                 </p>
                 <button
                   onClick={() => setCurrentPage(currentPage + 1)}
-                  disabled={totalPages + 1 == currentPage}
+                  disabled={totalPages == currentPage}
                   className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
                 >
                   <span className="sr-only">Next</span>
@@ -147,6 +170,7 @@ const BookingHistory = () => {
         </div>
        
     </div>
+    {cancelModal &&<CancelModal  setCancelModal={setCancelModal}  bookingId={selectedBookingId}/>}
 
     {modal && <ViewBooking setModal={setModal} />} 
 

@@ -254,6 +254,16 @@ export const changeEmailVerifyOtp = async(otp:string)=>{
     }
 }
 
+export const allBookings = async (page:number) =>{
+ try{
+  const res = await Api.get(`${parlourRoutes.allBookings}?page=${page}`)
+  return res
+ }catch(error){
+  console.log(error)
+  errorHandle(error as Error)
+ }
+}
+
 
 export const vendorLogout = async () => {
   try {

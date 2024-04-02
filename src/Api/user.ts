@@ -221,6 +221,26 @@ export const allUserBookings = async (page:number) =>{
   }
 }
 
+export const cancelBooking = async (bookingId:string,reason:string) =>{
+  try{
+    const res = await Api.post(`${UserRoutes.cancelBooking}?bookingId=${bookingId}`,{reason})
+    return res
+  }catch(error){
+    console.log(error)
+    errorHandle(error as Error)
+  }
+}
+
+export const bookedSlots = async (parlourId:string,date:string) =>{
+  try{
+
+    const res = await Api.get(`${UserRoutes.bookedSlots}?parlourId=${parlourId}&date=${date}`)
+    return res
+  }catch(error){
+    errorHandle(error as Error)
+  }
+}
+
 export const userLogout = async () => {
   try {
     const res = await Api.post(UserRoutes.userLogout);
@@ -229,3 +249,5 @@ export const userLogout = async () => {
     console.log(error);
   }
 };
+
+

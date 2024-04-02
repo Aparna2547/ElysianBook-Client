@@ -33,10 +33,16 @@ const userRoutes={
     getAllCategories:"/user/getAllCategories",
 
     getAllServices:"/user/getServices",
+
+    bookedSlots:"/user/bookedSlots",
     
     proceedForPayment:"/user/proceedForPayment",
 
     allUserBookings:"/user/allUserBooking",
+
+    cancelBooking:"/user/cancelBooking",
+
+
 
     userLogout :"/user/logout"
 
