@@ -42,6 +42,13 @@ const userRoutes={
 
     cancelBooking:"/user/cancelBooking",
 
+    newConversation:"/chat/newConversation",
+
+
+    getMessages:"/chat/getMessages",
+
+    newMessage:"/chat/newMessage",
+
 
 
     userLogout :"/user/logout"

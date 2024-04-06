@@ -7,7 +7,7 @@ import {  parlourLogin } from '../../../Api/parlour';
 import GoogleAuthSignUp from '../../../Components/User/GoogleAuthSignUp';
 import logo from "../../../assets/logo.png"
 import { useDispatch } from 'react-redux';
-import { setParlourCredentials } from '../../../Store/slice/authSlice';
+import { setParlourCredentials ,setParlourId} from '../../../Store/slice/authSlice';
 
 const Login = () => {
     
@@ -35,6 +35,7 @@ const Login = () => {
         console.log(res);
         if (res.data.success) {
           dispatch(setParlourCredentials(res.data.token))
+          dispatch(setParlourId(res.data.vendorId))
           toast.success("Signed in...");
           console.log("Navigating to '/'...");
           navigate('/parlour/dashboard')

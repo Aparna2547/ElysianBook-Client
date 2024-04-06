@@ -241,6 +241,39 @@ export const bookedSlots = async (parlourId:string,date:string) =>{
   }
 }
 
+
+export const newConversation = async (parlourId:string) =>{
+  try{
+   const res = await Api.post(`${UserRoutes.newConversation}?parlourId=${parlourId}`)
+   return res
+  }catch(error){
+    console.log(error)
+  }
+}
+
+
+
+export const getMessages = async(conversationId:string)=>{
+  try {
+      const res = await Api.get(`${UserRoutes.getMessages}?conversationId=${conversationId}`)
+      return res
+  } catch (error) {
+      console.log(error)
+  }
+}
+
+//get all messages
+export const newMessage = async(text:string,conversationId:string,senderId:string)=>{
+  try {
+      const res = await Api.post(UserRoutes.newMessage,{text,conversationId,senderId})
+      return res
+  } catch (error) {
+      console.log(error)
+  }
+}
+
+
+
 export const userLogout = async () => {
   try {
     const res = await Api.post(UserRoutes.userLogout);

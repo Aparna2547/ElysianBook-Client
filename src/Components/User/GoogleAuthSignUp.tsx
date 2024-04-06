@@ -6,7 +6,7 @@ import { gsignup, userLogin } from "../../Api/user";
 import {gParlourSignup,parlourLogin} from "../../Api/parlour"
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { setCredentials, setParlourCredentials } from "../../Store/slice/authSlice";
+import { setCredentials, setParlourCredentials ,setUserId,setParlourId} from "../../Store/slice/authSlice";
 
 interface googleAuthProps {
   login: boolean;
@@ -48,6 +48,7 @@ const GoogleAuthSignUp = ({ login ,user}: googleAuthProps) => {
           }else{
               toast.success("logged in successfully")
               dispatch(setCredentials(response.data.token))
+              dispatch(setUserId(response.data.userId))
               navigate('/')
           }
       }
@@ -74,6 +75,7 @@ const GoogleAuthSignUp = ({ login ,user}: googleAuthProps) => {
           }else{
               toast.success("logged in successfully")
               dispatch(setParlourCredentials(response.data.token))
+              dispatch(setParlourId(response.data.parlourId))
               navigate('/parlour/dashboard')
           }
       }

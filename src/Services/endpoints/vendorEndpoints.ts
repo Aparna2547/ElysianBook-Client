@@ -40,6 +40,10 @@ const parlourRoutes = {
 
     allBookings:"/parlour/allBookings",
 
+    getConversations:'/chat/getConversation',
+
+    findUserById :'/chat/findUserById',
+
     vendorLogout : "/parlour/vendorLogout"
 }
 

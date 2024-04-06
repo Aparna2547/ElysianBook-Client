@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {useParams} from "react-router-dom"
-import { FaLocationPinLock } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
 import { VscActivateBreakpoints } from "react-icons/vsc";
 import { FaLocationArrow } from "react-icons/fa";
 import Services from "../SinglePage/Services"
 import SlotAvailability from "../SinglePage/SlotAvailability"
+import { FaCommentAlt } from "react-icons/fa";
+import {Link} from "react-router-dom"
+import Chat from "../../../Pages/User/Chat/Chat"
+import {newConversation} from "../../../Api/user"
 
 
 import "./SinglePage.css";
@@ -25,12 +28,66 @@ interface parlourProps {
   };
 }
 
+
+
+
 const SinglePageParlourDetails = ({ ParlourDetails }: parlourProps) => {
   const [page, setpage] = useState("services");
   const [bookingDetails,setBookingDetails] = useState({})
+  const [isBlinking,setIsBlinking] = useState(false)
+  const [chatBox,setChatBox] = useState(false)
+  const [conversationId,setConversationId] = useState('')
 
+
+  useEffect(()=>{
+    const handleScroll = async () =>{
+      const shouldBlink =  window.screenY>200
+      setIsBlinking(shouldBlink)
+
+    }
+    window.addEventListener('scroll',handleScroll)
+    return () =>{
+      window.removeEventListener('scroll',handleScroll)
+    }
+  })
 
   const {id} = useParams()
+
+   
+  // Function to convert time to 12-hour format
+  function convertTo12HourFormat(hour: string): string {
+    // Check if hour is a string and contains a colon
+    if (typeof hour !== 'string' || !hour.includes(':')) {
+        // Handle the error, e.g., return a default value or throw an error
+        console.error('Invalid hour format:', hour);
+        return 'Invalid Time'; // Default return value
+    }
+
+    let hourInt = parseInt(hour.split(":")[0]);
+    let minute = hour.split(":")[1];
+
+    // If the hour is less than 12, it remains the same
+    if (hourInt < 12) {
+        return hour + " AM";
+    }
+    // If the hour is 12, it remains 12 PM
+    else if (hourInt === 12) {
+        return "12:" + minute + " PM";
+    }
+    // For hours greater than 12, subtract 12 to convert to 12-hour format
+    else {
+        return (hourInt - 12) + ":" + minute + " PM";
+    }
+}
+
+
+const handleConversation =async () =>{
+  setChatBox(true)
+  const response  = await newConversation(id as string)
+  console.log('dfji',response)
+  setConversationId(response.data.data._id)
+
+}
  
   return (
     <>
@@ -110,7 +167,8 @@ const SinglePageParlourDetails = ({ ParlourDetails }: parlourProps) => {
                     href="#"
                     className="text-indigo-600  ms-2 font-medium hover:text-gray-900 transition duration-500 ease-in-out"
                   >
-                    {ParlourDetails.closingTime}
+                    {convertTo12HourFormat(ParlourDetails.closingTime)}
+                    {/* {ParlourDetails.closingTime} */}
                   </a>
                 </h2>
               </div>
@@ -168,7 +226,8 @@ const SinglePageParlourDetails = ({ ParlourDetails }: parlourProps) => {
           {page === "services" ? (
             <>     
             <div  className=" bg-white text-black shadow-lg   w-full lg:my-3">
-              <SlotAvailability  bookingDetails={bookingDetails} setBookingDetails={setBookingDetails} />
+              <h1 className="text-start ms-3 mt-2 text-lg">Select you date and time</h1>
+              <SlotAvailability  bookingDetails={bookingDetails} setBookingDetails={setBookingDetails} convertTo12HourFormat={convertTo12HourFormat}/>
             </div>
             <Services bookingDetails={bookingDetails} setBookingDetails={setBookingDetails} />
             </>
@@ -181,6 +240,31 @@ const SinglePageParlourDetails = ({ ParlourDetails }: parlourProps) => {
         </div>
       </div>
      
+      {/* Chat icon */}
+      <div className="bg-gray-400 w-40">
+      <div
+      className="mb-10 me-6"
+      style={{
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        animation: isBlinking ? 'blink 1s infinite' : 'none',
+      }}
+    >
+      {/* <Link to={'/chat'}>  */}
+      {chatBox?
+      <Chat setChatBox={setChatBox} conversationId = {conversationId} parlourId={id}/>
+      :
+      <div className="p-3 bg-black flex justify-center items-center rounded-full">
+      <FaCommentAlt size={20}  onClick={handleConversation} className="cursor-pointer text-white" />
+      </div>
+      }
+      {/* </Link> */}
+      
+    </div>
+    </div>
+
+    
     </>
   );
 };

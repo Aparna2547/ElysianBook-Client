@@ -14,6 +14,9 @@ import ParlourDetails from '../Pages/User/ParlourDetails/ParlourDetails'
 import Profile from '../Pages/User/Profile/Profile'
 import EditProfile from '../Pages/User/Profile/EditProfile'
 import BookingSuccess from '../Components/User/BookingSuccess'
+import BookingHistory from "../Pages/User/Booking/BookingHistory"
+import Chat from "../Pages/User/Chat/Chat"
+
 
 
 
@@ -37,7 +40,10 @@ const UserRoutes = () => {
 <Route path='profile' element={<Profile/>} />
 <Route path='EditProfile' element={<EditProfile/>} />
 <Route path='bookingSuccessful' element={<BookingSuccess/>} />
-</Route>
+<Route path="viewBookings" element ={<BookingHistory/>} />
+<Route path='chat' element={<Chat/>}/>
+
+</Route>  
     
 
 </Routes>

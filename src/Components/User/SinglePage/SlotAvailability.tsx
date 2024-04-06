@@ -5,12 +5,20 @@ import 'react-calendar/dist/Calendar.css';
 import {bookedSlots} from "../../../Api/user"
 
 interface bookingProps{
-  bookingDetails:object;
-  setBookingDetails:(data:object)=>void;
+  bookingDetails:{
+    date:string,
+    startingTime:number,
+    closingTime:number,
+    seatNo:number,
 
+  }
+  setBookingDetails:(data:object)=>void;
+  convertTo12HourFormat:()=>void
 }
 
-const SlotAvailability = ({bookingDetails,setBookingDetails}:bookingProps) => {
+
+
+const SlotAvailability = ({bookingDetails,setBookingDetails,convertTo12HourFormat}:bookingProps) => {
   const [date,setDate] = useState()
   const [time,setTime] =useState()
   const [slots,setSlots] = useState([])
@@ -42,6 +50,7 @@ const SlotAvailability = ({bookingDetails,setBookingDetails}:bookingProps) => {
   }, [id, bookingDetails.date]);
   
 
+
 // Subtract one day from today's date to get yesterday's date
 const startDate = new Date(today);
 startDate.setDate(today.getDate() + 1);
@@ -61,22 +70,28 @@ endDate.setDate(today.getDate()+7)
                 <input type="time" className='w-full' 
                 value={bookingDetails.startingTime}
                 onChange={(e)=>setBookingDetails({...bookingDetails,startingTime:e.target.value})}
+                min={bookingDetails.startingTime}
+                max={bookingDetails.closingTime}
+
                  />
             </div>
         </div>
         <div   className='block'>
-            <h1 className='text-center font-bold'>Booked slots</h1>
+            <h1 className='text-center font-bold '>Booked slots</h1>
             <div className='mx-5 flex gap-10 p-5 flex-wrap text-center'>
-          {slots.map((slot, index) => (
+              
+          {slots.length>0 ? slots.map((slot, index) => (
             <div key={index} className='block '>
               <h1 className=''>Seat {slot.seatNo}</h1>
-              {slot.bookings.map((booking, bookingIndex) => (
-                <p key={bookingIndex} className='text-xs text-nowrap mt-1 bg-gray-700 text-white p-1 rounded'>
-                 {booking.startingTime} - {booking.endingTime}
+              {slot.bookings.reverse().map((booking, bookingIndex) => (
+                <p key={bookingIndex} className='text-xs text-nowrap mt-1 bg-gray-500 text-white p-1 rounded'>
+                 {convertTo12HourFormat(booking.startingTime)} - {convertTo12HourFormat(booking.endingTime)}
                 </p>
               ))}
             </div>
-          ))}
+          )):
+          <div>No Booked slots</div>
+          }
         </div>
 
 

@@ -15,6 +15,7 @@ import Profile from "../Pages/Parlour/Profile/Profile";
 import EditProfile from "../Pages/Parlour/Profile/EditProfile";
 import ChangeEmailVerifyOtp from "../Components/Parlour/Otp/ChangeEmailVerifyOtp"
 import Bookings from "../Pages/Parlour/Bookings/Bookings";
+import ParlourChat from "../Pages/Parlour/Chat/ParlourChat"
 
 const VendorRoutes = () => {
   return (
@@ -27,6 +28,7 @@ const VendorRoutes = () => {
         <Route path="changePassword" element={<PasswordChange  user={false}/>} />
       </Route>
       <Route path="verifyOtp" element={<Otp />} />
+      <Route path="parlourChat" element={<ParlourChat/>} />
 
       <Route path="" element={<ParlourProtect />}>
         <Route path="dashboard" element={<Dashboard />} />

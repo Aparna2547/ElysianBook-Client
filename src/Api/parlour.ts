@@ -265,6 +265,29 @@ export const allBookings = async (page:number) =>{
 }
 
 
+
+//get all conversations
+export const getParlourConversations = async (parlourId: string) => {
+  try {
+    const res = await Api.get(`${parlourRoutes.getConversations}?parlourId=${parlourId}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+    errorHandle(error as Error);
+  }
+};
+
+
+export const findUserById = async (userId:string) =>{
+  try{
+    const res = await Api.get(`${parlourRoutes.findUserById}?userId=${userId}`)
+    return res
+  }catch(error){
+    errorHandle(error as Error)
+  }
+}
+
+
 export const vendorLogout = async () => {
   try {
     const res = await Api.post(parlourRoutes.vendorLogout);

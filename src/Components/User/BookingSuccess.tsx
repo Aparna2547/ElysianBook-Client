@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from "../User/NavBar/Navbar"
 // import {successBooking} from "../../../public/bookingSuccessfull.jpeg"
+import {Link} from 'react-router-dom'
 
 const BookingSuccess = () => {
   return (
@@ -17,7 +18,7 @@ const BookingSuccess = () => {
             </div>
             <h1 className='text-center font-bold text-lg mt-4'>Your Appointment has been booked successfully</h1>
             <div className='flex justify-center items-center mt-5'>
-            <button className='bg-red-600 rounded text-white px-4 py-2 '>View Bookings</button>
+            <button className='bg-red-600 rounded text-white px-4 py-2 '><Link to={'/viewBookings'}>View Bookings</Link></button>
             </div>
     </div>
     

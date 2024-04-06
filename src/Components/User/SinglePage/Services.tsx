@@ -9,7 +9,10 @@ import { toast } from "react-toastify";
 import {loadStripe} from "@stripe/stripe-js"
 
 interface bookingProps {
-  bookingDetails: object;
+  bookingDetails: {
+    serviceName:string,
+    startingTime:string
+  }
   setBookingDetails: (data: object) => void;
 }
 
@@ -20,10 +23,12 @@ type ServiceProps = {
   image: string;
   description: string;
 };
+
+
 const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
   const [services, setServices] = useState([]);
   const { id } = useParams();
-  const [categorySelected, setCategorySelected] = useState([]);
+  const [categorySelected, setCategorySelected] = useState<ServiceProps[]>([]);
   const [selectedServices, setSelectedServices] = useState([]);
 
 
@@ -112,6 +117,8 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
 
     return endingTime;
   }
+
+
 
   //calculating total time and service
   const calculateTotal = () => {

@@ -6,7 +6,7 @@ import Api from "../../../Services/axios";
 import GoogleAuthSignUp from "../../../Components/User/GoogleAuthSignUp";
 import Navbar from "../../../Components/User/NavBar/Navbar";
 import { useDispatch } from "react-redux";
-import { setCredentials } from "../../../Store/slice/authSlice";
+import { setCredentials ,setUserId} from "../../../Store/slice/authSlice";
 
 // import '/Login.cs'
 
@@ -38,6 +38,7 @@ const Login: React.FC = () => {
         if(res.data.success){
           console.log(res.data)
           dispatch(setCredentials(res.data.token))
+          dispatch(setUserId(res.data.userId))
           toast.success("signed in...")
           navigate('/')
         }else if(!res.data.status){

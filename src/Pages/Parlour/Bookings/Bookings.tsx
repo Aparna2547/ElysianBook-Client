@@ -16,7 +16,7 @@ const Bookings = () => {
       setTotalPages(res.data.data.totalPages)
     }
     fetchBookings()
-  },[])
+  },[currentPage])
   return (
     
   <div className='flex'>
@@ -29,7 +29,7 @@ const Bookings = () => {
         All Bookings
       </div>
     <div className='block w-full '>
-       {bookings && bookings.map((booking)=>(
+       {bookings && bookings.reverse().map((booking)=>(
  <div className='border border-gray-400 rounded mt-3 p-3 mx-10'>
  <h1 className='text-sm mb-2 font-bold'>BKD{booking._id} <b> </b>
  <hr />
