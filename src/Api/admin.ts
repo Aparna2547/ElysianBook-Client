@@ -131,6 +131,46 @@ export const ParlourRequestConfirmation = async (value:string,id:string) =>{
 
         }
 } 
+
+export const totalDetails = async () =>{
+    try{
+        const res = await Api.get(AdminRoutes.totalDetails)
+        return res
+    }catch(error){
+        errorHandle(error as Error)
+    }
+}
+
+export const addBanners = async(banners:FormData) =>{
+    try {
+        const res = await Api.post(AdminRoutes.addBanners,banners)
+        return res
+    } catch (error) {
+        console.log(error);
+        errorHandle(error as Error)
+    
+        
+    }
+    }
+
+
+    export const getBanners = async () =>{
+        try{
+            const res = await Api.get(AdminRoutes.getBanners)
+            return res
+        }catch(error){
+            errorHandle(error as Error)
+        }
+    }
+
+    export const deleteBanner =async (banner:string)=>{
+        try{
+            const res = await Api.put(`${AdminRoutes.deleteBanner}?banner=${banner}`)
+            return res
+        }catch(error){
+            errorHandle(error as Error)
+        }
+    }
 export const adminLogout = async ()=>{
     try{
         const res = await Api.post(AdminRoutes.adminLogout)

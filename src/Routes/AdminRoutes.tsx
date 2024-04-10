@@ -12,6 +12,7 @@ import Facilities from "../Pages/Admin/Facilities/Facilities";
 import SinglePage from "../Pages/Admin/SinglePage/SinglePage";
 import ParlourRequest from "../Pages/Admin/Requestparlour/ParlourRequestTable";
 import ParlourRequestCheck from "../Pages/Admin/Requestparlour/ParlourRequestCheck";
+import Banners from "../Pages/Admin/Banners/Banners"
 
 const AdminRoutes = () => {
   return (
@@ -29,6 +30,7 @@ const AdminRoutes = () => {
         <Route path='singleParlour/:id' element={<SinglePage/>} />
         <Route path = 'parlourRequest' element={<ParlourRequest/>} />
         <Route path = 'parlourRequestApproval/:id' element={<ParlourRequestCheck/>}/>
+        <Route path="banners" element={<Banners/>}/>
       </Route>
     </Routes>
   );

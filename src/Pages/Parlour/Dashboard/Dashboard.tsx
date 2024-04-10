@@ -1,81 +1,96 @@
-import React from 'react'
-import App from '../../../Components/Parlour/Sidebar/Sidebar'
+import React,{useEffect,useState} from "react";
+import App from "../../../Components/Parlour/Sidebar/Sidebar";
+import { LiaServicestack } from "react-icons/lia";
+import { FaCashRegister } from "react-icons/fa6";
+import { FaRegCalendarCheck } from "react-icons/fa";
+import Chart from "../../../Components/Parlour/ChartComp"
+import {dashboardDetails} from '../../../Api/parlour'
+import { MdFreeCancellation } from "react-icons/md";
+import { BsCashCoin } from "react-icons/bs";
 
-const Dashboard = () => {
-  return (
-    <div className='flex'>
-    <App/>
-    <div className="h-screen flex-1 p-7">
-        
-{/* 
-<div class="relative overflow-x-auto">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Product name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Color
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Category
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Price
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17"
-                </th>
-                <td class="px-6 py-4">
-                    Silver
-                </td>
-                <td class="px-6 py-4">
-                    Laptop
-                </td>
-                <td class="px-6 py-4">
-                    $2999
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Microsoft Surface Pro
-                </th>
-                <td class="px-6 py-4">
-                    White
-                </td>
-                <td class="px-6 py-4">
-                    Laptop PC
-                </td>
-                <td class="px-6 py-4">
-                    $1999
-                </td>
-            </tr>
-            <tr class="bg-white dark:bg-gray-800">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Magic Mouse 2
-                </th>
-                <td class="px-6 py-4">
-                    Black
-                </td>
-                <td class="px-6 py-4">
-                    Accessories
-                </td>
-                <td class="px-6 py-4">
-                    $99
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div> */}
 
-    </div>
-    </div>
-  )
+type detailsProps ={
+  allBookings:number;
+  totalRevenue:number;
+  cancelledBookings:number;
+  profit:number
+
 }
+const Dashboard = () => {
+  const [details,setDetails] = useState<detailsProps | null>(null)
 
-export default Dashboard
+    useEffect(()=>{
+        const fetchDetails = async () =>{
+            const res = await dashboardDetails()
+            console.log(res.data.data)
+            setDetails(res.data.data)
+        }
+        fetchDetails()
+    },[])
+  return (
+    <div className="flex bg-gray-200 overflow-x-hidden">
+      <App />
+      <div className="h-screen flex-1 p-7">
+        <div className="w-full">
+          <h1 className="font-bold text-2xl mb-10">Dashboard</h1>
+          <div className=" w-full flex mb-2">
+          
+            <div className="first-div rounded ms-5">
+              <span className="font-bold ms-2 text-lg text-gray-600 mt-4">
+                Bookings
+              </span>
+              <div className="second-div rounded flex justify-center items-start ">
+                <FaRegCalendarCheck className="text-white text-3xl my-3" />
+              </div>
+              <div className="ms-4 mt-2 text-lg font-bold">
+                {details?.allBookings}
+              </div>
+            </div>
+
+
+            <div className="first-div rounded ms-5 ">
+              <span className="font-bold text-lg ms-3 text-gray-600 mt-4">
+                Cancelled
+              </span>
+              <div className="second-div rounded bg-yellow-400 flex justify-center items-center ">
+                <MdFreeCancellation className="text-4xl text-white my-3" />
+              </div>
+              <div className="ms-4 mt-2 text-lg font-bold">
+                {details?.cancelledBookings}
+              </div>
+            </div>
+            <div className="first-div rounded ms-10">
+              <span className="font-bold ms-2 text-lg text-gray-600 mt-4">
+                Revenue
+              </span>
+
+              <div className="second-div rounded bg-green-700 flex justify-center items-center">
+                <FaCashRegister className="text-white text-3xl my-2" />
+              </div>
+              <div className="ms-4 mt-2 text-lg font-bold">
+                ₹{details?.totalRevenue}
+              </div>
+            </div>
+            <div className="first-div rounded ms-10">
+              <span className="font-bold ms-2 text-lg text-gray-600 mt-4">
+                Profit
+              </span>
+
+              <div className="second-div rounded bg-violet-700 flex justify-center items-center">
+                <BsCashCoin className="text-white text-3xl my-3" />
+              </div>
+              <div className="ms-4 mt-2 text-lg font-bold">
+               ₹ {details?.profit}
+              </div>
+            </div>
+          </div>
+          <div className="bg-white p-5">
+            <Chart/>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;

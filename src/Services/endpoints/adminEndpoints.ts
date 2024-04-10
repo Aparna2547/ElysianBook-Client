@@ -21,6 +21,14 @@ const AdminRoutes ={
 
     parlourRequestConfirmation:"/admin/parlourRequestConfirmation",
 
+    totalDetails:"/admin/totalDetails",
+
+    addBanners:"/admin/addBanner",
+
+    getBanners:"/admin/getBanners",
+
+    deleteBanner:"/admin/deleteBanner",
+
     adminLogout:"/admin/adminlogout"
 }
 export default AdminRoutes

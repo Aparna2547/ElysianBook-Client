@@ -38,7 +38,6 @@ const Chat = ({setChatBox,conversationId,parlourId}:props) => {
   const [messages,setMessages] = useState([])
   const [message,setMessage] = useState('')
   const [user,setUser] = useState('')
-  const [input,setInput] = useState('')
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const [arrivalMessage,setArrivalMessage] = useState<MessageType |null>(null)
   // const [parlour,setParlour] = useState<MessageType | null>(null)

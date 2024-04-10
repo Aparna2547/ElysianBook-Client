@@ -287,6 +287,25 @@ export const findUserById = async (userId:string) =>{
   }
 }
 
+export const dashboardDetails = async () =>{
+  try{
+    const res = await Api.get(parlourRoutes.dashboardDetails)
+    return res
+  }catch(error){
+    errorHandle(error as Error)
+  }
+}
+
+export const monthlyProfit = async (year:string) =>{
+  try{
+    const res = await Api.get(`${parlourRoutes.monthlyProfit}?year=${year}`)
+    return res
+  }catch(error){
+    errorHandle(error as Error)
+  }
+}
+
+
 
 export const vendorLogout = async () => {
   try {
@@ -297,4 +316,4 @@ export const vendorLogout = async () => {
     errorHandle(error as Error)
     
   }
-};
+}

@@ -9,6 +9,8 @@ import {Link} from 'react-router-dom'
 import { vendorLogout } from "../../../Api/parlour";
 import { useDispatch } from "react-redux";
 import { parlourLogout } from "../../../Store/slice/authSlice";
+import { TiMessages } from "react-icons/ti";
+import { ImProfile } from "react-icons/im";
 
 
 
@@ -19,7 +21,8 @@ const Sidebar = () => {
     { title: "Parlour", src: <GiShop/> ,link:"/parlour/parlourdetails", gap: true},
     { title: "Services", src:<MdCleaningServices/>,link:"/parlour/services", gap: true },
     { title: "Booking ", src: <FaRegCalendarAlt/> ,link:"/parlour/bookings",gap: true },
-    { title: "Profile ", src: <FaRegCalendarAlt/> ,link:"/parlour/vendorprofile",gap: true },
+    { title: "Profile ", src: <ImProfile/> ,link:"/parlour/vendorprofile",gap: true },
+    { title: "Messages ", src: <TiMessages/> ,link:"/parlour/parlourChat",gap: true },
     
   ];
   const dispatch = useDispatch()

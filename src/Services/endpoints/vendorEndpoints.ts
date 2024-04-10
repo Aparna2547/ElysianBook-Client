@@ -44,6 +44,10 @@ const parlourRoutes = {
 
     findUserById :'/chat/findUserById',
 
+    dashboardDetails:'/parlour/dashboardDetails',
+
+    monthlyProfit:'/parlour/monthlyProfit',
+
     vendorLogout : "/parlour/vendorLogout"
 }
 
