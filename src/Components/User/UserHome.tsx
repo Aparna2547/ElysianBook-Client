@@ -7,9 +7,20 @@ import "slick-carousel/slick/slick-theme.css";
 import searchImage from '../../assets/home4.jpg'
 import book from '../../assets/home6.jpeg'
 import parlour from '../../assets/home5.jpg'
+import { getBanners } from '../../Api/admin';
+
 
 const UserHome = () => {
 
+    const [banners,setBanners] = useState([])
+    useEffect(()=>{
+        const fetchBanners = async () =>{
+            const res = await getBanners()
+            console.log(res.data.data[0].banners)
+            setBanners(res.data.data[0].banners)
+        }
+        fetchBanners()
+    },[])
 
 
     var settings = {
@@ -28,16 +39,17 @@ const UserHome = () => {
             </header>
             <main className='pt-16'>
                 <div className='overflow-hidden p-4'>
+
+
                     <Slider {...settings}>
-                        <div className='rounded-2xl overflow-hidden'>
-                            <img className='w-full' src="https://t3.ftcdn.net/jpg/03/15/34/90/360_F_315349043_6ohfFyx37AFusCKZtGQtJR0jqUxhb25Y.jpg" alt="" />
+                        {banners &&  banners.map((banner)=>(
+                            <div className='rounded-2xl overflow-hidden'>
+                            <img className='w-full' src={banner} alt="" />
                         </div>
-                        <div className='rounded-2xl overflow-hidden'>
-                            <img className='w-full' src="https://t3.ftcdn.net/jpg/03/15/34/90/360_F_315349043_6ohfFyx37AFusCKZtGQtJR0jqUxhb25Y.jpg" alt="" />
-                        </div>
-                        <div className='rounded-2xl overflow-hidden'>
-                            <img className='w-full' src="https://t3.ftcdn.net/jpg/03/15/34/90/360_F_315349043_6ohfFyx37AFusCKZtGQtJR0jqUxhb25Y.jpg" alt="" />
-                        </div>
+                        ))
+                        
+                        
+                    }
                     </Slider>
                 </div>
                 <div className='px-10 md:px-10 lg:px-60 my-8 py-4 space-y-20 bg-purple-100'>

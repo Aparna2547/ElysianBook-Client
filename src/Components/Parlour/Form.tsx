@@ -23,6 +23,7 @@ const Form = () => {
     longitude: "",
     facilities: [],
     banners: ["", "", ""],
+    seats:0
   });
   const [images, setImages] = useState("");
  const navigate = useNavigate()
@@ -180,6 +181,12 @@ const Form = () => {
       console.log(error);
     }
   };
+
+
+  const handleGetLocation = async () =>{
+    const response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${formData.landMark}&lang=en&limit=1&type=amenity&format=json&apiKey=be59a58f88694f3994f62b14e0211717`)
+    console.log('res',response)
+  }
   return (
     <div className="px-6 w-full">
       <form
@@ -305,6 +312,9 @@ const Form = () => {
                 type="checkbox"
               />{" "}
               <p className="text-black  mx-2">Fetch Current Location</p>
+            </div>
+            <div>
+              <button className="bg-blue-700 px-3 text-white " onClick={handleGetLocation}>GETLOCATION</button>
             </div>
           </div>
         </div>

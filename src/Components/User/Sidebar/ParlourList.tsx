@@ -1,14 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,lazy,} from "react";
 import pic from "../../../assets/palour1.jpeg";
-import { allParlours, parlourDetails } from "../../../Api/user";
+import { allParlours } from "../../../Api/user";
 import { Link } from "react-router-dom";
+
+type parlour ={
+  _id:string
+  banners:string,
+  parlourName:string,
+  landmark:string,
+  openingTime:number,
+  locality:string,
+  closingTime:number,
+}
+
+// const ParlourList = lazy(()=>import('../../../Components/User/Sidebar/ParlourList'))
 
 const ParlourList = () => {
   const [filterBar, setFilterBar] = useState(false);
   const [sortOption, setSortOption] = useState(false);
-  const [parlourDetails, setParlourDetails] = useState([]);
+  const [parlourDetails, setParlourDetails] = useState<parlour[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoading,setIsLoading] = useState(false)
 
   useEffect(() => {
     const fetchParlours = async () => {
@@ -699,8 +712,10 @@ const ParlourList = () => {
                     </div>
                   </form>
                   {/* Product grid */}
-
-                  <div className="lg:col-span-3">
+                  {isLoading=='true' ?(
+                    <i className="fa-solid fa-spinner fa-spin-pulse"></i> 
+                  ):(
+<div className="lg:col-span-3">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                       {/* {parlourDetails.length > 0 && */}
                       {parlourDetails.map((parlour) => (
@@ -729,6 +744,9 @@ const ParlourList = () => {
                       {/* } */}
                     </div>
                   </div>
+                  )}
+
+                  
                 </div>
               </section>
             </main>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import palour1 from "../../../assets/palour1.jpeg";
 import { FaClock } from "react-icons/fa";
 import Scrollbar from "../SinglePage/Scrollbar";
 import { getAllServices, proceedForPayment } from "../../../Api/user";
@@ -9,11 +8,14 @@ import { toast } from "react-toastify";
 import {loadStripe} from "@stripe/stripe-js"
 
 interface bookingProps {
+  closingTime:string
   bookingDetails: {
     serviceName:string,
     startingTime:string
   }
-  setBookingDetails: (data: object) => void;
+  convertTo12HourFormat:()=>void
+  // setBookingDetails: (data: object) => void;
+  setBookingDetails: (data: { date: string; startingTime: string; closingTime: string; seatNo: number ; serviceName:string }) => void;
 }
 
 type ServiceProps = {
@@ -25,7 +27,7 @@ type ServiceProps = {
 };
 
 
-const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
+const Services = ({ bookingDetails, setBookingDetails ,convertTo12HourFormat,closingTime}: bookingProps) => {
   const [services, setServices] = useState([]);
   const { id } = useParams();
   const [categorySelected, setCategorySelected] = useState<ServiceProps[]>([]);
@@ -44,19 +46,21 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
     fetchServices();
   }, []);
 
-  console.log(bookingDetails);
+  console.log('booing',bookingDetails);
 
   //pushing selectedservices
   const handleSelectedServices = async (service: ServiceProps) => {
     // console.log(service)
     const isAlreadySelected = selectedServices.some(
-      (s) => s.serviceName === service.serviceName
+      (s) => s.serviceName  === service.serviceName
     );
     // console.log('isalready',isAlreadySelected,service.id)
     if (!isAlreadySelected) {
       if (!bookingDetails.startingTime) {
         return toast.error("Please select date and time");
       }
+      
+      
 
       setSelectedServices((prevSelectedServices) => [
         ...prevSelectedServices,
@@ -92,25 +96,26 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
   //delete services
   const handleDelete = async (index: number) => {
     setSelectedServices((prevSelectedServices) => {
-      prevSelectedServices.splice(index, 1);
+      const updatedServices = prevSelectedServices.filter((_, i) => i !== index);
       console.log("deleted");
-      return [...prevSelectedServices];
+      return updatedServices;
     });
+    // console.log('index',index)
+    // let service = selectedServices
+    // console.log('service',service)
+    // service.splice(index,1)
+    // console.log('after splice',service)
+    // setSelectedServices(service)
   };
 
   //calculating ending time
   function calculateEndingTime(startingTime: string, totalDuration: number) {
-    // Split the starting time into hours and minutes
     const [startHours, startMinutes] = startingTime.split(":").map(Number);
-
-    // Create a Date object for the starting time
     const startDate = new Date();
     startDate.setHours(startHours, startMinutes, 0, 0);
 
-    // Add the total duration to the starting time
     startDate.setMinutes(startDate.getMinutes() + totalDuration);
 
-    // Format the ending time
     const endingHours = startDate.getHours().toString().padStart(2, "0");
     const endingMinutes = startDate.getMinutes().toString().padStart(2, "0");
     const endingTime = `${endingHours}:${endingMinutes}`;
@@ -127,14 +132,16 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
       0
     );
     const totalPrice = selectedServices.reduce(
-      (acc, service) => acc + service.price,
+      (acc, service) => acc + service.price +100,
       0
     );
 
     return { totalTime, totalPrice };
   };
   const { totalTime, totalPrice } = calculateTotal();
+  const endingTime = calculateEndingTime(bookingDetails.startingTime,totalTime)
 
+  console.log('totaltime',totalTime,endingTime)
 
 
 
@@ -142,22 +149,46 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
   //booking services
   const handleBooking = async () => {
     console.log("services", bookingDetails);
-    // const date = new Date(bookingDetails.date).toISOString()
-    // const newDate = new Date(date)
-    // newDate.setHours(0,0,0,0)
-    // console.log('string',newDate)
-    const stripe = await loadStripe("pk_test_51OzZPkSAPPq3vrauWeZc5vQeWbax9qRxdlBMpnuOB4s7LpFBtzf2vDRwl8H6ho9oOXQkD48Gl3iqm0gpbHdyZc2600teCQntzP")
-    console.log('stripe',stripe);
+
+    if(endingTime>closingTime){
+      toast.error(`parlour will close ${closingTime}`)
+    }
+    else{
+      const stripe = await loadStripe("pk_test_51OzZPkSAPPq3vrauWeZc5vQeWbax9qRxdlBMpnuOB4s7LpFBtzf2vDRwl8H6ho9oOXQkD48Gl3iqm0gpbHdyZc2600teCQntzP")
+      console.log('stripe',stripe);
+      
+       
+      const response = await proceedForPayment(bookingDetails,id);
+      console.log(response);
+      let sessionId = response.data
+       
+      const result = stripe?.redirectToCheckout({
+        sessionId:sessionId
+      })
+    }
     
-     
-    const response = await proceedForPayment(bookingDetails,id);
-    console.log(response);
-    let sessionId = response.data
-     
-    const result = stripe?.redirectToCheckout({
-      sessionId:sessionId
-    })
+   
   };
+
+
+  const selectedDate = bookingDetails.date ? new Date(bookingDetails.date) : null;
+  let formattedDate;
+  
+  if (selectedDate && !isNaN(selectedDate.getTime())) {
+    // Set time to midnight (00:00:00)
+    selectedDate.setHours(0, 0, 0, 0);
+    
+    // Add one day to the selected date
+    selectedDate.setDate(selectedDate.getDate() + 1);
+    
+    // Format the updated date to ISO string
+    formattedDate = selectedDate.toISOString().split('T')[0]; // Extract date part only
+  } else {
+    console.error('Invalid date format or value:', bookingDetails.date);
+  }
+  
+console.log('Formatted date:', formattedDate);
+
 
   return (
     <>
@@ -207,30 +238,41 @@ const Services = ({ bookingDetails, setBookingDetails }: bookingProps) => {
           </div>
         </div>
         {/* booked services */}
-        <div className=" lg:w-2/6 w-full m-1 border border-gray-300 bg-red-200 rounded-lg">
-          {/* <h1 className="text-center mt-3 text-xl font-bold mb-3"></h1> */}
+        <div className=" lg:w-2/6 w-full m-1 border border-gray-300 bg-red-200  overflow-y rounded-lg" >
           <div className="p-2 w-full">
+            <div className="text-center font-bold text-2xl mb-3 ">
+              BOOKING DETAILS
+            </div>
 
                 <div>
-                  <div>
-                    selected date
+                <div className="flex justify-between">
+                    <div className="font-bold mb-1">Selected Date &nbsp;&nbsp; &nbsp;:</div>
+                    <div className="font-bold mb-1">{formattedDate}</div>
+                  </div> 
+                  
+                  <div className="flex justify-between">
+                    <div className="font-bold mb-1">Starting Time &nbsp; &nbsp; &nbsp;:</div>
+                    <div>{convertTo12HourFormat(bookingDetails.startingTime)}</div>
+                  </div> 
+                  <div className="flex justify-between">
+                    <div className="font-bold mb-1">Ending Time &nbsp; &nbsp; &nbsp; &nbsp;:</div>
+                    <div>{convertTo12HourFormat(endingTime)}</div>
                   </div>
-                  <div>
-                    Starting time
+                  <div className="flex justify-between">
+                    <div className="font-bold mb-1">Service charge &nbsp; &nbsp; &nbsp; &nbsp;:</div>
+                    <div>₹100</div>
                   </div>
-                  <div>
-                    Ending Time :
-                  </div>
+                 
                 </div>
-            <h1>Selected Services</h1>
+            <h1 className="font-bold mb-1">Selected Services</h1>
             <div className="w-full">
               {/* <tr className="flex justify-between">
                 <td colSpan={3}>Service Names</td>
                 <td colSpan={3}>Price</td>
               </tr> */}
-              <hr className="border-b border-gray-800 w-full mb-3" />
+              <hr className="border-b border-white w-full mb-3" />
               {selectedServices.map((service, index) => (
-                <div className="border flex border-gray-100 p-2  font-bold  mt-1 shadow-lg rounded-full bg-white  w-full">
+                <div className="border flex border-gray-100 p-2  font-bold  mt-1 shadow-lg rounded-lg bg-white  w-full">
                   <div className="text-sm w-3/4">{service.serviceName}</div>
                   <div className="text-sm w-1/4">{service.price}/-</div>
                   <button className="mt-1" onClick={() => handleDelete(index)}>

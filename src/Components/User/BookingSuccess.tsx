@@ -2,9 +2,11 @@ import React from 'react'
 import Navbar from "../User/NavBar/Navbar"
 // import {successBooking} from "../../../public/bookingSuccessfull.jpeg"
 import {Link} from 'react-router-dom'
+import Footer from "../../Components/User/Footer"
 
 const BookingSuccess = () => {
   return (
+    <>
     <div className='block'>
         <div>
         <Navbar/>
@@ -23,6 +25,8 @@ const BookingSuccess = () => {
     </div>
     
     </div>
+    <Footer/>
+    </>
   )
 }
 

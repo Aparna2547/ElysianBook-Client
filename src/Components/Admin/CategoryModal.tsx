@@ -9,7 +9,7 @@ interface categoryProps {
 const CategoryModal = ({setShowModal}:categoryProps) => {
 
     const [category,setCategory] = useState('');
-    const [image,setImage] = useState(null);
+    const [image,setImage] = useState<File | null>(null);
 
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -47,7 +47,7 @@ const CategoryModal = ({setShowModal}:categoryProps) => {
         }
     };
 
-    const handleImageChange = (e:React.FormEvent<HTMLFormElement>) => {
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.files && e.target.files[0]){
             const selectedImage = e.target.files[0];
             setImage(selectedImage);

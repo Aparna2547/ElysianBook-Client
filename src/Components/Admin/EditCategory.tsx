@@ -21,7 +21,7 @@ const EditCategory = ({categoryForEdit,setCategoryForEdit,imageForEdit,setImageF
 
 
 
-const handleImageChange = (e)=>{
+const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
     setCategoryForEdit({...categoryForEdit, image: URL.createObjectURL(e.target.files[0])})
     setImageForEdit((e.target.files[0]))
 }

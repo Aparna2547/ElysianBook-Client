@@ -1,36 +1,39 @@
-import React,{useState,FormEvent  } from 'react'
-import {cancelBooking } from '../../Api/user'
-import {toast} from "react-toastify"
-interface modalProps{
-    setCancelModal(value:boolean):void;
-    bookingId:string
-}
-const CancelModal = ({setCancelModal,bookingId}:modalProps) => {
-    const [reason,setReason] = useState('')
+import React,{useState,FormEvent} from 'react'
+import {toast} from 'react-toastify'
+import {cancelBookingByParlour} from "../../Api/parlour"
 
-    const handleCancelBooking = async (e:FormEvent<HTMLFormElement>) =>{
+
+interface CancelBookingProps {
+    setCancelModal: React.Dispatch<React.SetStateAction<boolean>>;
+    bookingId:string
+  }
+
+const CancelBooking: React.FC<CancelBookingProps> = ({setCancelModal,bookingId}:CancelBookingProps) => {
+    const [reason,setReason] = useState('')
+    
+    const handleCancelBooking = async(e:FormEvent<HTMLFormElement>) =>{
+        console.log('jj',reason)
+
         e.preventDefault()
-        console.log('reason',reason)
-        console.log('id',bookingId)
-        const res = await cancelBooking(bookingId,reason)
+        const res = await cancelBookingByParlour(bookingId,reason)
         console.log(res)
         setCancelModal(false)
-        toast.success("Booking Cancelled successfully you will get your refund within 7 days")
+        toast.success("booking cancelled by parlour")
     }
+
   return (
-    <div>
+    <>
         <div
   className="relative z-10"
   aria-labelledby="modal-title"
   role="dialog"
   aria-modal="true"
 >
- 
+
   <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
   <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+    <form onSubmit={handleCancelBooking} className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
      
-     <form action="" onSubmit={handleCancelBooking}>
       <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
         <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
           <div className="sm:flex sm:items-start">
@@ -55,46 +58,43 @@ const CancelModal = ({setCancelModal,bookingId}:modalProps) => {
                 className="text-base font-semibold leading-6 text-gray-900"
                 id="modal-title"
               >
-                Cancel order
+               Cancel booking
               </h3>
               <div className="mt-2">
                 <p className="text-sm text-gray-500">
-                  Are you sure you want to cancel your Booking?
+                  Are you sure you want to cancel your booking? 
                 </p>
-                <div className='mt-2 '>
-                    <p>Reason
-                    <input type="text" className='h-10 ms-2' value={reason} onChange={(e)=>setReason(e.target.value)}/>
-                    
-                    </p>
-                </div>
               </div>
+              <div className='mt-2 flex '>
+                    {/* <p>Reason</p> */}
+                    <input type="text" id="" placeholder='Enter your reason' value={reason}  onChange={(e)=>setReason(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                    
+                </div>
             </div>
           </div>
         </div>
         <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-        <button
+          <button
             type="submit"
             className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
           >
-            cancel
-          </button> 
-           <button
+            Cancel
+          </button>
+          <button
             type="button"
             onClick={()=>setCancelModal(false)}
-            className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
           >
-            close
+            Close
           </button>
-        
         </div>
       </div>
-      </form>
-    </div>
+    </form>
   </div>
 </div>
 
-    </div>
+    </>
   )
 }
 
-export default CancelModal
+export default CancelBooking

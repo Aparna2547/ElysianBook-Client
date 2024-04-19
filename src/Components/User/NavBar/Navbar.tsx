@@ -7,6 +7,8 @@ import { logout } from '../../../Store/slice/authSlice'
 import {useNavigate} from "react-router-dom"
 import { toast } from 'react-toastify'
 import { CgProfile } from "react-icons/cg";
+import { FaLocationDot } from "react-icons/fa6";
+
 
 
 interface RootState{
@@ -59,8 +61,9 @@ const Navbar = () => {
                             <li className="md:px-4 md:py-2 hover:text-indigo-400">
                                 <Link to="/parlourlist">Parlours</Link>
                             </li>
-                            <li className="md:px-4 md:py-2 hover:text-indigo-400">
-                                <Link to=''>About</Link>
+                            <li className="md:px-4 md:py-2 hover:text-indigo-400 ">
+                                <button className='border border-gray-500 px-2 py-1 '><Link to=''><p className='text-sm font-bold flex items-center'><FaLocationDot className='pe-1'/>Show nearby</p></Link></button>
+                                
                             </li>
                             {/* <li className="md:px-4 md:py-2 hover:text-indigo-400">
                                 <a href="#">Contact</a>

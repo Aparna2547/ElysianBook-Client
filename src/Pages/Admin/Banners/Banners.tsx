@@ -87,15 +87,15 @@ const Banners = () => {
           <div>
             <h1 className='m-4 text-3xl font-bold'>Banners</h1>
           </div>
-          <div className='w-full m-3 flex  gap-1 '>
+          <div className='w-full m-3 flex '>
             
           {['','',''].map((_,index)=>(
-              <div className='w-2/6 bg-white'>
+              <div className=' bg-white'>
                 {
                   banners[index]?(
                     <>
-                    <div className='w-full border border-gray-300'>
-                    <img src={banners[index]} alt="" />
+                    <div className='mb-5' style={{width:'200px',height:'100px'}} >
+                    <img src={banners[index]} alt=""style={{height:'100px',width:'200px'}}/>
                   </div>
                   <div className='m-1'><div className='bg-red-700 px-3 py-1 font-bold text-white cursor-pointer' onClick={()=>handleDelete(banners[index])}>Delete</div></div>
                   </>

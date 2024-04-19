@@ -3,24 +3,26 @@ import Calendar from 'react-calendar'
 import { useParams } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
 import {bookedSlots} from "../../../Api/user"
-
+import {toast} from 'react-toastify'
 interface bookingProps{
   bookingDetails:{
     date:string,
-    startingTime:number,
-    closingTime:number,
+    startingTime:string,
+    closingTime:string,
     seatNo:number,
 
   }
-  setBookingDetails:(data:object)=>void;
+  // setBookingDetails:(data:object)=>void;
+
+  setBookingDetails: (data: { xdate: string; startingTime: string; closingTime: string; seatNo: number ; serviceName:string }) => void;
   convertTo12HourFormat:()=>void
+  openingTime:string,
+  closingTime:string
 }
 
 
 
-const SlotAvailability = ({bookingDetails,setBookingDetails,convertTo12HourFormat}:bookingProps) => {
-  const [date,setDate] = useState()
-  const [time,setTime] =useState()
+const SlotAvailability = ({bookingDetails,setBookingDetails,convertTo12HourFormat,openingTime,closingTime}:bookingProps) => {
   const [slots,setSlots] = useState([])
 
   const {id} = useParams()
@@ -57,6 +59,16 @@ startDate.setDate(today.getDate() + 1);
 
 const endDate = new Date(today)
 endDate.setDate(today.getDate()+7)
+
+const handleTime  = async (e:any) =>{
+  const selectedTime = e.target.value
+  if(selectedTime < openingTime || selectedTime > closingTime){
+    toast.error('Parlour is closed')
+  }else{
+    setBookingDetails({...bookingDetails, startingTime:selectedTime})
+  }
+}
+
   return ( 
     <div className=" p-2 w-full text-black lg:flex lg:flex-nowrap ">
         <div className='bg-white text-black flex-col justify-center'>
@@ -66,15 +78,20 @@ endDate.setDate(today.getDate()+7)
            minDate = {startDate}
            maxDate={endDate}
             />
-            <div  className='mt-2 w-full'>
-                <input type="time" className='w-full' 
-                value={bookingDetails.startingTime}
-                onChange={(e)=>setBookingDetails({...bookingDetails,startingTime:e.target.value})}
-                min={bookingDetails.startingTime}
-                max={bookingDetails.closingTime}
+          <div className='mt-2 w-full'>
+    <input 
+        type="time" 
+        className='w-full' 
+        value={bookingDetails.startingTime}
+        // value={bookingDetails.startingTime < openingTime? toast.error('shop is not opened')|| bookingDetails.startingTime >closingTime ? toast.error("parlour is closed"): bookingDetails.startingTime }
+        // onChange={(e) => setBookingDetails({...bookingDetails, startingTime: e.target.value})}
+        onChange={handleTime}
+        
+    
+    />
+</div>
 
-                 />
-            </div>
+            
         </div>
         <div   className='block'>
             <h1 className='text-center font-bold '>Booked slots</h1>

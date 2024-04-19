@@ -2,6 +2,7 @@ import { useState } from "react"
 import ProfileDetails from "../../../Components/User/ProfileDetails"
 import Navbar from "../../../Components/User/NavBar/Navbar"
 import BookingHistory from "../Booking/BookingHistory"
+import Footer from "../../../Components/User/Footer"
 
 const Profile = () => {
 
@@ -75,9 +76,7 @@ const Profile = () => {
                                     <div className={`px-2 pb-1 cursor-pointer ${page == 'booking' && 'border-b-4 border-b-orange-400'}`} onClick={() => setPage('booking')}>
                                         <h1>BOOKINGS</h1>
                                     </div>
-                                    <div className={`px-2 pb-1 cursor-pointer ${page == 'wallet' && 'border-b-4 border-b-orange-400'}`} onClick={() => setPage('wallet')}>
-                                        <h1>WALLET</h1>
-                                    </div>
+                                    
                                 </div>
 
 
@@ -85,8 +84,6 @@ const Profile = () => {
                                     <ProfileDetails />
                                 ) : page === 'booking' ? (
                                    <BookingHistory/>
-                                ) : page === 'wallet' ? (
-                                    <h1>Wallet</h1>
                                 ) : null}
 
                             </div>
@@ -97,6 +94,7 @@ const Profile = () => {
 
             </section>
         </main>
+        <Footer/>
         </>
     )
 }

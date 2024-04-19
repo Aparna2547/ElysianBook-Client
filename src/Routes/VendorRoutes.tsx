@@ -16,6 +16,8 @@ import EditProfile from "../Pages/Parlour/Profile/EditProfile";
 import ChangeEmailVerifyOtp from "../Components/Parlour/Otp/ChangeEmailVerifyOtp"
 import Bookings from "../Pages/Parlour/Bookings/Bookings";
 import ParlourChat from "../Pages/Parlour/Chat/ParlourChat"
+import Holidays from "../Pages/Parlour/Holidays/Holidays"
+
 
 const VendorRoutes = () => {
   return (
@@ -39,6 +41,7 @@ const VendorRoutes = () => {
         <Route path = "editVendorProfile" element={<EditProfile/>}/>
         <Route path = "ChangeEmailVerifyOtp" element ={<ChangeEmailVerifyOtp/>}/>
         <Route path = "bookings" element={<Bookings/>}/>
+        <Route path = 'holidays' element={<Holidays/>} />
       </Route>
     </Routes>
   );

@@ -8,6 +8,7 @@ import SlotAvailability from "../SinglePage/SlotAvailability"
 import { FaCommentAlt } from "react-icons/fa";
 import {Link} from "react-router-dom"
 import Chat from "../../../Pages/User/Chat/Chat"
+import Footer from "../../../Components/User/Footer"
 import {newConversation} from "../../../Api/user"
 
 
@@ -24,16 +25,26 @@ interface parlourProps {
     closingTime: string;
     facilities: string[];
     banners: string[];
-    id:string
+    id:string,
+    contact:number
   };
 }
 
-
-
+interface Booking {
+  date: string;
+  startingTime: string;
+  closingTime: string;
+  seatNo: number;
+}
 
 const SinglePageParlourDetails = ({ ParlourDetails }: parlourProps) => {
   const [page, setpage] = useState("services");
-  const [bookingDetails,setBookingDetails] = useState({})
+  const [bookingDetails, setBookingDetails] = useState<Booking>({
+    date: "",
+    startingTime: "",
+    closingTime: "",
+    seatNo: 0,
+  });
   const [isBlinking,setIsBlinking] = useState(false)
   const [chatBox,setChatBox] = useState(false)
   const [conversationId,setConversationId] = useState('')
@@ -171,6 +182,14 @@ const handleConversation =async () =>{
                     {/* {ParlourDetails.closingTime} */}
                   </a>
                 </h2>
+                <h2 className="text-gray-700  flex mt-2">
+                <i className="fa-solid fa-phone fa-shake mt-1 me-2 text-blue-700"></i>
+                Contact
+                  <p className="text-indigo-600  ms-2 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
+                    {ParlourDetails.contact}
+                  </p>
+                </h2>
+
               </div>
             </div>
 
@@ -227,9 +246,9 @@ const handleConversation =async () =>{
             <>     
             <div  className=" bg-white text-black shadow-lg   w-full lg:my-3">
               <h1 className="text-start ms-3 mt-2 text-lg">Select you date and time</h1>
-              <SlotAvailability  bookingDetails={bookingDetails} setBookingDetails={setBookingDetails} convertTo12HourFormat={convertTo12HourFormat}/>
+                <SlotAvailability  bookingDetails={bookingDetails} setBookingDetails={setBookingDetails} convertTo12HourFormat={convertTo12HourFormat} openingTime={ParlourDetails.openingTime} closingTime={ParlourDetails.closingTime}/>
             </div>
-            <Services bookingDetails={bookingDetails} setBookingDetails={setBookingDetails} />
+            <Services bookingDetails={bookingDetails} setBookingDetails={setBookingDetails}  convertTo12HourFormat={convertTo12HourFormat}  closingTime={ParlourDetails.closingTime}/>
             </>
 
           ) : page === "review" ? (
@@ -264,7 +283,7 @@ const handleConversation =async () =>{
     </div>
     </div>
 
-    
+    <Footer/>
     </>
   );
 };

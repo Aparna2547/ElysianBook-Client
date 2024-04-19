@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { toast } from "react-toastify";
 
 import {Link} from "react-router-dom"
-import Api from '../../../Services/axios';
-import { TERipple } from 'tw-elements-react';
 import Image from "../../../assets/logo.png"
 import {useNavigate} from "react-router-dom"
 import { signup } from '../../../Api/parlour';
@@ -90,7 +88,7 @@ const SignUp = () => {
               id='form1'
               value={name}
               onChange={(e)=>setName(e.target.value)}
-              className="peer h-full w-full rounded-[7px] border border-grey border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal  !text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 w-full" 
+              className="peer h-full  rounded-[7px] border border-grey border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal  !text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 w-full" 
               placeholder=" Name"
             />
             {/* <!-- Email input --> */}
@@ -99,7 +97,7 @@ const SignUp = () => {
               id='form2'
               value={email}
               onChange={(e)=>setEmail(e.target.value)}
-              className="peer h-full w-full rounded-[7px] border border-grey border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal  !text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 mt-3 focus:border-2 w-full" 
+              className="peer h-full  rounded-[7px] border border-grey border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal  !text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 mt-3 focus:border-2 w-full" 
               placeholder=" Email"
             />
 
@@ -109,7 +107,7 @@ const SignUp = () => {
               id='form3'
               value={password}
               onChange={(e)=>setPassword(e.target.value)}
-              className="peer h-full w-full rounded-[7px] border border-grey border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal  !text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 mt-3 w-full"
+              className="peer h-full rounded-[7px] border border-grey border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal  !text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 mt-3 w-full"
               placeholder="Password"
             />
              <input
@@ -117,7 +115,7 @@ const SignUp = () => {
               id='form4'
               value={cpassword}
               onChange={(e)=>setCPassword(e.target.value)}
-              className="peer h-full w-full rounded-[7px] border border-grey border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal  !text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 mt-3 w-full"
+              className="peer h-full  rounded-[7px] border border-grey border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal  !text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 mt-3 w-full"
               placeholder="Confirm Password"
             />
 

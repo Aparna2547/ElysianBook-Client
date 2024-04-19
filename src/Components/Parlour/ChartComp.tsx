@@ -1,6 +1,8 @@
 // import "./styles.css";
 import React,{useEffect,useState} from "react";
 import {monthlyProfit} from "../../Api/parlour"
+import { PieChart, Pie } from 'recharts';
+
 import {
   BarChart,
   Bar,
@@ -57,10 +59,16 @@ import {
 // ];
 // let data = []
 
+type chartType = {
+  month:number,
+  totalPrice:number
+}
 export default function Chart() {
-    const [data,setData] = useState([])
+    // const [data,setData] = useState([])
+    const [data, setData] = useState<Array<{ name: string; Revenue: number; Profit: number; }>>([]);
+
     const [year,setYear] = useState(new Date().getFullYear())
-    const [chartData, setChartData] = useState([]);
+    const [chartData, setChartData] = useState<chartType[]>([]);
 
     const startYear = 2023;
     const endYear = new Date().getFullYear()+1;
@@ -68,7 +76,7 @@ export default function Chart() {
 
     useEffect(() => {
       const fetchData = async () => {
-        const response = await monthlyProfit(year);
+        const response = await monthlyProfit(year.toString());
         console.log('fhdsjh',response.data.data)
         // const transformData = response.map((item:any) => ({
         //   name: `Month ${item.month}`,
@@ -110,15 +118,16 @@ export default function Chart() {
 
    },[chartData])
 
-   const handleDateChange = async (e:React.ChangeEvent<HTMLInputElement>) => {
+   const handleDateChange = async (e:React.ChangeEvent<HTMLSelectElement>) => {
       e.preventDefault();
-      setYear(e.target.value);
+      setYear(parseInt(e.target.value, 10));
    };
 
     
 
   return (
 
+    
     <div>
         <div className="w-2/6 flex gap-2">
           <label htmlFor="yearDropdown" className="w-2/4">Select a year:</label>
@@ -129,7 +138,9 @@ export default function Chart() {
                 ))}
                 </select>
         </div>
-    <div>
+
+        <div className="flex">
+    <div >
     <BarChart
       width={600}
       height={300}
@@ -149,6 +160,14 @@ export default function Chart() {
       <Bar dataKey="Revenue" fill="#8884d8" />
       <Bar dataKey="Profit" fill="#82ca9d" />
     </BarChart>
+    </div>
+    <div>
+    <div>
+      <PieChart width={400} height={400}>
+        <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} fill="#8884d8" />
+      </PieChart>
+    </div>
+    </div>
     </div>
     </div>
   );

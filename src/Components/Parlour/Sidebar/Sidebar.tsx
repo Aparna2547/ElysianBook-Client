@@ -23,6 +23,7 @@ const Sidebar = () => {
     { title: "Booking ", src: <FaRegCalendarAlt/> ,link:"/parlour/bookings",gap: true },
     { title: "Profile ", src: <ImProfile/> ,link:"/parlour/vendorprofile",gap: true },
     { title: "Messages ", src: <TiMessages/> ,link:"/parlour/parlourChat",gap: true },
+    { title: "holidays ", src: <TiMessages/> ,link:"/parlour/holidays",gap: true },
     
   ];
   const dispatch = useDispatch()

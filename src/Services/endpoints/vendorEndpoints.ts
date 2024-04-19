@@ -40,6 +40,8 @@ const parlourRoutes = {
 
     allBookings:"/parlour/allBookings",
 
+    cancelBooking:'/parlour/cancelledByParlour',
+
     getConversations:'/chat/getConversation',
 
     findUserById :'/chat/findUserById',
@@ -47,6 +49,8 @@ const parlourRoutes = {
     dashboardDetails:'/parlour/dashboardDetails',
 
     monthlyProfit:'/parlour/monthlyProfit',
+
+    addHolidays:'/parlour/addHolidays',
 
     vendorLogout : "/parlour/vendorLogout"
 }

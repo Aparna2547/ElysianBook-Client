@@ -307,6 +307,25 @@ export const monthlyProfit = async (year:string) =>{
 
 
 
+export const addHolidays = async(date :Date) =>{
+  try{
+    const res = await Api.post(`${parlourRoutes.addHolidays}?date=${date}`)
+    return res
+  }catch(error){
+    errorHandle(error as Error)
+  }
+}
+
+export const cancelBookingByParlour = async (bookingId:string,reason:string) =>{
+try{
+  const res = await Api.post(`${parlourRoutes.cancelBooking}?bookingId=${bookingId}&reason=${reason}`)
+  return res
+
+}catch(error){
+  errorHandle(error as Error)
+}
+}
+
 export const vendorLogout = async () => {
   try {
     const res = await Api.post(parlourRoutes.vendorLogout);

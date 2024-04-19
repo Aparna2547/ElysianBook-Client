@@ -49,7 +49,7 @@ const userRoutes={
 
     newMessage:"/chat/newMessage",
 
-
+    getHolidays:"/user/getHolidays",
 
     userLogout :"/user/logout"
 

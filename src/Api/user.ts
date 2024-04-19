@@ -272,7 +272,14 @@ export const newMessage = async(text:string,conversationId:string,senderId:strin
   }
 }
 
-
+export const getHolidays = async(parlourId:string,date:s) =>{
+  try{
+    const res = await Api.get(`${UserRoutes.getHolidays}?parlourId=${parlourId}&date=${date}`)
+    return res
+  }catch(error){
+    errorHandle(error as Error)
+  }
+}
 
 export const userLogout = async () => {
   try {
