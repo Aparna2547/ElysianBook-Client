@@ -167,7 +167,7 @@ const Services = ({ bookingDetails, setBookingDetails ,convertTo12HourFormat,clo
       toast.error(`parlour will close ${closingTime}`)
     }
     else{
-      const stripe = await loadStripe("pk_test_51OzZPkSAPPq3vrauWeZc5vQeWbax9qRxdlBMpnuOB4s7LpFBtzf2vDRwl8H6ho9oOXQkD48Gl3iqm0gpbHdyZc2600teCQntzP")
+      const stripe = await loadStripe(import.meta.env.VITE_APP_LOADSTRIPE  )
       console.log('stripe',stripe);
       
        

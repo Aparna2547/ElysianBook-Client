@@ -36,7 +36,7 @@ const Login: React.FC = () => {
         console.log(res);
         if(res.data.success){
           console.log(res.data)
-          dispatch(setCredentials(res.data.refreshToken))
+          dispatch(setCredentials(res.data.accessToken))
           dispatch(setUserId(res.data.userId))
           toast.success("signed in...")
           navigate('/')

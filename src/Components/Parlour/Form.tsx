@@ -183,7 +183,7 @@ const Form = () => {
         navigator.geolocation.getCurrentPosition(async (position) => {
           console.log(position);
           const location = await axios.get(
-            `https://api.geoapify.com/v1/geocode/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json&apiKey=be59a58f88694f3994f62b14e0211717`
+            `https://api.geoapify.com/v1/geocode/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json&apiKey=${import.meta.env.VITE_APP_GEOPIFY_API}`
           );
           currentLocation = location.data.results[0];
           console.log(currentLocation);
@@ -209,7 +209,7 @@ const Form = () => {
       toast.error('Enter the landmark')
       return 
     }
-    const response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${formData.landMark}&lang=en&limit=1&type=amenity&format=json&apiKey=be59a58f88694f3994f62b14e0211717`)
+    const response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${formData.landMark}&lang=en&limit=1&type=amenity&format=json&apiKey=${import.meta.env.VITE_APP_GEOPIFY_API}`)
     // console.log('res',response)
     let getLocation = response.data.results[0]
     console.log("df",getLocation)

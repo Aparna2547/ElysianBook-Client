@@ -48,7 +48,7 @@ const Chat = ({setChatBox,conversationId,parlourId}:props) => {
   const socket = useRef<Socket | undefined>()
 
   useEffect(()=>{
-  socket.current = io("ws://localhost:3000")
+  socket.current = io(import.meta.env.VITE_APP_CHATURL)
     socket.current.on('getMessage',data =>{
       setArrivalMessage({
         sender : data.senderId,

@@ -29,7 +29,7 @@ const GoogleAuthSignUp = ({ login ,user}: googleAuthProps) => {
     //user login signup
     if (!login) {
         const response = await gsignup(data.name, data.email, data.password);
-        console.log(response);
+        console.log('jgj',response);
         if (!response.data.data) {
           toast.error("email already exist. Please login");
           navigate("/login");
@@ -40,13 +40,13 @@ const GoogleAuthSignUp = ({ login ,user}: googleAuthProps) => {
       }
       else{
           const response = await userLogin(data.email,data.password)
-          console.log(response)
+          console.log('jjj',response)
           if(!response.data.success){
               toast.error("User not found. Please sign up")
               navigate('/signup')
           }else{
               toast.success("logged in successfully")
-              dispatch(setCredentials(response.data.token))
+              dispatch(setCredentials(response.data.accessToken))
               dispatch(setUserId(response.data.userId))
               navigate('/')
           }
@@ -67,7 +67,7 @@ const GoogleAuthSignUp = ({ login ,user}: googleAuthProps) => {
       }
       else{
           const response = await parlourLogin(data.email,data.password)
-          console.log(response)
+          console.log('jj',response)
           if(!response.data.success){
               toast.error("Parlour not found. Please sign up")
               navigate('/parlour/signup')
