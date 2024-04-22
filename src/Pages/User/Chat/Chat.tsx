@@ -54,7 +54,7 @@ const Chat = ({setChatBox,conversationId,parlourId}:props) => {
         sender : data.senderId,
         text: data.text,
         // createdAt :Date.now(),
-        createdAt: new Date().toISOString(), // Convert Date to ISO string
+        createdAt: new Date().toISOString(), 
         conversationId: conversationId
       } as MessageType);
     });
