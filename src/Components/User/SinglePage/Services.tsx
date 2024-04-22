@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaClock } from "react-icons/fa";
 import Scrollbar from "../SinglePage/Scrollbar";
@@ -7,15 +7,27 @@ import { IoCloseSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import {loadStripe} from "@stripe/stripe-js"
 
+
+// interface Booking {
+//   date: string;
+//   startingTime: string;
+//   closingTime?: string;
+//   seatNo?: number;
+//   services: ServiceProps[];
+//   totalDuration: number;
+//   totalPrice: number;
+//   endingTime: string;
+// }
+
+
 interface bookingProps {
   closingTime:string
-  bookingDetails: {
-    serviceName:string,
-    startingTime:string
-  }
-  convertTo12HourFormat:()=>void
+  bookingDetails:any,
+  convertTo12HourFormat:any
+    setBookingDetails: any;
+
   // setBookingDetails: (data: object) => void;
-  setBookingDetails: (data: { date: string; startingTime: string; closingTime: string; seatNo: number ; serviceName:string }) => void;
+  // setBookingDetails: (data: { date: string; startingTime: string; closingTime: string; seatNo: number; serviceName: string; }) => void;
 }
 
 type ServiceProps = {
@@ -24,14 +36,15 @@ type ServiceProps = {
   price: number;
   image: string;
   description: string;
+  category:string;
 };
 
 
 const Services = ({ bookingDetails, setBookingDetails ,convertTo12HourFormat,closingTime}: bookingProps) => {
-  const [services, setServices] = useState([]);
-  const { id } = useParams();
+  const [services, setServices] = useState<ServiceProps[]>([]);
+  const { id } = useParams<{ id: any }>();
   const [categorySelected, setCategorySelected] = useState<ServiceProps[]>([]);
-  const [selectedServices, setSelectedServices] = useState([]);
+  const [selectedServices, setSelectedServices] = useState<ServiceProps[]>([]);
 
 
 
@@ -162,7 +175,7 @@ const Services = ({ bookingDetails, setBookingDetails ,convertTo12HourFormat,clo
       console.log(response);
       let sessionId = response.data
        
-      const result = stripe?.redirectToCheckout({
+      stripe?.redirectToCheckout({
         sessionId:sessionId
       })
     }

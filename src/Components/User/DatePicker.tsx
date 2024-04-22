@@ -1,9 +1,8 @@
-import React from 'react'
 
 import { useState } from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import { IoIosArrowUp,IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 
 const DatePicker = () => {
     const [selected, setSelected] = useState<Date>();

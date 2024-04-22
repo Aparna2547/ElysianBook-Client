@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import  { useState,useEffect } from "react";
 import {useParams} from "react-router-dom"
 import { FaClock } from "react-icons/fa";
 import { VscActivateBreakpoints } from "react-icons/vsc";
@@ -6,7 +6,6 @@ import { FaLocationArrow } from "react-icons/fa";
 import Services from "../SinglePage/Services"
 import SlotAvailability from "../SinglePage/SlotAvailability"
 import { FaCommentAlt } from "react-icons/fa";
-import {Link} from "react-router-dom"
 import Chat from "../../../Pages/User/Chat/Chat"
 import Footer from "../../../Components/User/Footer"
 import {newConversation} from "../../../Api/user"
@@ -26,25 +25,30 @@ interface parlourProps {
     facilities: string[];
     banners: string[];
     id:string,
-    contact:number
+    contact:string
   };
 }
-
-interface Booking {
+interface Bookings {
   date: string;
   startingTime: string;
   closingTime: string;
   seatNo: number;
+  services: string[];
+  serviceName: string;
+  totalDuration?: number;
+  totalPrice?: number;
+  endingTime?: number;
 }
-
 const SinglePageParlourDetails = ({ ParlourDetails }: parlourProps) => {
   const [page, setpage] = useState("services");
-  const [bookingDetails, setBookingDetails] = useState<Booking>({
+  const [bookingDetails, setBookingDetails] = useState<Bookings>({
     date: "",
     startingTime: "",
     closingTime: "",
     seatNo: 0,
-  });
+    services: [], // Add the services property here
+    serviceName: "", // Add the serviceName property here
+});
   const [isBlinking,setIsBlinking] = useState(false)
   const [chatBox,setChatBox] = useState(false)
   const [conversationId,setConversationId] = useState('')
@@ -62,8 +66,8 @@ const SinglePageParlourDetails = ({ ParlourDetails }: parlourProps) => {
     }
   })
 
-  const {id} = useParams()
-
+  // const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>() || { id: "" };
    
   // Function to convert time to 12-hour format
   function convertTo12HourFormat(hour: string): string {

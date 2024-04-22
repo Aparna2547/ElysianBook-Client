@@ -1,9 +1,8 @@
-    import React, { useEffect, useState } from 'react'
+    import { useEffect, useState } from 'react'
     import Navbar from '../../../Components/User/NavBar/Navbar'
     import SinglePageParlourDetails from '../../../Components/User/SinglePage/SinglePageParlourDetails'
     import {  singleParlourDetails } from "../../../Api/user";
     import {useParams} from "react-router-dom"
-    import DatePicker from "../../../Components/User/DatePicker"
     
 
     const ParlourDetails = () => {
@@ -17,7 +16,8 @@
             closingTime: "",
             facilities: [],
             banners: [],
-            id: ""
+            id: "",
+            contact:''
         });
         const {id} = useParams()
         console.log(id);

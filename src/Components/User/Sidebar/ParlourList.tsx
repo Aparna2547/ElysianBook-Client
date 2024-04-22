@@ -1,7 +1,9 @@
-import React, { useEffect, useState ,lazy,} from "react";
-import pic from "../../../assets/palour1.jpeg";
+import { useEffect, useState } from "react";
 import { allParlours } from "../../../Api/user";
 import { Link } from "react-router-dom";
+import {  useSelector } from 'react-redux'
+import parlourLoader from '../../../../public/parlourloader.gif'
+
 
 type parlour ={
   _id:string
@@ -13,6 +15,12 @@ type parlour ={
   closingTime:number,
 }
 
+type RootState = {
+  auth:{
+    location:string
+  }
+}
+
 // const ParlourList = lazy(()=>import('../../../Components/User/Sidebar/ParlourList'))
 
 const ParlourList = () => {
@@ -21,15 +29,26 @@ const ParlourList = () => {
   const [parlourDetails, setParlourDetails] = useState<parlour[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [isLoading,setIsLoading] = useState(false)
+  const [isLoading,setIsLoading] = useState(true)
 
+  const {location} = useSelector((state:RootState)=>state.auth)
+  
+
+  
   useEffect(() => {
     const fetchParlours = async () => {
       try {
-        const res = await allParlours(currentPage);
+        console.log('seledre',location)
+        const res = await allParlours(currentPage,location);
         console.log(res.data.data);
+        if(res.data.data.parlours){
+          setTimeout(()=>{
+              setIsLoading(false)
+          },2000)
+        }
         setParlourDetails(res.data.data.parlours);
         setTotalPages(res.data.data.totalPages);
+
       } catch (error) {
         console.log(error);
       }
@@ -49,7 +68,7 @@ const ParlourList = () => {
             >
               <div className="" />
               <div className="">
-                <div className="relative hidden ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+                <div className="relative hidden ml-auto  h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
                   <div className="flex items-center justify-between px-4">
                     <h2 className="text-lg font-medium text-gray-900">
                       Filters
@@ -712,10 +731,14 @@ const ParlourList = () => {
                     </div>
                   </form>
                   {/* Product grid */}
-                  {isLoading=='true' ?(
-                    <i className="fa-solid fa-spinner fa-spin-pulse"></i> 
+                  {isLoading ?(
+                    <>
+                    <div className="flex justify-center items-center">
+                    <img src={parlourLoader} alt="" />
+                    </div>
+                    </>
                   ):(
-<div className="lg:col-span-3">
+                  <div className="lg:col-span-3">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                       {/* {parlourDetails.length > 0 && */}
                       {parlourDetails.map((parlour) => (
@@ -724,7 +747,7 @@ const ParlourList = () => {
                             <div className="max-h-44 overflow-hidden">
                             <img
                               className="w-full"
-                              src={parlour.banners[0]}
+                              src={parlour?.banners[0]}
                               alt="Sunset in the mountains"
                             />
                             </div>

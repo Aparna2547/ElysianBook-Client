@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Home from "../../../Components/Admin/Sidebar/Sidebarcheck";
 import RequestParlourConfirm from "../../../Components/Admin/RequestParlourConfirm";
 import { useParams,useNavigate } from 'react-router-dom';
@@ -7,7 +6,7 @@ import { ParlourRequestConfirmation } from "../../../Api/admin";
 
 
 const ParlourRequestCheck = () => {
-    const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
     console.log(id);
     const navigate = useNavigate()
     
@@ -52,7 +51,7 @@ const ParlourRequestCheck = () => {
           <div className="max-w-sm rounded overflow-hidden shadow-lg"></div>
         </div>
         <div>
-          <RequestParlourConfirm id={id} />
+          <RequestParlourConfirm />
         </div>
       </div>
     </div>

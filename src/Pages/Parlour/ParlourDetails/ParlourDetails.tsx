@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import Form from "../../../Components/Parlour/Form";
 import Sidebar from "../../../Components/Parlour/Sidebar/Sidebar";
 import SinglePageComponent from "../../../Components/SinglePageParlour/SinglePageComponent";

@@ -4,7 +4,6 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaCodePullRequest } from "react-icons/fa6";
 import { PiFlagBannerBold } from "react-icons/pi";
-import { MdOutlineLocalOffer } from "react-icons/md";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
@@ -12,8 +11,16 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { adminLogout } from "../../../Store/slice/authSlice";
 
+
+interface Menu {
+  name: string;
+  link: string;
+  icon: React.ElementType;
+  margin?: boolean;
+}
+
 const Home = () => {
-  const menus = [
+  const menus:Menu[] = [
     { name: "Dashboard", link: "/admin/dashboard", icon: MdOutlineDashboard },
     { name: "Users", link: "/admin/user", icon: AiOutlineUser },
     { name: "Parlours", link: "/admin/parlour", icon: AiOutlineUser },
@@ -21,12 +28,7 @@ const Home = () => {
     { name: "Facilities", link: "/admin/facilites", icon: BiCategory },
     { name: "Request", link: "/admin/parlourRequest", icon: FaCodePullRequest },
     { name: "Banners", link: "/admin/banners", icon: PiFlagBannerBold },
-      // {
-    //   name: "Logout",
-    //   link: "/admin/logout",
-    //   icon: RiLogoutCircleLine,
-    //   margin: true,
-    // },
+     
   ];
   const [open, setOpen] = useState(true);
   const dispatch = useDispatch();

@@ -5,35 +5,35 @@ import { toast } from "react-toastify";
 interface serviceProps {
   setShowModal(value: boolean): void;
 }
+interface Category{
+  _id:string,
+  catName:string
+}
 
 const ServiceModal = ({ setShowModal }: serviceProps) => {
-  const [services, setServices] = useState("");
-  const [image, setImage] = useState(null);
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [services, setServices] = useState("");
+  // const [image, setImage] = useState(null);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [formData, setFormData] = useState({
     serviceName: "",
     category: "",
     duration: 0,
     description: "",
     price:0,
-    image: [],
+    image: [] as File[],
   });
 
   console.log();
 
   useEffect(() => {
     const fetchCategories = async () => {
-      setLoading(true);
       try {
         const response = await categoriesToShow();
         console.log(response.data.data);
         setCategories(response.data.data);
       } catch (error) {
         console.log(error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
     fetchCategories();
   }, []);
@@ -95,17 +95,18 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
       const selectedImages = Array.from(e.target.files); // Convert FileList to array
       setFormData({ ...formData, image: selectedImages });
     } else {
-      setFormData({ ...formData, image: null });
+      setFormData({ ...formData, image: []  });
     }
   };
 
-  const handleCategoryChange = (e :React.ChangeEvent<HTMLInputElement>)=>{
+  const handleCategoryChange = (e : React.ChangeEvent<HTMLSelectElement>)=>{
     console.log('ppp',e.target.value)
     setFormData({...formData,category:e.target.value})
   }
 
   return (
     <>
+    
       <div
         className={`py-12 bg-gray-700 bg-opacity-50 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0`}
         id="modal"
@@ -150,14 +151,14 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
   onChange={handleCategoryChange}
 >
   <option value="">Select a category</option>
-  {categories &&
-    categories
-      // .filter(category => category.hide === 'true')
-      .map((category, index) => (
-        <option key={index} value={category._id}>
-          {category.catName}
-        </option>
-      ))}
+    {categories &&
+      categories
+        // .filter(category => category.hide === 'true')
+        .map((category, index) => (
+          <option key={index} value={category._id}>
+            {category.catName}
+          </option>
+        ))}
       
 </select>
 

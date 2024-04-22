@@ -9,15 +9,17 @@ import Confirmation from "../../../Components/Parlour/Confirmation";
 import EditService from "../../../Components/Parlour/EditService";
 
 type serviceType = {
+  category: {
+    _id: string; // Assuming category has an _id property
+    catName: string; // Assuming category also has a catName property
+  };
   _id: string;
   image: string;
   serviceName: string;
-  category: string;
   duration: number;
   price: number;
   description: string;
   isListed: boolean;
-  catName: string;
 };
 const Services = () => {
   const [services, setServices] = useState<serviceType[]>([]);
@@ -41,7 +43,7 @@ const Services = () => {
     description: "",
     image: "",
   });
-  const [imageForEdit, setImageForEdit] = useState(null);
+  const [imageForEdit, setImageForEdit] = useState<File | null>(null);
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -123,7 +125,9 @@ const Services = () => {
     formData.append("duration", serviceForEdit.duration.toString());
     formData.append("price", serviceForEdit.price.toString());
     formData.append("description", serviceForEdit.description);
-    formData.append("image", imageForEdit);
+    if(imageForEdit){
+      formData.append("image", imageForEdit);
+    }
 
     console.log("serviceForedit", serviceForEdit, imageForEdit);
 

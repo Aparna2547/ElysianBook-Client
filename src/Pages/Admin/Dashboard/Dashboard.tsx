@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import {useState,useEffect} from "react";
 import Home from "../../../Components/Admin/Sidebar/Sidebarcheck";
 import "./dashboard.css";
 import parlourImg from "../../../assets/building.png";

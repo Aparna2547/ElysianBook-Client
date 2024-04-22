@@ -1,9 +1,8 @@
-import { isAsyncThunkAction } from "@reduxjs/toolkit";
 import React,{useState,useEffect,useRef} from "react";
 // import socket from "../../../Services/socket"
 import { IoIosSend } from "react-icons/io";
 import {io,Socket} from "socket.io-client"
-import {getConversations,singleParlourDetails, getMessages,newMessage} from  "../../../Api/user"
+import { getMessages,newMessage} from  "../../../Api/user"
 import { useSelector } from 'react-redux'
 import {format} from 'timeago.js'
 
@@ -14,34 +13,38 @@ interface RootState{
 }
 
 interface Message{
+  senderId:string,
   text:string,
   createdAt:string,
-  sender:string,
+  // sender:string,
   conversationId:string
 }
  
 interface props{
   setChatBox(value:boolean):void
   conversationId:string
-  parlourId:string
-}
+  parlourId:string | undefined
+} 
 
 interface MessageType{
+  senderId:string,
 sender:string,
 text:string,
-createdAt:Date,
+// createdAt:Date,
+createdAt:string,
+
 conversationId:string
 }
 
 
 const Chat = ({setChatBox,conversationId,parlourId}:props) => {
-  const [messages,setMessages] = useState([])
+  const [messages,setMessages] = useState<MessageType[]>([])
   const [message,setMessage] = useState('')
-  const [user,setUser] = useState('')
+  // const [user,setUser] = useState('')
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const [arrivalMessage,setArrivalMessage] = useState<MessageType |null>(null)
   // const [parlour,setParlour] = useState<MessageType | null>(null)
-
+  const [images,setImages] = useState<string[]>([])
   const socket = useRef<Socket | undefined>()
 
   useEffect(()=>{
@@ -50,14 +53,24 @@ const Chat = ({setChatBox,conversationId,parlourId}:props) => {
       setArrivalMessage({
         sender : data.senderId,
         text: data.text,
-        createdAt :Date.now()
-      } as MessageType)
-    })
+        // createdAt :Date.now(),
+        createdAt: new Date().toISOString(), // Convert Date to ISO string
+        conversationId: conversationId
+      } as MessageType);
+    });
+    socket.current.on("image", (imageData) => {
+      console.log('imageData', imageData);
+      
+      if (!images.some((img) => img === imageData)) {
+        setImages((prevImages: string[]) => [...prevImages, imageData]);
+      }
+    });
+    
   },[])
 
   useEffect(()=>{
     arrivalMessage && 
-    setMessages(prev => [...prev,arrivalMessage] as Message[])
+    setMessages(prev => [...prev,arrivalMessage] )
   },[arrivalMessage])
 
   useEffect(()=>{
@@ -89,7 +102,7 @@ const Chat = ({setChatBox,conversationId,parlourId}:props) => {
         setMessages(messages);
   
         // Set user state
-        setUser(userInfo);
+        // setUser(userInfo);
       } catch (error) {
         console.log(error);
       }
@@ -176,6 +189,18 @@ const Chat = ({setChatBox,conversationId,parlourId}:props) => {
 
       </>
     ))} 
+
+    {images.map((imageData, index) => (
+      arrivalMessage?.sender !== userId && (
+        <div className="flex justify-start" key={index} style={{height:'100px',width:'150px'}}>
+          <img
+            src={imageData}
+            className="object-contain w-full h-full"
+            alt="Received Image"
+          />
+        </div>
+      )
+    ))}
 
 
      

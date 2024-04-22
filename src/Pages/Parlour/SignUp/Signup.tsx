@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { toast } from "react-toastify";
 
 import {Link} from "react-router-dom"
@@ -11,7 +11,6 @@ import GoogleAuthSignUp from '../../../Components/User/GoogleAuthSignUp';
 const SignUp = () => {
 
     
-  const [error, setError] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -56,10 +55,7 @@ const SignUp = () => {
     } catch (error) {
       console.error(error);
     //   setError("An error occurred during registration");
-    } finally {
-     
-      setError(null);
-    }
+    } 
   };
   return (
    

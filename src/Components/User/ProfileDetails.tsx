@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import {useState,useEffect} from 'react'
 import Navbar from "../../Components/User/NavBar/Navbar"
 import { userprofile,userLogout } from '../../Api/user'
 import {useDispatch} from "react-redux"
@@ -6,7 +6,6 @@ import {logout} from "../../Store/slice/authSlice"
 import  ChangeNameModal from "../../Components/User/ChangeProfileModals/ChangeNameModal"
 import  ChangeEmailModal from "../../Components/User/ChangeProfileModals/ChangeEmailModal"
 import  ChangePasswordModal from "../../Components/User/ChangeProfileModals/ChangePasswordModal"
-import  ChangeImageModal from "../../Components/User/ChangeProfileModals/ChangeImageModal"
 
 
 
@@ -19,18 +18,17 @@ type ProfileType = {
 
 const ProfileDetails = () => {
     const [profile,setProfile] = useState<ProfileType | null>(null)
-    const [formData,setFormData] = useState({
-        image:[],
-        name:'',
-        email:'',
-        password:''
-    })
+    // const [formData,setFormData] = useState({
+    //     image:[],
+    //     name:'',
+    //     email:'',
+    //     password:''
+    // })
     
     const [emailProps,setEmailProps] = useState('')
     const [nameModal,setNameModal] = useState(false)
     const [passwordModal,setPasswordModal] = useState(false)
     const [emailModal,setEmailModal] = useState(false)
-    const [imageModal,setImageModal] = useState(false)
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -100,7 +98,6 @@ const ProfileDetails = () => {
         {nameModal && <ChangeNameModal setNameModal={setNameModal} />}
         {emailModal && <ChangeEmailModal setEmailModal={setEmailModal} emailProps={emailProps} />}
         {passwordModal && <ChangePasswordModal setPasswordModal={setPasswordModal} />}
-        {/* {imageModal && <ChangeImageModal setImageModal={setImageModal} />} */}
     </>
 
 

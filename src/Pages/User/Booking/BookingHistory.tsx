@@ -1,6 +1,5 @@
-import React,{useState,useEffect} from 'react'
+import {useState,useEffect} from 'react'
 import ViewBooking from "../../../Components/User/ViewBooking"
-import { FaArrowRight } from "react-icons/fa";
 import {allUserBookings } from '../../../Api/user'
 import CancelModal from '../../../Components/User/CancelModal';
 import NavBar from "../../../Components/User/NavBar/Navbar"

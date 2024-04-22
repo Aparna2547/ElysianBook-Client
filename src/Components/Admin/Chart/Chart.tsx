@@ -1,5 +1,3 @@
-import React, { useRef, useEffect,useState } from 'react';
-import ChartJS from 'chart.js/auto'; 
 import {AreaChart,XAxis,YAxis,CartesianGrid,Tooltip,Area} from "recharts"
 
 const ChartComponent = () => {

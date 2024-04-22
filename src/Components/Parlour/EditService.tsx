@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { categoriesToShow } from "../../Api/parlour";
+
+
 
 interface editServiceProps {
   serviceForEdit: {
@@ -11,11 +13,20 @@ interface editServiceProps {
     description: string;
     image: string;
   };
-  setServiceForEdit: (value) => void;
-  imageForEdit: null | object;
-  setImageForEdit: (value: null | object) => void;
+  // setServiceForEdit: (value:object) => void;
+  setServiceForEdit: React.Dispatch<React.SetStateAction<{ _id: string; serviceName: string; category: string; duration: number; price: number; description: string; image: string; }>>;
+
+  imageForEdit: null | File;
+  // setImageForEdit: (value: null | object) => void;
+  setImageForEdit: React.Dispatch<React.SetStateAction<File | null>>;
+
   handleEditSubmit: (e: any) => void;
   setEditModal: (value: boolean) => void;
+}
+
+type Category = {
+  _id:string,
+  catName:string
 }
 
 
@@ -24,23 +35,28 @@ interface editServiceProps {
 const EditService = ({
   serviceForEdit,
   setServiceForEdit,
-  imageForEdit,
   setImageForEdit,
   handleEditSubmit,
   setEditModal,
 }: editServiceProps) => {
 
     
-  const handleImageChange = (e) => {
-    setServiceForEdit({
-      ...serviceForEdit,
-      image: URL.createObjectURL(e.target.files[0]),
-    });
-    setImageForEdit(e.target.files[0]);
+  const handleImageChange = (e:any) => {
+    // setServiceForEdit({
+    //   ...serviceForEdit,
+    //   image: URL.createObjectURL(e.target.files[0]),
+    // });
+    // setImageForEdit(e.target.files[0]);
+    const file = e.target.files[0];
+ setServiceForEdit({
+    ...serviceForEdit,
+    image: URL.createObjectURL(file),
+ });
+ setImageForEdit(file);
   };
 
 
-  const [categories,setCategories] = useState([])
+  const [categories,setCategories] = useState<Category[]>([])
     
   useEffect(() => {
     const fetchCategories = async () => {
@@ -134,7 +150,7 @@ const EditService = ({
               onChange={(e) =>
                 setServiceForEdit({
                   ...serviceForEdit,
-                  duration: e.target.value,
+                  duration: parseInt(e.target.value),
                 })
               }
               className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
@@ -153,7 +169,7 @@ const EditService = ({
               onChange={(e) =>
                 setServiceForEdit({
                   ...serviceForEdit,
-                  price: e.target.value,
+                  price:parseInt(e.target.value),
                 })
               }
               className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"

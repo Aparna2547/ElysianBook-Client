@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 import {toast} from "react-toastify"
 import {changeUserName} from "../../../Api/user"
 
@@ -9,7 +9,7 @@ const ChangeNameModal = ({setNameModal}:ModalProps) => {
 
     const [name,setName] = useState('')
 
-    const changeName = async (e) =>{
+    const changeName = async (e: React.FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
         try{
             if(name.trim().length <3){

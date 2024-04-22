@@ -1,14 +1,11 @@
-import React from 'react'
+// import {useState} from 'react'
 import logo from "../../../assets/logo.png"
 import {Link} from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { userLogout } from '../../../Api/user'
-import { logout } from '../../../Store/slice/authSlice'
-import {useNavigate} from "react-router-dom"
-import { toast } from 'react-toastify'
-import { CgProfile } from "react-icons/cg";
+// import {useNavigate} from "react-router-dom"
 import { FaLocationDot } from "react-icons/fa6";
-
+import axios from "axios"
+import {setLocation} from "../../../Store/slice/authSlice"
 
 
 interface RootState{
@@ -17,9 +14,53 @@ interface RootState{
     }
 }
 const Navbar = () => {
+    // const [isTooltip, setIsTooltip] = useState<Boolean>(false);
+//  const [searchQuery, setSearchQuery] = useState('');
     const {userInfo} = useSelector((state:RootState)=>state.auth)
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    // const showNearByPlace = async (searchQuery:any) => {
+    //     try {
+    //       console.log('searchQuery:', searchQuery);
+    //       const encodedSearchQuery = encodeURIComponent(searchQuery);
+    //       console.log('encodedSearchQuery:', encodedSearchQuery);
+      
+    //       const response = await axios.get(
+    //         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodedSearchQuery}&key=be59a58f88694f3994f62b14e0211717`
+    //       );
+      
+    //       console.log('response:', response);
+      
+    //       if (response.data.status === 'OK') {
+    //         const location = response.data.results[0].geometry.location;
+    //         console.log('location:', location);
+    //         // You can now use this location to fetch nearby parlours or any other data
+    //       } else {
+    //         toast.error('Geocode was not successful for the following reason:', response.data.status);
+    //       }
+    //     } catch (error) {
+    //       console.error('Error occurred while fetching data:', error);
+    //     }
+    //   }
+
+    const showNearBy = async () =>{
+        console.log('onclick')
+        let currentLocation;
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            console.log(position);
+            const location = await axios.get(
+              `https://api.geoapify.com/v1/geocode/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json&apiKey=be59a58f88694f3994f62b14e0211717`
+            );
+            currentLocation = location.data.results[0];
+            console.log(currentLocation);
+         dispatch(setLocation(currentLocation.county))
+
+        }
+        )
+        // setIsTooltip(false)
+
+    }
 
     // const logoutHandle = async ()=>{
     //     try{
@@ -62,12 +103,34 @@ const Navbar = () => {
                                 <Link to="/parlourlist">Parlours</Link>
                             </li>
                             <li className="md:px-4 md:py-2 hover:text-indigo-400 ">
-                                <button className='border border-gray-500 px-2 py-1 '><Link to=''><p className='text-sm font-bold flex items-center'><FaLocationDot className='pe-1'/>Show nearby</p></Link></button>
+                                <button className='border border-gray-500 px-2 py-1' onClick={showNearBy}><p className='text-sm font-bold flex items-center'><FaLocationDot className='pe-1'/>Show nearby</p></button>
                                 
                             </li>
-                            {/* <li className="md:px-4 md:py-2 hover:text-indigo-400">
-                                <a href="#">Contact</a>
-                            </li> */}
+                           
+                            {/* <div>
+                                <input type="text" onFocus={() => setIsTooltip(true)}
+                            //   onBlur={() => setIsTooltip(false)}
+                              
+                               placeholder='search place' value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)}
+                               className='border border-gray-500 px-2 py-1 mt-1'/>
+                               <button onClick={()=>showNearByPlace(searchQuery)}
+                               className='border border-gray-500 px-2 ms-1 text-lg py-1'><MdOutlineLocationSearching/></button>
+                                <div 
+                              className={`hs-tooltip ${
+                                !isTooltip ? "hidden" : ""
+                              }`}
+                            >
+                              <div className="hs-tooltip-toggle block text-center">
+                                <div className=" transition-opacity absolute mt-2 px-3 py-1 z-10 max-w-xs w-64 bg-white border border-gray-100 text-start rounded-xl shadow-m">
+                                <div>
+                               <button className='flex cursor-pointer'
+                                 onClick={showNearBy}><FaLocationDot className='pe-1 mt-1'/>Show nearby</button>
+                                </div>
+                                </div>
+                              </div>
+                            </div>
+                            </div> */}
+                           
                         </ul>
                     </div>
                     {userInfo ? 

@@ -1,29 +1,50 @@
-import React, { useState } from 'react'
+import React from 'react'
+
+interface Category{
+    catName:string,
+    _id:string,
+    image:string
+  }
 
 
 interface editCategoryProps{
-    categoryForEdit:{
-        _id:string,
-        catName:string,
-        image: string 
-    },
-    setCategoryForEdit: ()=>void,
-    imageForEdit: null | object,
-    setImageForEdit: (value : null | object)=>void,
+    // categoryForEdit:{
+    //     _id:string,
+    //     catName:string,
+    //     image: string 
+    // },
+
+    setCategoryForEdit: (value:any)=>void,
+
+    categoryForEdit: Category |undefined; 
+
+    // imageForEdit: null | object,
+    setImageForEdit: (value : any)=>void,
+    imageForEdit: File | null; 
+
     handleEditSubmit : (e:any)=>void,
     setEditModal :(value:boolean)=>void
 
 }
 
 
-const EditCategory = ({categoryForEdit,setCategoryForEdit,imageForEdit,setImageForEdit,handleEditSubmit,setEditModal}:editCategoryProps) => {
+const EditCategory = ({categoryForEdit,setCategoryForEdit,setImageForEdit,handleEditSubmit,setEditModal}:editCategoryProps) => {
 
 
 
 
 const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
-    setCategoryForEdit({...categoryForEdit, image: URL.createObjectURL(e.target.files[0])})
-    setImageForEdit((e.target.files[0]))
+    if(e.target.files && e.target.files.length >0){
+        const file = e.target.files[0]
+    // setCategoryForEdit({...categoryForEdit, image: URL.createObjectURL(file)})
+    setCategoryForEdit({
+        ...categoryForEdit!, // Assert non-null
+        image: URL.createObjectURL(file),
+        catName: categoryForEdit!.catName || '', // Provide default value
+        _id: categoryForEdit!._id || '' // Provide default value
+      });
+    setImageForEdit(file)
+    }
 }
 
   return (
@@ -40,8 +61,9 @@ const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
                         </label>
                         <input
                             id="name"
-                            value={categoryForEdit.catName}
-                            onChange={(e)=>setCategoryForEdit({...categoryForEdit,catName:e.target.value})}
+                            value={categoryForEdit ? categoryForEdit.catName : ''}
+                            // onChange={(e)=>setCategoryForEdit({...categoryForEdit,catName:e.target.value})}
+                            onChange={(e) => categoryForEdit && setCategoryForEdit({ ...categoryForEdit, catName: e.target.value })}
                             className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                         />
                         <label htmlFor="img" className="text-gray-800 text-sm font-bold leading-tight tracking-normal">
@@ -50,15 +72,16 @@ const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
                         <div className="relative mb-5 mt-2 w-1/2">
     {/* {image ? ( */}
         <div className="image-box mb-2">
-            <img src={categoryForEdit.image} alt="Preview Image"  className="preview-image"  />
+            <img src={categoryForEdit ? categoryForEdit.image : ''} alt="Preview Image"  className="preview-image"  />
         </div>
     {/* ) : ( */}
         <input
             type='file'
             id="img"
             name='image'
-            // onChange={(e)=>setCategoryForEdit({...categoryForEdit,image:e.target.files[0]})}
-            onChange={(e) => handleImageChange(e)}
+            // onChange={(e) => handleImageChange(e)}
+            onChange={(e) => categoryForEdit && handleImageChange(e)}
+
             accept='image/*'
 
             className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-16 text-sm border-gray-300 rounded border"

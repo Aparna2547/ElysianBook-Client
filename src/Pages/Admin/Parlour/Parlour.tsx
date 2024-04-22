@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import Home from "../../../Components/Admin/Sidebar/Sidebarcheck";
 import { allParlours } from "../../../Api/admin";
 import { Link } from "react-router-dom";
@@ -150,7 +150,7 @@ const Parlour = () => {
                         ) : (
                           <Link to={`/admin/singleParlour/${parlour._id}`}>
                             <td className="px-6 py-4">
-                              <button className="border border-black bg-black text-white font-bold px-2 px-3">
+                              <button className="border border-black bg-black text-white font-bold px-2 ">
                                 view
                               </button>
                             </td>

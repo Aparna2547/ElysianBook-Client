@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import {useState,useEffect} from 'react'
 import Calendar from 'react-calendar'
 import { useParams } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
@@ -12,18 +12,26 @@ interface bookingProps{
     seatNo:number,
 
   }
-  // setBookingDetails:(data:object)=>void;
+  setBookingDetails:any
 
-  setBookingDetails: (data: { xdate: string; startingTime: string; closingTime: string; seatNo: number ; serviceName:string }) => void;
-  convertTo12HourFormat:()=>void
+  // setBookingDetails: (data: {   date: string; startingTime: string; closingTime: string; seatNo: number ; serviceName:string }) => void;
+  convertTo12HourFormat:any,
   openingTime:string,
   closingTime:string
 }
 
 
+interface Slots{
+  seatNo:number,
+  bookings:[
+    startTime:string,
+  endTime:string
+  ],
+  
+}
 
 const SlotAvailability = ({bookingDetails,setBookingDetails,convertTo12HourFormat,openingTime,closingTime}:bookingProps) => {
-  const [slots,setSlots] = useState([])
+  const [slots,setSlots] = useState<Slots[]>([])
 
   const {id} = useParams()
 
@@ -44,8 +52,14 @@ const SlotAvailability = ({bookingDetails,setBookingDetails,convertTo12HourForma
       console.log(formattedDate);
       
       const res = await bookedSlots(id as string, formattedDate);
-      console.log(res.data.data);
-      setSlots(res.data.data)
+      console.log('helo jab',res.data.data);
+      if(res.data.data.holiday.length >0){
+        toast.error('Parlour is closed on this day. Please choose other dates.')
+      }else{
+        setSlots(res.data.data.data)
+
+      }
+      
     };
   
     fetchSlots();
@@ -100,7 +114,7 @@ const handleTime  = async (e:any) =>{
           {slots.length>0 ? slots.map((slot, index) => (
             <div key={index} className='block '>
               <h1 className=''>Seat {slot.seatNo}</h1>
-              {slot.bookings.reverse().map((booking, bookingIndex) => (
+              {slot.bookings.reverse().map((booking:any, bookingIndex) => (
                 <p key={bookingIndex} className='text-xs text-nowrap mt-1 bg-gray-500 text-white p-1 rounded'>
                  {convertTo12HourFormat(booking.startingTime)} - {convertTo12HourFormat(booking.endingTime)}
                 </p>

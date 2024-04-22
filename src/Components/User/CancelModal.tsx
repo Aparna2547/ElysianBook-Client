@@ -1,4 +1,4 @@
-import React,{useState,FormEvent  } from 'react'
+import {useState,FormEvent  } from 'react'
 import {cancelBooking } from '../../Api/user'
 import {toast} from "react-toastify"
 interface modalProps{

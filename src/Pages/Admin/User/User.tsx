@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import Home from "../../../Components/Admin/Sidebar/Sidebarcheck";
 import Api from "../../../Services/axios";
 import { FaRegEyeSlash } from "react-icons/fa6";
@@ -16,7 +16,6 @@ type userType = {
   isBlocked: boolean;
 };
 const User = () => {
-  const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState<userType[]>([]);
 
   const [searchTerm, setSearchTerm] = useState("");

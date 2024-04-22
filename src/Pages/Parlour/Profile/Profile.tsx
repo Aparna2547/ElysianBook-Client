@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Sidebar from '../../../Components/Parlour/Sidebar/Sidebar';
-import { vendorProfile,changeName ,vendorForgotPassword} from '../../../Api/parlour';
-import {Link} from "react-router-dom"
+import { vendorProfile,changeName} from '../../../Api/parlour';
 import {toast} from 'react-toastify'
 import ChangePasswordModal from "../../../Components/ChangePassword/ChangePasswordModal"
 import ChangeEmailModal from '../../../Components/ChangePassword/ChangeEmailModal';
@@ -19,7 +18,7 @@ type ProfileType = {
 const Profile = () => {
   const [profile, setProfile] = useState<ProfileType | null>(null);
   const [input,setInput] = useState(false)
-  const [name,setName] = useState<String>('')
+  const [name,setName] = useState<string>('')
   const [passwordModal,setPasswordModal] = useState(false)
   const [emailModal,setEmailModal] = useState(false)
   const [email,setEmail] = useState('')
@@ -55,8 +54,19 @@ const Profile = () => {
   
       const res = await changeName(name as string);
   
+      // if (res?.data.data) {
+      //   setProfile((prevProfile) => ({
+      //     ...prevProfile,
+      //     name: name as string,
+      //   }));
+      //   setInput(false);
+      //   toast.success('Name changed');
+      // } else {
+      //   toast.error('Failed to change name');
+      // }
+
       if (res?.data.data) {
-        setProfile((prevProfile) => ({
+        setProfile((prevProfile:any) => ({
           ...prevProfile,
           name: name as string,
         }));

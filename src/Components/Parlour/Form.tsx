@@ -6,11 +6,30 @@ import Api from "../../Services/axios";
 import {useNavigate} from "react-router-dom"
 
 
+interface FormDataType {
+  parlourName: string,
+  landMark: string
+  locality: string
+  district: string
+  openingTime: string,
+  closingTime: string
+  contact:string,
+  seats: number,
+  latitude: string
+  longitude: string
+  facilities: string[],
+  banners:any[],
+}
+
+interface FacilityObject {
+  facilities: string[]; // Assuming facilities is an array of strings
+}
+
 const Form = () => {
 
   const [facilities, setFacilities] = useState([]);
-  const [checkedItems, setCheckedItems] = useState([]);
-  const [formData, setFormData] = useState({
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const [formData, setFormData] = useState<FormDataType>({
     parlourName: "",
     landMark: "",
     locality: "",
@@ -23,12 +42,10 @@ const Form = () => {
     longitude: "",
     facilities: [],
     banners: ["", "", ""],
-    seats:0
   });
-  const [images, setImages] = useState("");
  const navigate = useNavigate()
 
-  const handleCheckBox = async (facility: any) => {
+  const handleCheckBox = async (facility: string) => {
     const updatedFacilities = checkedItems.includes(facility)
       ? checkedItems.filter((item) => item !== facility)
       : [...checkedItems, facility];
@@ -62,6 +79,8 @@ const Form = () => {
 
   // console.log('api',api)
   const [locationCheckBox, setLocationSetBox] = useState(false);
+
+
   const handleSubmit = async (e: any) => {
     try {
       e.preventDefault();
@@ -102,7 +121,7 @@ const Form = () => {
         toast.error("Select banners");
         return;
       }else if(formData.banners[0]){
-        const fileType = formData.banners[0].type;
+        const fileType = formData.banners[0].type ;
         if(!fileType.startsWith('image/')){
           console.log('imsge');
           toast.error('select image')
@@ -121,7 +140,7 @@ const Form = () => {
       formDataToSend.append("openingTime", formData.openingTime);
       formDataToSend.append("closingTime", formData.closingTime);
       formDataToSend.append("contact", formData.contact);
-      formDataToSend.append("seats", formData.seats);
+      formDataToSend.append("seats", formData.seats.toString());
       formDataToSend.append("latitude", formData.latitude);
       formDataToSend.append("longitude", formData.longitude);
 
@@ -132,11 +151,13 @@ const Form = () => {
       });
       // formDataToSend.append('facilities', formData.facilities);
 
-      formData.banners.forEach((banner, index) => {
-        if (typeof banner !== "string") {
-          formDataToSend.append("banners", banner);
-        }
-      });
+      
+    formData.banners.forEach((banner: string) => {
+      if (typeof banner !== "string") {
+        formDataToSend.append("banners", banner);
+      }
+    });
+
 
 
       const res = await addParlour(formDataToSend);
@@ -184,8 +205,26 @@ const Form = () => {
 
 
   const handleGetLocation = async () =>{
+    if(formData.landMark ==''){
+      toast.error('Enter the landmark')
+      return 
+    }
     const response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${formData.landMark}&lang=en&limit=1&type=amenity&format=json&apiKey=be59a58f88694f3994f62b14e0211717`)
-    console.log('res',response)
+    // console.log('res',response)
+    let getLocation = response.data.results[0]
+    console.log("df",getLocation)
+    if(!getLocation){
+      toast.error('Landmark not found. Try with different nearby location')
+    }
+    setFormData({
+      ...formData,
+      landMark: getLocation.city,
+      locality: getLocation.county,
+      district: getLocation.state_district,
+      longitude: getLocation.lon.toString(),
+      latitude:  getLocation.lat.toString(),
+    });
+
   }
   return (
     <div className="px-6 w-full">
@@ -214,6 +253,7 @@ const Form = () => {
               id="grid-last-name"
               type="text"
               placeholder="LandMark"
+              
               value={formData.landMark}
               onChange={(e) =>
                 setFormData({ ...formData, landMark: e.target.value })
@@ -228,6 +268,7 @@ const Form = () => {
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-black-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="grid-first-name"
               type="text"
+              disabled={true}
               placeholder="Locality"
               value={formData.locality}
               onChange={(e) =>
@@ -301,20 +342,23 @@ const Form = () => {
           </div>
         </div>
 
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full px-3 flex">
-            <div className="flex">
+        <div className="flex flex-wrap -mx-3 mb-6 ">
+          <div className="w-full px-3 flex justify-between">
+            <div className="flex ">
               <input
                 name="facilitiesx "
                 checked={locationCheckBox}
                 onChange={(e) => fetchCurrentLocation(e)}
+                
                 id="grid-password"
                 type="checkbox"
               />{" "}
               <p className="text-black  mx-2">Fetch Current Location</p>
             </div>
-            <div>
-              <button className="bg-blue-700 px-3 text-white " onClick={handleGetLocation}>GETLOCATION</button>
+
+            <div >
+              <p>OR Enter the landMark and press this button to autofill the details</p>
+              <button className="bg-blue-700 px-3 text-white" disabled={locationCheckBox} onClick={handleGetLocation}>GETLOCATION</button>
             </div>
           </div>
         </div>
@@ -328,9 +372,9 @@ const Form = () => {
           </label>
           <div className="w-full px-3 flex">
             <div className="flex mx-1">
-              {facilities.map((facilityObj, index) => (
+              {facilities.map((facilityObj:FacilityObject, index) => (
                 <React.Fragment key={index}>
-                  {facilityObj.facilities.map((facility, i) => (
+                  {facilityObj.facilities.map((facility:string, i:number) => (
                     <>
                       <input
                         key={i}
@@ -381,7 +425,8 @@ const Form = () => {
                     <img
                       src={URL.createObjectURL(banner)}
                       alt={`Banner Image ${index + 1}`}
-                      className="mt-2 max-w-xs"
+                      style={{height:'200px',width:'300px'}}
+                      className="mt-2 bg-red-900"
                     />
                   )}
                 </div>

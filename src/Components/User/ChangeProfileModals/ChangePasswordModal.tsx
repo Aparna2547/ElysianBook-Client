@@ -18,7 +18,7 @@ const ChangePasswordModal = ({setPasswordModal}:ModalProps) => {
   const dispatch = useDispatch()
 
 
-  const changePasswordHandle = async (e) =>{
+  const changePasswordHandle = async (e:React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault()
     try {
       if(currentPassword.trim().length<6){

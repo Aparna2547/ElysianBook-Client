@@ -39,7 +39,6 @@ const Sidebar = () => {
     }
   }
   return (
-    // <div className="flex">
       <div
         className={` ${
           open ? "w-72" : "w-20 "

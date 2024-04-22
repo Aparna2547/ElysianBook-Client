@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import Navbar from '../User/NavBar/Navbar'
 import Slider from "react-slick"
 

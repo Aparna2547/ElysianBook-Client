@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Home from "../../../Components/Admin/Sidebar/Sidebarcheck";
-import { FaRegEyeSlash } from "react-icons/fa6";
-import { MdEdit } from "react-icons/md";
-import FacilityModal from "../../../Components/Admin/FacilityModal";
 import Api from "../../../Services/axios";
+import FacilityModal from "../../../Components/Admin/FacilityModal"
+
+interface FacilityObject {
+  facilities: string[]; 
+}
+
 
 const Facilities = () => {
-  const [modal, setModal] = useState(false);
+  // const [modal, setModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [facilities, setFacilities] = useState([]);
 
@@ -60,18 +63,12 @@ const Facilities = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-    {facilities.map((facilityObj, index) => (
+    {facilities.map((facilityObj:FacilityObject, index) => (
       <React.Fragment key={index}>
         {facilityObj.facilities.map((facility, i) => (
           <tr key={i} className="hover:bg-gray-50">
             <td className="px-6 py-4">{facility}</td>
-              {/* <td className="px-6 py-4">
-                <div>
-                  <button x-data="{ tooltip: 'Edite' }">
-                    <MdEdit />
-                  </button>
-                </div>
-              </td> */}
+            
           </tr>
         ))}
       </React.Fragment>

@@ -307,7 +307,7 @@ export const monthlyProfit = async (year:string) =>{
 
 
 
-export const addHolidays = async(date :Date) =>{
+export const addHolidays = async(date :string) =>{
   try{
     const res = await Api.post(`${parlourRoutes.addHolidays}?date=${date}`)
     return res

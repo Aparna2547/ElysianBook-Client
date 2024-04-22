@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import Sidebar from "../../../Components/Parlour/Sidebar/Sidebar";
 import { allBookings } from "../../../Api/parlour";
 import Pagination from "../../../Components/Parlour/Pagination";

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
-import {useNavigate,Link} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { verifyOtp } from '../../../Api/parlour';
 import Api from '../../../Services/axios';
 import logo from "../../../assets/logo.png"

@@ -1,4 +1,4 @@
-    import React from "react";
+    // import React from "react";
     import { FaLocationPinLock } from "react-icons/fa6";
     import { FaClock } from "react-icons/fa";
     import { VscActivateBreakpoints } from "react-icons/vsc";
@@ -33,7 +33,7 @@
         <div className="overflow-x-hidden  bg-gray-100">
         <div className="max-w-screen-xl w-full  m-5 sm:p-8 relative shadow-md border border-gray-200">
 
-            <div className="w-full bg-white  lg:rounded-2xl  rounded-2xl shadow-lg  mb-3 ">
+            <div className="w-full bg-white  lg:rounded-2xl  rounded-2xl shadow-lg  mb-3 " style={{height:'300px'}}>
                 <img src={ParlourDetails.banners?.[0]} alt=""  className="rounded w-full h-full"/>
             </div>
 

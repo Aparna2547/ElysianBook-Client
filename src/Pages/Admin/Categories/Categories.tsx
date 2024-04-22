@@ -12,15 +12,20 @@ import Pagination from "../../../Components/Admin/Pagination"
 
 
 type categoriesType = {
-id:string,
+  index:number,
 catName:string,
-}[]
+_id:string,
+image:string,
+hide:boolean,
+}
+
+
 
 
 
 const Categories = () => {
   const [showModal, setShowModal] = useState(false);
-  const [categories, setCategories] = useState<categoriesType>([]);
+  const [categories, setCategories] = useState<categoriesType[]>([]);
 
   const [modal, setModal] = useState(false);
   const [listId, setListId] = useState("");
@@ -29,12 +34,14 @@ const Categories = () => {
   const [currentPage,setCurrentPage] = useState(1)
   const [totalPages,setTotalPages] = useState(0)
   
-  //for edit
   const [editModal,setEditModal] = useState(false)
-  const [categoryForEdit,setCategoryForEdit] = useState({_id:'',
-    catName:'',
-    image:''})
-  const [imageForEdit,setImageForEdit] = useState(null)
+//   const [categoryForEdit, setCategoryForEdit] = useState<{ _id: string; catName: string; image: string, index:number, }>({
+//     _id: '',
+//     catName: '',
+//     image: ''
+// });
+const [categoryForEdit, setCategoryForEdit] = useState<categoriesType>();
+  const [imageForEdit,setImageForEdit] =  useState<File | null>(null);
 
 // 
   useEffect(() => {
@@ -65,6 +72,7 @@ const Categories = () => {
   const handleEdit= async (index:number)=>{
     try{
       console.log('hadh')
+      
       setCategoryForEdit(categories[index])
       setEditModal(true)
 
@@ -78,22 +86,31 @@ const Categories = () => {
   }
 
 
+
   const handleEditSubmit = async (e:any)=>{
     e.preventDefault()
     console.log(categoryForEdit,imageForEdit) 
-    const nameExist = categories.filter((e)=>(e.catName==categoryForEdit.catName && e._id != categoryForEdit._id))
+    let nameExist;
+    if(categoryForEdit){
+     nameExist = categories.filter((e)=>(e.catName==categoryForEdit.catName && e._id != categoryForEdit._id))
+      
+    
     console.log('sdd',nameExist)
     if(nameExist.length != 0){
       toast.error("category already exist")
     }
     const formData = new FormData()
     formData.append('catName',categoryForEdit.catName)
-    formData.append('image',imageForEdit)
+    if(imageForEdit){
+      formData.append('image',imageForEdit)
+
+    }
 
     const res = await editCategory(categoryForEdit._id,formData)
     console.log(res)
     setEditModal(false)
     toast.success("category edited")
+  }
   }
 
   

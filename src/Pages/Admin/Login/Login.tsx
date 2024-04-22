@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
-import { TERipple } from "tw-elements-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import {  useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { login } from '../../../Api/admin';
 import logo from "../../../assets/logo.png"
-import { setAdminCredentials, setCredentials } from '../../../Store/slice/authSlice';
+import { setAdminCredentials } from '../../../Store/slice/authSlice';
 import { useDispatch } from 'react-redux';
 
 
@@ -130,64 +129,6 @@ const Login = () => {
   </section>
 </>
 
-      
-          // <section className="bg-grey">
-          //   <div className="container h-full px-6 py-24 ">
-          //     <div className="g-6 flex h-full flex-wrap items-center justify-center border border-grey bg-white shadow-lg ">
-          //       {/* <!-- Left column container with background--> */}
-          //       <div className="mb-12 md:mb-0 md:w-8/12 lg:w-80  ">
-          //         <div>
-          //         <img
-          //           src="src/assets/logo.png"
-          //           className="w-full"
-          //           alt="Phone image"
-          //         />
-                
-          //         </div>
-          //         <div>
-          //         </div>
-          //       </div>
-      
-          //       {/* <!-- Right column container with form --> */}
-          //       <div className="md:w-8/12 lg:ml-6 lg:w-5/12 border border-grey  p-5">
-          //         <form onSubmit={handleSubmit}>
-          //           {/* <!-- Email input --> */}
-          //           <input
-          //             type="email"
-          //             id='form1'
-          //             value={email}
-          //             onChange={(e)=>setEmail(e.target.value)}
-          //             className="peer h-full w-full rounded-[7px] border border-grey border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal  !text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 w-full" 
-          //             placeholder=" Email"
-          //           />
-      
-          //           {/* <!--Password input--> */}
-          //           <input
-          //             type="password"
-          //             id='form2'
-          //             value={password}
-          //             onChange={(e)=>setPassword(e.target.value)}
-          //             className="peer h-full w-full rounded-[7px] border border-grey border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal  !text-black outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 my-3 w-full"
-          //             placeholder="Password"
-          //           />
-      
-      
-          //           <button
-          //             className="bg-purple-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-          //             type="submit"
-          //             style={{ transition: "all 0.15s ease 0s" }}
-          //           >
-          //             LOGIN
-          //           </button> 
-      
-          //           {/* <!-- Divider --> */}
-                  
-                    
-          //         </form>
-          //       </div>
-          //     </div>
-          //   </div>
-          // </section>
       
   )
 }

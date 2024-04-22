@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import {useEffect,useState} from "react";
 import App from "../../../Components/Parlour/Sidebar/Sidebar";
 import { FaCashRegister } from "react-icons/fa6";
 import { FaRegCalendarCheck } from "react-icons/fa";
@@ -6,7 +6,6 @@ import Chart from "../../../Components/Parlour/ChartComp"
 import {dashboardDetails} from '../../../Api/parlour'
 import { MdFreeCancellation } from "react-icons/md";
 import { BsCashCoin } from "react-icons/bs";
-import PieChart from "../../../Components/Parlour/PieChart"
 
 
 type detailsProps ={
@@ -90,7 +89,7 @@ const Dashboard = () => {
             </div>
             
             <div>
-              <PieChart />
+              {/* <PieChart /> */}
            
             </div>
           </div>

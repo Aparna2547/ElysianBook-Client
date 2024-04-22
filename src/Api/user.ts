@@ -1,4 +1,3 @@
-import User from "../Pages/Admin/User/User";
 import Api from "../Services/axios";
 import UserRoutes from "../Services/endpoints/userEndpoints";
 import errorHandle from "../Api/errorHandle";
@@ -83,9 +82,9 @@ export const passwordChange = async (password: string) => {
   }
 };
 
-export const allParlours = async (currentPage: number) => {
+export const allParlours = async (currentPage: number,location:string) => {
   try {
-    const res = await Api.get(`${UserRoutes.allParlours}?page=${currentPage}`);
+    const res = await Api.get(`${UserRoutes.allParlours}?page=${currentPage}&location=${location}`);
     return res;
   } catch (error) {
     console.log(error);
@@ -272,7 +271,7 @@ export const newMessage = async(text:string,conversationId:string,senderId:strin
   }
 }
 
-export const getHolidays = async(parlourId:string,date:s) =>{
+export const getHolidays = async(parlourId:string,date:string) =>{
   try{
     const res = await Api.get(`${UserRoutes.getHolidays}?parlourId=${parlourId}&date=${date}`)
     return res

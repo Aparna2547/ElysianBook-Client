@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 import Sidebar from '../../../Components/Parlour/Sidebar/Sidebar'
 import Calendar from 'react-calendar'
 import { addHolidays } from '../../../Api/parlour'
@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 
 const Holidays = () => {
-  const [selectedDates, setSelectedDates] = useState<Date[]>([]);
+  const [selectedDates, setSelectedDates] = useState<string>('');
 
 
   const today = new Date()
@@ -16,28 +16,6 @@ const Holidays = () => {
   const endDate = new Date(today)
   endDate.setDate(today.getDate()+30)
 
-  // const handleDateChange = async (date:Date) =>{
-  //   setDate(date)
-  //   const index =  selectedDates.findIndex((d)=>d.getTime() ===date.getTime())
-
-  //   if(index===-1){
-  //     setSelectedDates([...selectedDates,date])
-  //   }else{
-  //     const updatedDates = [...selectedDates];
-  //     updatedDates.splice(index,1);
-  //     setSelectedDates(updatedDates)
-  //   }
-  //   console.log(date)
-   
-  // }
-
-
-  // const handleDateChange = async (date:Date) =>{
-  //   setDate(date)
-  //   console.log(date)
-  //   const res = await addHolidays([date])
-  //   console.log(res)
-  // }
 
   const handleDateChange = (selectedDates:any) => {
     setSelectedDates(selectedDates);

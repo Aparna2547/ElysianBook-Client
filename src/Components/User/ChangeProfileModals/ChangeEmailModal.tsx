@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import {useState} from 'react'
 import {toast} from "react-toastify"
 import { changeUserEmail,changeUserEmailSave } from '../../../Api/user'
 import { useDispatch } from 'react-redux';
@@ -16,7 +16,7 @@ const ChangeEmailModal = ({setEmailModal,emailProps}:ModalProps) => {
   const [otpInput,setOtpInput] = useState(false)
   const dispatch = useDispatch()
 
-  const handleEmailChange = async (e) =>{
+  const handleEmailChange = async (e:React.MouseEvent<HTMLButtonElement>) =>{
     e.preventDefault()
 
     try {
@@ -45,13 +45,13 @@ const ChangeEmailModal = ({setEmailModal,emailProps}:ModalProps) => {
     }
   }
 
-  const verifyOtp = async(e)=>{
+  const verifyOtp = async(e:  React.MouseEvent<HTMLButtonElement>)=>{
     e.preventDefault()
     try{
       if(otp.trim().length!==4){
         toast.error("enter otp")
       }
-      const res = await changeUserEmailSave(otp)
+      const res = await changeUserEmailSave(Number(otp))
       if(res.data.data){
         setEmailModal(false)
         toast.success("email changed successfully")

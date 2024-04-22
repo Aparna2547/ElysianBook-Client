@@ -1,12 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { allParlours } from '../../../Api/admin'
 import {Link} from "react-router-dom"
 import Home from '../../../Components/Admin/Sidebar/Sidebarcheck'
 import Pagination from "../../../Components/Admin/Pagination"
 
 
+interface Parlour{
+  name:string,
+  email:string,
+  parlourName:string,
+  locality:string,
+  status:string,
+  _id:string,
+}
+
 const ParlourRequest = () => {
-  const [parlourDetails,setParlourDetails] = useState({})
+  const [parlourDetails,setParlourDetails] = useState<Parlour[]>([])
   const [searchTerm,setSearchTerm] = useState('')
   const [totalPages,setTotalPages] = useState(0)
   const [currentPage,setCurrentPage] = useState(1)
@@ -109,7 +118,7 @@ const ParlourRequest = () => {
                           // <Link to={`/admin/parlourRequestApproval/${parlour._id}`}>                    
                           <Link to={`/admin/parlourRequestApproval/${parlour._id}`}>                    
                           <td className="px-6 py-4">
-                          <button className="border border-black bg-black text-white font-bold px-2 px-3">view</button>
+                          <button className="border border-black bg-black text-white font-bold px-2 ">view</button>
                         </td>
                         </Link>
                         )}

@@ -1,41 +1,56 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { FaLocationPinLock } from "react-icons/fa6";
 import { FaClock } from "react-icons/fa";
 import { VscActivateBreakpoints } from "react-icons/vsc";
 import {useParams} from "react-router-dom"
-    import { getParlourDetails } from "../../Api/admin";
+import { getParlourDetails } from "../../Api/admin";
 
+interface parlour{
+    backgroundImage:string,
+    parlourName:string,
+    banners:string,
+    name:string,
+    email:string,
+    locality:string,
+    landmark:string,
+    openingTime:number,
+    closingTime:number,
+    facilities:[string],
+
+}
 
 
 const parlourRequestConfirm = () => {
-const [parlourDetails,setParlourDetails] =useState({})
-const {id} = useParams()
+    const [parlourDetails, setParlourDetails] = useState<parlour | null>(null);
+const { id } = useParams<{ id: string }>();
     useEffect(()=>{
-        const parlourFetch = async ()=>{
+        const parlourFetch = async (id:string )=>{
             try{
-                const res = await getParlourDetails(id as string)
-                setParlourDetails(res.data.data)
-                console.log('faf',res.data.data)
+                    const res = await getParlourDetails(id as string)
+                    setParlourDetails(res.data.data)
+                    console.log('faf',res.data.data)
+                
+                
             }catch(error){
                 console.log(error)
             }
         }
-        parlourFetch(id)
+        if (id) {
+            parlourFetch(id);
+        }
     },[])
 
 
 return (
     <>
     {/* <Navbar /> */}
+    {parlourDetails && (    
     <div className="max-w-screen-xl w-full mx-auto p-5 sm:p-8 md:p-12 relative">
-
-    
-
         <div
         className="bg-cover h-64 text-center overflow-hidden"
         style={{
             height: "20rem",
-            backgroundImage:parlourDetails && parlourDetails.banners && parlourDetails.banners[1] ? `url(${parlourDetails.banners[1]})` : null,
+            backgroundImage: parlourDetails && parlourDetails.banners && parlourDetails.banners[1] ? `url(${parlourDetails.banners[1]})` : undefined,
             backgroundPositionY: "center",
         }}
         ></div>
@@ -106,7 +121,7 @@ return (
                 Facilities
             </h2>
             {parlourDetails.facilities ? (
-            parlourDetails.facilities.map((facility, index) => (
+            parlourDetails.facilities.map((facility:string, index:number) => (
                 <div key={index} className="text-gray-700 mt-2 flex gap-2 ">
                     <div className="flex gap-1 items-center">
                     <VscActivateBreakpoints /> {facility}
@@ -123,6 +138,8 @@ return (
     
         </div>
     </div>
+    )}
+
     </>
 );
 };

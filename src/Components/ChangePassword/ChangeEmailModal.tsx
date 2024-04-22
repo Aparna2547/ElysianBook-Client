@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import {useNavigate} from "react-router-dom"
 import { toast } from 'react-toastify';
 import {changeEmailProfile, changeEmailVerifyOtp} from '../../Api/parlour'
 
@@ -16,10 +15,9 @@ const ChangeEmailModal = ({setEmailModal,user,emailProps}:ModalProps) => {
     const [email,setEmail] = useState(emailProps)
     const [otp,setOtp] = useState('')
     const [otpInput,setOtpInput] = useState(false)
-    const navigate = useNavigate();
 
 
-    const handleEmailChange = async (e) =>{
+    const handleEmailChange = async (e:React.MouseEvent<HTMLButtonElement>) =>{
         e.preventDefault()
 
         try{
@@ -48,7 +46,7 @@ const ChangeEmailModal = ({setEmailModal,user,emailProps}:ModalProps) => {
         }
     }
 
-    const verifyOtp = async (e)=>{
+    const verifyOtp = async (e:React.MouseEvent<HTMLButtonElement>)=>{
         try{
         e.preventDefault()
           if(otp.trim().length!==4){

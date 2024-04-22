@@ -6,11 +6,30 @@ import axios from 'axios';
 import Api from '../../../Services/axios';
 import { getParlourDetails ,editParlour} from "../../../Api/parlour";
 
+interface FacilityObject {
+  facilities: string[]; // Assuming facilities is an array of strings
+}
+
+interface FormDataType {
+  parlourName: string,
+  landMark: string
+  locality: string
+  district: string
+  openingTime: string,
+  closingTime: string
+  contact:string,
+  seats: number,
+  latitude: string
+  longitude: string
+  facilities: string[],
+  banners:string[],
+}
+
 
 const EditParlour = () => {
   const [facilities, setFacilities] = useState([]);
-  const [checkedItems, setCheckedItems] = useState([]);
-  const [formData, setFormData] = useState({
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const [formData, setFormData] = useState<FormDataType>({
     parlourName: "",
     landMark: "",
     locality: "",
@@ -24,10 +43,9 @@ const EditParlour = () => {
     facilities: [],
     banners: ["", "", ""],
   });
-  const [images, setImages] = useState("");
  const navigate = useNavigate()
 
-  const handleCheckBox = async (facility: any) => {
+  const handleCheckBox = async (facility: string) => {
     const updatedFacilities = checkedItems.includes(facility)
       ? checkedItems.filter((item) => item !== facility)
       : [...checkedItems, facility];
@@ -88,51 +106,6 @@ fetchParlour()
     try {
       e.preventDefault();
 
-      // if (formData.parlourName.trim().length === 0) {
-      //   toast.error("Enter parlour name");
-      //   return;
-      // }
-      // if (formData.landMark.trim().length === 0) {
-      //   toast.error("Enter the landmark");
-      //   return;
-      // }
-      // if (formData.locality.trim().length === 0) {
-      //   toast.error("Enter the locality");
-      //   return;
-      // }
-      // if (formData.district.trim().length === 0) {
-      //   toast.error("Enter the district");
-      //   return;
-      // }
-      // if (formData.openingTime.trim().length === 0) {
-      //   toast.error("Enter the opening time");
-      //   return;
-      // }
-      // if (formData.closingTime.trim().length === 0) {
-      //   toast.error("Enter the closing time");
-      //   return;
-      // }
-      // if (formData.contact.trim().length !== 10) {
-      //   toast.error("Enter a 10-digit contact number");
-      //   return;
-      // }
-      // if (formData.seats < 0) {
-      //   toast.error("Enter a valid number of seats");
-      //   return;
-      // }
-      // if (formData.banners[0] === "") {
-      //   toast.error("Select banners");
-      //   return;
-      // }else if(formData.banners[0]){
-      //   const fileType = formData.banners[0].type;
-      //   if(!fileType.startsWith('image/')){
-      //     console.log('imsge');
-      //     toast.error('select image')
-      //     return; 
-          
-      // }
-      // }
-
       console.log('formdata',formData);
 
       const formDataToSend = new FormData();
@@ -143,7 +116,7 @@ fetchParlour()
       formDataToSend.append("openingTime", formData.openingTime);
       formDataToSend.append("closingTime", formData.closingTime);
       formDataToSend.append("contact", formData.contact);
-      formDataToSend.append("seats", formData.seats);
+      formDataToSend.append("seats", formData.seats.toString());
       formDataToSend.append("latitude", formData.latitude);
       formDataToSend.append("longitude", formData.longitude);
 
@@ -154,7 +127,7 @@ fetchParlour()
       });
       // formDataToSend.append('facilities', formData.facilities);
 
-      formData.banners.forEach((banner, index) => {
+      formData.banners.forEach((banner) => {
         if (typeof banner !== "string") {
           formDataToSend.append("banners", banner);
         }
@@ -349,7 +322,7 @@ fetchParlour()
           </label>
           <div className="w-full px-3 flex">
             <div className="flex mx-1">
-            {facilities.map((facilityObj, index) => (
+            {facilities.map((facilityObj:FacilityObject, index) => (
             <div key={index}>
               {facilityObj.facilities.map((facility, i) => (
                 <React.Fragment key={i}>
@@ -392,6 +365,8 @@ fetchParlour()
         src={bannerUrl}
         alt={`Banner Image ${index + 1}`}
         className="mt-2 max-w-xs"
+        style={{height:'200px',width:'300px'}}
+
       />
       <input
         id={`banner-image-${index + 1}`}
@@ -405,6 +380,7 @@ fetchParlour()
                       src={URL.createObjectURL(bannerUrl)}
                       alt={`Banner Image ${index + 1}`}
                       className="mt-2 max-w-xs"
+
                     />
                   )}
     </div>

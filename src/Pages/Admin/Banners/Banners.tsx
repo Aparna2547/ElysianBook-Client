@@ -1,17 +1,14 @@
-import React, { useState, useRef ,useEffect} from 'react';
+import  { useState ,useEffect} from 'react';
 import Home from '../../../Components/Admin/Sidebar/Sidebarcheck'
 import { addBanners ,getBanners,deleteBanner} from '../../../Api/admin';
 import {toast} from "react-toastify"
 
 const Banners = () => {
-  const [selectedImage, setSelectedImage] = useState(null)
-  const [image, setImage] = useState('')
   const [banners,setBanners] = useState<string[]>([])
   const [bannerToUpload,setBannerToUpload] = useState<File[]>([])
 
 
 
-  const fileInputRef = useRef(null)
 
 
   useEffect(()=>{
@@ -21,30 +18,21 @@ const Banners = () => {
     setBanners(res.data.data[0].banners)
    }
    fetchData()
-    // let existingImage = ['https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067_640.png','https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067_640.png']
-    // setBanners(existingImage)
 
   },[])
 
 
-  const handleButtonClick = () => {
-    fileInputRef?.current?.click();
-  }
+  
 
   const handleFileChange = (imageURL:string,file:File) => {
-    // setBanners((prevBanners:string[]) =>{
-    //   const newBanners = [...prevBanners];
-    //   newBanners[index] = imageURL;
-    //   return newBanners;
-    // })
+    
 
     setBanners([...banners,imageURL])
-    // existingImage.push(imageURL)
     setBannerToUpload([...bannerToUpload,file])
     console.log('jhj',bannerToUpload)
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e:any) => {
     console.log('inside handlesubmit')
     e.preventDefault()
    
@@ -94,8 +82,8 @@ const Banners = () => {
                 {
                   banners[index]?(
                     <>
-                    <div className='mb-5' style={{width:'200px',height:'100px'}} >
-                    <img src={banners[index]} alt=""style={{height:'100px',width:'200px'}}/>
+                    <div className='mb-5 mx-5' style={{width:'200px',height:'100px'}} >
+                    <img src={banners[index]} alt="" className='w-full h-full'/>
                   </div>
                   <div className='m-1'><div className='bg-red-700 px-3 py-1 font-bold text-white cursor-pointer' onClick={()=>handleDelete(banners[index])}>Delete</div></div>
                   </>
