@@ -39,7 +39,7 @@ export default function Chart() {
       };
   
       fetchData();
-   }, [year]); // Depend on year to refetch data when year changes
+   }, [year]);
   
 
    useEffect(()=>{
