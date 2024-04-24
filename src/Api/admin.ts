@@ -171,6 +171,16 @@ export const addBanners = async(banners:FormData) =>{
             errorHandle(error as Error)
         }
     }
+
+
+export const monthlyProfit = async (year:string) =>{
+    try{
+        const res = await Api.get(`${AdminRoutes.monthlyProfit}?year=${year}`)
+        return res
+    }catch(error){
+        errorHandle(error as Error)
+    }
+}
 export const adminLogout = async ()=>{
     try{
         const res = await Api.post(AdminRoutes.adminLogout)

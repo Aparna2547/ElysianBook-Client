@@ -2,10 +2,10 @@
 import logo from "../../../assets/logo.png"
 import {Link} from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-// import {useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import { FaLocationDot } from "react-icons/fa6";
 import axios from "axios"
-import {setLocation} from "../../../Store/slice/authSlice"
+import {setLocation,setRemoveLocation} from "../../../Store/slice/authSlice"
 
 
 interface RootState{
@@ -17,7 +17,7 @@ const Navbar = () => {
     // const [isTooltip, setIsTooltip] = useState<Boolean>(false);
 //  const [searchQuery, setSearchQuery] = useState('');
     const {userInfo} = useSelector((state:RootState)=>state.auth)
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     // const showNearByPlace = async (searchQuery:any) => {
@@ -61,19 +61,10 @@ const Navbar = () => {
         // setIsTooltip(false)
 
     }
-
-    // const logoutHandle = async ()=>{
-    //     try{
-    //         const response = await userLogout()
-    //         console.log(response)
-    //         dispatch(logout())
-    //         toast.success("Logged out succeesfully")
-    //         navigate('/login')
-
-    //     }catch(error){
-    //         console.log(error)
-    //     }
-    // }
+    const showParlours = async () =>{
+        navigate('/parlourlist')
+        dispatch(setRemoveLocation())
+    }
     return (
         <>
             {/* component */}
@@ -91,16 +82,13 @@ const Navbar = () => {
                     </div>
                     <div className="text-gray-500 order-3 w-full md:w-auto md:order-2">
                         <ul className="flex font-semibold justify-between">
-                            {/* Active Link = text-indigo-500
-          Inactive Link = hover:text-indigo-500 */}
-                            {/* <li className="md:px-4 md:py-2 text-indigo-500">
-                                <a href="#">Dashboard</a>
-                            </li> */}
+                        
                             <li className="md:px-4 md:py-2 hover:text-indigo-400">
                                 <Link to="/">Home</Link>
                             </li>
                             <li className="md:px-4 md:py-2 hover:text-indigo-400">
-                                <Link to="/parlourlist">Parlours</Link>
+                            <button onClick={showParlours}>Parlours</button>
+                                {/* <Link to="/parlourlist">Parlours</Link> */}
                             </li>
                             <li className="md:px-4 md:py-2 hover:text-indigo-400 ">
                                 <button className='border border-gray-500 px-2 py-1' onClick={showNearBy}><p className='text-sm font-bold flex items-center'><FaLocationDot className='pe-1'/>Show nearby</p></button>

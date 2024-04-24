@@ -9,6 +9,7 @@ import {totalDetails} from '../../../Api/admin'
 const Dashboard = () => {
   const [users,setUsers] = useState('')
   const [parlour,setParlour] = useState('')
+  const [revenue,setRevenue] = useState('')
 
   useEffect(()=>{
     const fetchDetails = async () =>{
@@ -16,6 +17,7 @@ const Dashboard = () => {
       // console.log(res.data.data)
       setUsers(res.data.data.allUsers)
       setParlour(res.data.data.allParlours)
+      setRevenue(res.data.data.revenue)
     }
     fetchDetails()
   },[])
@@ -48,12 +50,17 @@ const Dashboard = () => {
           <div className="first-div rounded ms-10">
           <span className="font-bold ms-2 text-lg text-gray-600 mt-4">REVENUE</span> 
 
-            <div className="second-div rounded bg-green-700 px-5 py-2"></div>
+            <div className="second-div rounded bg-green-700 px-5 py-2">
+
+            </div>
+            <div className="ms-4 mt-2 text-lg font-bold">
+             ₹ {revenue}
+            </div>
           </div>
         </div>
       </div>
       
-      <div className="mt-8">
+      <div className="mt-8 mx-5 p-5 flex justify-center items-center bg-white">
         <ChartComponent/>
       </div>
       </div>

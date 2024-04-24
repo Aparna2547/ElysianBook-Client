@@ -22,6 +22,8 @@ const UserRoutes = () => {
   return (
 <Routes>
   <Route path='' element={<Home/>} />
+  <Route path = 'parlourlist' element = {<ParloursPage/>} />
+<Route path = 'parlourDetails/:id' element =  {<ParlourDetails/>}/>
 
   <Route path ='' element={<UserLoggedOut/>} >
      <Route path='login' element={<Login />} />
@@ -29,11 +31,11 @@ const UserRoutes = () => {
     <Route path='verifyOtp' element={<Otp/>} />
     <Route path = 'forgotPassword' element={<Email user={true}/>} />
     <Route path="changePassword" element={<PasswordChange  user={true}/>} />
+    
 
 </Route>
 <Route path='' element={<UserProtect/>} >
-<Route path = 'parlourlist' element = {<ParloursPage/>} />
-<Route path = 'parlourDetails/:id' element =  {<ParlourDetails/>}/>
+
 <Route path = 'profilePage' element={<Profile/>} />
 <Route path='profile' element={<Profile/>} />
 <Route path='bookingSuccessful' element={<BookingSuccess/>} />

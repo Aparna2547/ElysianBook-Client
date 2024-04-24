@@ -13,51 +13,7 @@ import {
   Legend
 } from "recharts";
 
-// const data = [
-//   {
-//     name: "Page A",
-//     Revenue: 4000,
-//     Profit: 2400,
-//     amt: 2400
-//   },
-//   {
-//     name: "Page B",
-//     Revenue: 3000,
-//     Profit: 1398,
-//     amt: 2210
-//   },
-//   {
-//     name: "Page C",
-//     Revenue: 2000,
-//     Profit: 9800,
-//     amt: 2290
-//   },
-//   {
-//     name: "Page D",
-//     Revenue: 2780,
-//     Profit: 3908,
-//     amt: 2000
-//   },
-//   {
-//     name: "Page E",
-//     Revenue: 1890,
-//     Profit: 4800,
-//     amt: 2181
-//   },
-//   {
-//     name: "Page F",
-//     Revenue: 2390,
-//     Profit: 3800,
-//     amt: 2500
-//   },
-//   {
-//     name: "Page G",
-//     Revenue: 3490,
-//     Profit: 4300,
-//     amt: 2100
-//   }
-// ];
-// let data = []
+
 
 type chartType = {
   month:number,
@@ -78,12 +34,7 @@ export default function Chart() {
       const fetchData = async () => {
         const response = await monthlyProfit(year.toString());
         console.log('fhdsjh',response.data.data)
-        // const transformData = response.map((item:any) => ({
-        //   name: `Month ${item.month}`,
-        //   Revenue: item.totalPrice,
-        //   Profit: item.totalPrice,
-        //   amt: item.totalPrice,
-        // }));
+       
         setChartData(response.data.data);
       };
   

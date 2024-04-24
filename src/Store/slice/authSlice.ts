@@ -6,7 +6,7 @@ const initialState = {
     parlourInfo: localStorage.getItem('parlourInfo') ? JSON.parse(localStorage.getItem('parlourInfo') as string) : null,
     userId : localStorage.getItem('userId') ? JSON.parse(localStorage.getItem('userId') as string) : null,
     parlourId : localStorage.getItem('vendorId') ? JSON.parse(localStorage.getItem('vendorId') as string) : null,
-    location : localStorage.getItem('location') ? JSON.parse(localStorage.getItem('location')as string) : null
+    location : localStorage.getItem('location') ? JSON.parse(localStorage.getItem('location')as string) : null,
 }
 
 const authSlice = createSlice({
@@ -48,9 +48,13 @@ const authSlice = createSlice({
         setLocation:(state,action) =>{
             state.location = action.payload
             localStorage.setItem('location',JSON.stringify(action.payload))
+        },
+        setRemoveLocation:(state) =>{
+            state.location = null
+            localStorage.removeItem('location')
         }
     }
 })
 
-export const {setCredentials,logout,setAdminCredentials,adminLogout,setParlourCredentials,parlourLogout,setUserId, setParlourId,setLocation} = authSlice.actions
+export const {setCredentials,logout,setAdminCredentials,adminLogout,setParlourCredentials,parlourLogout,setUserId, setParlourId,setLocation,setRemoveLocation} = authSlice.actions
 export default authSlice.reducer

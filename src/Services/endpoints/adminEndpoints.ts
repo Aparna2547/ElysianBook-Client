@@ -29,6 +29,8 @@ const AdminRoutes ={
 
     deleteBanner:"/admin/deleteBanner",
 
+    monthlyProfit:'/admin/monthlyData',
+
     adminLogout:"/admin/adminlogout"
 }
 export default AdminRoutes
