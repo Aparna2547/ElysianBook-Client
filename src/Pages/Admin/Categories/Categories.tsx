@@ -5,7 +5,7 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import ConfirmationModal from "../../../Components/Admin/ConfirmationModal";
 import { hideCategory,editCategory, allCategory } from "../../../Api/admin";
-import { toast } from "react-toastify";
+import { toast } from 'sonner'
 import EditCategory from "../../../Components/Admin/EditCategory";
 import Pagination from "../../../Components/Admin/Pagination"
 

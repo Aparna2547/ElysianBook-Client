@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
-import {toast} from 'react-toastify'
+import { toast } from 'sonner'
 import Sidebar from "../../../Components/Parlour/Sidebar/Sidebar";
 import axios from 'axios';
 import Api from '../../../Services/axios';

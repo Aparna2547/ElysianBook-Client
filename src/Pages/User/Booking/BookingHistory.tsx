@@ -3,7 +3,7 @@ import ViewBooking from "../../../Components/User/ViewBooking"
 import {allUserBookings } from '../../../Api/user'
 import CancelModal from '../../../Components/User/CancelModal';
 import NavBar from "../../../Components/User/NavBar/Navbar"
-import NoBookings from "../../../Components/NoBookings/NoBookings"
+import Loading from "../../../Components/Loading/Loading"
 type bookingDetails ={
     _id:string;
     date: string; 
@@ -174,7 +174,9 @@ const BookingHistory = () => {
  
 </div>
     ):(
-      <div><NoBookings/></div>
+      <div><Loading/>
+      <i>No bookings found</i>
+      </div>
     )}
   
     {cancelModal &&<CancelModal  setCancelModal={setCancelModal}  bookingId={selectedBookingId}/>}

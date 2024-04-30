@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {toast} from "react-toastify"
+import { toast } from 'sonner'
 import {changeUserPassword } from '../../../Api/user'
 import {useNavigate} from 'react-router-dom'
 import { useDispatch } from 'react-redux';

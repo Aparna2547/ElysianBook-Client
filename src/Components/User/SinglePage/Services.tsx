@@ -4,7 +4,7 @@ import { FaClock } from "react-icons/fa";
 import Scrollbar from "../SinglePage/Scrollbar";
 import { getAllServices, proceedForPayment } from "../../../Api/user";
 import { IoCloseSharp } from "react-icons/io5";
-import { toast } from "react-toastify";
+import { toast } from 'sonner'
 import {loadStripe} from "@stripe/stripe-js"
 
 

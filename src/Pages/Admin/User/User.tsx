@@ -4,7 +4,7 @@ import Api from "../../../Services/axios";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import UserListingModal from "../../../Components/Admin/UserListingModal";
 import { listUser } from "../../../Api/admin";
-import { toast } from "react-toastify";
+import { toast } from 'sonner'
 import Pagination from "../../../Components/Admin/Pagination";
 
 type userType = {

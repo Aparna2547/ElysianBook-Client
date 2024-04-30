@@ -1,5 +1,5 @@
 import React,{useState,FormEvent} from 'react'
-import {toast} from 'react-toastify'
+import { toast } from 'sonner'
 import {cancelBookingByParlour} from "../../Api/parlour"
 
 

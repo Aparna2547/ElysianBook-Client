@@ -87,7 +87,7 @@ const Navbar = () => {
                                 <Link to="/">Home</Link>
                             </li>
                             <li className="md:px-4 md:py-2 hover:text-indigo-400">
-                            <button onClick={showParlours}>Parlours</button>
+                            <button onClick={showParlours} >Parlours</button>
                                 {/* <Link to="/parlourlist">Parlours</Link> */}
                             </li>
                             <li className="md:px-4 md:py-2 hover:text-indigo-400 ">

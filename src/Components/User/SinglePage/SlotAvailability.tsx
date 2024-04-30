@@ -3,7 +3,7 @@ import Calendar from 'react-calendar'
 import { useParams } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
 import {bookedSlots} from "../../../Api/user"
-import {toast} from 'react-toastify'
+import { toast } from 'sonner'
 interface bookingProps{
   bookingDetails:{
     date:string,

@@ -27,9 +27,11 @@ const Dashboard = () => {
         fetchDetails()
     },[])
   return (
-    <div className="flex bg-gray-200 overflow-x-hidden">
-      <App />
-      <div className="h-screen flex-1 p-7">
+    <div className="flex bg-gray-200 overflow-hidden">
+      <div >
+      <App  />
+      </div>
+      <div className="h-screen flex-1 p-7 overflow-y-scroll">
         <div className="w-full">
           <h1 className="font-bold text-2xl mb-10">Dashboard</h1>
           <div className=" w-full flex mb-2">

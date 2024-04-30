@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { addCategory } from '../../Api/admin';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner'
+
 
 interface categoryProps {
     setShowModal:(value:boolean)=>void

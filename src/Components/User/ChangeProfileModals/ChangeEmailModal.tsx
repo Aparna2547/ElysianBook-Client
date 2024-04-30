@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {toast} from "react-toastify"
+import { toast } from 'sonner'
 import { changeUserEmail,changeUserEmailSave } from '../../../Api/user'
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../Store/slice/authSlice';

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '../../../Components/Parlour/Sidebar/Sidebar';
 import { vendorProfile,changeName} from '../../../Api/parlour';
-import {toast} from 'react-toastify'
+import { toast } from 'sonner'
 import ChangePasswordModal from "../../../Components/ChangePassword/ChangePasswordModal"
 import ChangeEmailModal from '../../../Components/ChangePassword/ChangeEmailModal';
 

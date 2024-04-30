@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner'
+
 import {useNavigate} from 'react-router-dom'
 import {changePasswordProfile} from "../../Api/parlour"
 import { parlourLogout } from '../../Store/slice/authSlice';

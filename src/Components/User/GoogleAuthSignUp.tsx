@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { gsignup, userLogin } from "../../Api/user";
 import {gParlourSignup,parlourLogin} from "../../Api/parlour"
-import { toast } from "react-toastify";
+import { toast } from 'sonner'
 import { useDispatch } from "react-redux";
 import { setCredentials, setParlourCredentials ,setUserId,setParlourId} from "../../Store/slice/authSlice";
 

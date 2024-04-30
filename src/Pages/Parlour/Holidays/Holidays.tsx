@@ -2,7 +2,7 @@ import {useState} from 'react'
 import Sidebar from '../../../Components/Parlour/Sidebar/Sidebar'
 import Calendar from 'react-calendar'
 import { addHolidays } from '../../../Api/parlour'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 
 
 const Holidays = () => {

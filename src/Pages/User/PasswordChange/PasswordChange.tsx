@@ -1,6 +1,6 @@
 import  { useState } from 'react'
 import { passwordChange } from '../../../Api/user'
-import { toast } from 'react-toastify'
+import { toast } from 'sonner'
 import {useNavigate} from "react-router-dom"
 import { vendorChangePassword } from '../../../Api/parlour'
 

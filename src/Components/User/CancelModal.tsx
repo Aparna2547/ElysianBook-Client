@@ -1,6 +1,8 @@
 import {useState,FormEvent  } from 'react'
 import {cancelBooking } from '../../Api/user'
-import {toast} from "react-toastify"
+import { toast } from 'sonner'
+import { IoCloseCircleOutline } from "react-icons/io5";
+
 interface modalProps{
     setCancelModal(value:boolean):void;
     bookingId:string
@@ -12,6 +14,10 @@ const CancelModal = ({setCancelModal,bookingId}:modalProps) => {
         e.preventDefault()
         console.log('reason',reason)
         console.log('id',bookingId)
+        if(reason.trim().length ==0){
+          toast.error("Enter the reason")
+          return
+        }
         const res = await cancelBooking(bookingId,reason)
         console.log(res)
         setCancelModal(false)
@@ -33,6 +39,15 @@ const CancelModal = ({setCancelModal,bookingId}:modalProps) => {
      <form action="" onSubmit={handleCancelBooking}>
       <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
         <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div className='flex justify-end'>
+          <button
+            type="button"
+            onClick={()=>setCancelModal(false)}
+            // className="inline-flex w-full justify-end rounded-md bg-red-600 px-3 py-1 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+          >
+            <IoCloseCircleOutline className='text-xl'/>
+          </button>
+          </div>
           <div className="sm:flex sm:items-start">
             <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
               <svg
@@ -57,6 +72,7 @@ const CancelModal = ({setCancelModal,bookingId}:modalProps) => {
               >
                 Cancel order
               </h3>
+              
               <div className="mt-2">
                 <p className="text-sm text-gray-500">
                   Are you sure you want to cancel your Booking?
@@ -78,13 +94,7 @@ const CancelModal = ({setCancelModal,bookingId}:modalProps) => {
           >
             cancel
           </button> 
-           <button
-            type="button"
-            onClick={()=>setCancelModal(false)}
-            className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-          >
-            close
-          </button>
+           
         
         </div>
       </div>

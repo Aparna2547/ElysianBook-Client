@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import Sidebar from '../../../Components/Parlour/Sidebar/Sidebar';
 import { vendorProfile } from '../../../Api/parlour';
-import {toast} from 'react-toastify'
+import { toast } from 'sonner'
 
 
 type ProfileType ={

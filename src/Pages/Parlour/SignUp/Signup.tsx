@@ -1,5 +1,5 @@
 import  { useState } from 'react'
-import { toast } from "react-toastify";
+import { toast } from 'sonner'
 
 import {Link} from "react-router-dom"
 import Image from "../../../assets/logo.png"

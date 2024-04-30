@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { toast } from 'react-toastify';
+import { toast } from 'sonner'
 import { addFacility } from '../../Api/admin';
 
 interface facilityProps{

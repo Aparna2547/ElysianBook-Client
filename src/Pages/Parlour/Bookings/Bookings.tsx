@@ -3,6 +3,8 @@ import Sidebar from "../../../Components/Parlour/Sidebar/Sidebar";
 import { allBookings } from "../../../Api/parlour";
 import Pagination from "../../../Components/Parlour/Pagination";
 import CancelBooking from "../../../Components/Parlour/CancelBooking"
+import Loading from "../../../Components/Loading/Loading"
+
 type Bookingtypes = {
   _id: string;
   parlourId: {
@@ -28,12 +30,16 @@ const Bookings = () => {
   const [cancelModal,setCancelModal] = useState(false)
   const [selectedBookingId,setSelectedBookingId] = useState<string>('')
 
+  const [loading,setLoading] = useState(false)
+
   useEffect(() => {
+    setLoading(true)
     const fetchBookings = async () => {
       const res = await allBookings(currentPage);
       console.log(res.data.data.bookingDetails);
       setBookings(res.data.data.bookingDetails);
       setTotalPages(res.data.data.totalPages);
+      setLoading(false)
     };
     fetchBookings();
   }, [currentPage]);
@@ -49,7 +55,12 @@ const Bookings = () => {
         <Sidebar />
       </div>
 
-      <div className="w-full">
+    {loading ?(
+      <div className="flex justify-center items-center">
+      <Loading/>
+      </div>
+    ):(
+<div className="w-full overflow-y-scroll">
         <div className="font-bold text-lg m-5">All Bookings</div>
         <div className="block w-full ">
           {bookings &&
@@ -120,6 +131,8 @@ const Bookings = () => {
           totalPages={totalPages}
         />
       </div>
+    )}
+      
     {cancelModal && <CancelBooking setCancelModal={setCancelModal} bookingId={selectedBookingId}/>}
 
     </div>

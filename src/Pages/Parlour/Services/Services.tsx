@@ -4,9 +4,10 @@ import Pagination from "../../../Components/Parlour/Pagination";
 import ServiceModal from "../../../Components/Parlour/ServiceModal";
 import { allService, editService, listService } from "../../../Api/parlour";
 import { FaEdit } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import Confirmation from "../../../Components/Parlour/Confirmation";
 import EditService from "../../../Components/Parlour/EditService";
+import Loading from "../../../Components/Loading/Loading"
 
 type serviceType = {
   category: {
@@ -27,7 +28,7 @@ const Services = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [loading, setLoading] = useState(false);
   //for listing
   const [modal, setModal] = useState(false);
   const [listId, setListId] = useState("");
@@ -48,16 +49,22 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
+        setLoading(true);
         const res = await allService(searchTerm, currentPage);
         console.log("this", res.data.data);
-        setServices(res.data.data.allservices);
-        setTotalPages(res.data.data.totalPages);
+        if(res.data){
+          setServices(res.data.data.allservices);
+          setTotalPages(res.data.data.totalPages);
+          setLoading(false)
+        }
+     
+        
       } catch (error) {
         console.log(error);
       }
     };
     fetchServices();
-  }, [showModal, searchTerm, modal,editModal]);
+  }, [showModal, searchTerm, modal, editModal]);
 
   //for listing
   const handleModal = async (id: string) => {
@@ -125,7 +132,7 @@ const Services = () => {
     formData.append("duration", serviceForEdit.duration.toString());
     formData.append("price", serviceForEdit.price.toString());
     formData.append("description", serviceForEdit.description);
-    if(imageForEdit){
+    if (imageForEdit) {
       formData.append("image", imageForEdit);
     }
 
@@ -149,7 +156,7 @@ const Services = () => {
           <Sidebar />
         </div>
 
-        <div className="m-4 w-full">
+        <div className="m-4 w-full overflow-y-auto">
           <div className="flex justify-between mt-3">
             <div className="text-2xl font-bold">Services</div>
             <div>
@@ -190,102 +197,106 @@ const Services = () => {
               </div>
             </div>
           </div>
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-4">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400">
-                <tr>
-                  <th scope="col" className="px-6 py-3">
-                    Image
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    <div className="flex items-center">Service Name</div>
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    <div className="flex items-center">Category</div>
-                  </th>
-
-                  <th scope="col" className="px-6 py-3">
-                    <div className="flex items-center">duration</div>
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    <div className="flex items-center">Price</div>
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    <span className="sr-only">Status</span>
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    <span className="sr-only">Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              {services ? (
-  <tbody>
-    {services.map((service, index) => (
-      <tr className="bg-white" key={service._id}>
-        <th
-          scope="row"
-          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-        >
-          <div className="relative h-10 w-10">
-            <img
-              className="h-full w-full rounded-full object-cover object-center"
-              src={service.image}
-              alt="image"
-            />
-          </div>
-        </th>
-        <td className="px-6 py-4 text-gray-800">
-          {service.serviceName}
-        </td>
-        <td className="px-6 py-4  text-gray-800">
-          {service.category ? service.category.catName : 'N/A'}
-        </td>
-        <td className="px-6 py-4  text-gray-800">
-          {service.duration}
-        </td>
-        <td className="px-6 py-4  text-gray-800">
-          ₹{service.price}
-        </td>
-        <td className="px-6 py-4  text-gray-800">
-          {service.isListed ? (
-            <button
-              onClick={() => handleModal(service._id)}
-              className="border border-green-600 text-green-600 px-4 font-bold"
-            >
-              list
-            </button>
+          {loading ? (
+            <Loading />
           ) : (
-            <button
-              onClick={() => handleModal(service._id)}
-              className="border border-red-600 text-red-600 px-3 font-bold"
-            >
-              Unlist
-            </button>
-          )}
-        </td>
-        <td className="px-6 py-4 text-right">
-          <button
-            onClick={() => handleEdit(index)}
-            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
-            <FaEdit />
-          </button>
-        </td>
-      </tr>
-    ))}
-  </tbody>
-) : (
-  <tbody>
-    <tr>
-      <h1 className="text-center text-red-500">
-        No data available
-      </h1>
-    </tr>
-  </tbody>
-)}
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg m-4">
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400">
+                  <tr>
+                    <th scope="col" className="px-6 py-3">
+                      Image
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      <div className="flex items-center">Service Name</div>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      <div className="flex items-center">Category</div>
+                    </th>
 
-            </table>
-          </div>
+                    <th scope="col" className="px-6 py-3">
+                      <div className="flex items-center">duration</div>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      <div className="flex items-center">Price</div>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      <span className="sr-only">Status</span>
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      <span className="sr-only">Edit</span>
+                    </th>
+                  </tr>
+                </thead>
+                {services ? (
+                  <tbody>
+                    {services.map((service, index) => (
+                      <tr className="bg-white" key={service._id}>
+                        <th
+                          scope="row"
+                          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                        >
+                          <div className="relative h-10 w-10">
+                            <img
+                              className="h-full w-full rounded-full object-cover object-center"
+                              src={service.image}
+                              alt="image"
+                            />
+                          </div>
+                        </th>
+                        <td className="px-6 py-4 text-gray-800">
+                          {service.serviceName}
+                        </td>
+                        <td className="px-6 py-4  text-gray-800">
+                          {service.category ? service.category.catName : "N/A"}
+                        </td>
+                        <td className="px-6 py-4  text-gray-800">
+                          {service.duration}
+                        </td>
+                        <td className="px-6 py-4  text-gray-800">
+                          ₹{service.price}
+                        </td>
+                        <td className="px-6 py-4  text-gray-800">
+                          {service.isListed ? (
+                            <button
+                              onClick={() => handleModal(service._id)}
+                              className="border border-green-600 text-green-600 px-4 font-bold"
+                            >
+                              list
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleModal(service._id)}
+                              className="border border-red-600 text-red-600 px-3 font-bold"
+                            >
+                              Unlist
+                            </button>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <button
+                            onClick={() => handleEdit(index)}
+                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                          >
+                            <FaEdit />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ) : (
+                  <tbody>
+                    <tr>
+                      <h1 className="text-center text-red-500">
+                        No data available
+                      </h1>
+                    </tr>
+                  </tbody>
+                )}
+              </table>
+            </div>
+          )}
+
           <div className="flex justify-end">
             <button
               className="btn bg-blue-700 p-2 text-white font-bold"

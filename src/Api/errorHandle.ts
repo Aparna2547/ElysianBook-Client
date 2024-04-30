@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
-import {toast} from 'react-toastify';
+import { toast } from 'sonner'
+
 interface ErrorResponse {
     message: string;
     // Add other properties based on the structure of your JSON response

@@ -2,17 +2,17 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserRoutes from "./Routes/UserRoutes";
 import VendorRoutes from "./Routes/VendorRoutes";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import AdminRoutes from "./Routes/AdminRoutes";
+import { Toaster } from 'sonner'
 
 
 
 function App() {
   return (
     <>
-    <ToastContainer />
+    {/* <ToastContainer /> */}
     {/* <Chat /> */}
+    <Toaster richColors position="top-center"  />
       <Router>
         <Routes>
           <Route path="/*" element={<UserRoutes />} />

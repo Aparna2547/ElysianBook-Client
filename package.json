@@ -38,7 +38,7 @@
     "react-redux": "^9.1.0",
     "react-slick": "^0.30.2",
     "react-spinners": "^0.13.8",
-    "react-toastify": "^10.0.4",
+    "fy": "^10.0.4",
     "recharts": "^2.12.4",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.5",

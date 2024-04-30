@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import {  useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from 'sonner'
 import { login } from '../../../Api/admin';
 import logo from "../../../assets/logo.png"
 import { setAdminCredentials } from '../../../Store/slice/authSlice';

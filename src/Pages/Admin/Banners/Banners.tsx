@@ -1,7 +1,7 @@
 import  { useState ,useEffect} from 'react';
 import Home from '../../../Components/Admin/Sidebar/Sidebarcheck'
 import { addBanners ,getBanners,deleteBanner} from '../../../Api/admin';
-import {toast} from "react-toastify"
+import { toast } from 'sonner'
 
 const Banners = () => {
   const [banners,setBanners] = useState<string[]>([])

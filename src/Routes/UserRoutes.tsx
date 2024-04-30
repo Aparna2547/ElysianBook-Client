@@ -1,6 +1,6 @@
 import {Route,Routes} from "react-router-dom"
 
-import Otp from '../Components/Otp/Otp'
+// import Otp from '../Components/Otp/Otp'
 import Home from '../Pages/User/Home/Home'
 import Login from '../Pages/User/Login/Login'
 import SignUp from '../Pages/User/SignUp/SignUp'
@@ -13,8 +13,7 @@ import ParlourDetails from '../Pages/User/ParlourDetails/ParlourDetails'
 import Profile from '../Pages/User/Profile/Profile'
 import BookingSuccess from '../Components/User/BookingSuccess'
 import BookingHistory from "../Pages/User/Booking/BookingHistory"
-// import Chat from "../Pages/User/Chat/Chat"
-
+import OtpForm from "../Components/Otp/OtpForm"
 
 
 
@@ -28,7 +27,7 @@ const UserRoutes = () => {
   <Route path ='' element={<UserLoggedOut/>} >
      <Route path='login' element={<Login />} />
     <Route path='signup' element={<SignUp />} />
-    <Route path='verifyOtp' element={<Otp/>} />
+    <Route path='verifyOtp' element={<OtpForm/>} />
     <Route path = 'forgotPassword' element={<Email user={true}/>} />
     <Route path="changePassword" element={<PasswordChange  user={true}/>} />
     

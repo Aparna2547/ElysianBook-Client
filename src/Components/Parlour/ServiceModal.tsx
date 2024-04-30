@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { addService, categoriesToShow } from "../../Api/parlour";
-import { toast } from "react-toastify";
+import { toast } from 'sonner'
 
 interface serviceProps {
   setShowModal(value: boolean): void;
