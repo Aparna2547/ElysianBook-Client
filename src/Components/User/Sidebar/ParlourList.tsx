@@ -21,7 +21,6 @@ type RootState = {
 };
 
 const ParlourList = () => {
-  const [filterBar, setFilterBar] = useState(false);
   const [parlourDetails, setParlourDetails] = useState<parlour[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
