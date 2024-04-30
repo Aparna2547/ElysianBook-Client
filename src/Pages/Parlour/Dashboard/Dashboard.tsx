@@ -44,7 +44,7 @@ const Dashboard = () => {
                 <FaRegCalendarCheck className="text-white text-3xl my-3" />
               </div>
               <div className="ms-4 mt-2 text-lg font-bold">
-                {details?.allBookings}
+                {details?.allBookings}  
               </div>
             </div>
 

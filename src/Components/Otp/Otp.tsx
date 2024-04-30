@@ -10,7 +10,7 @@ const Otp = () => {
 
 
     const [seconds, setSeconds] = useState(59);
-    const [resendOtp, setResendOtp] = useState(false);
+    // const [resendOtp, setResendOtp] = useState(false);
     
     //otp timer
   useEffect(() => {
