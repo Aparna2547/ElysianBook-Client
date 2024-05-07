@@ -97,7 +97,7 @@ const [categoryForEdit, setCategoryForEdit] = useState<categoriesType>();
 
     }
 
-    const res = await editCategory(categoryForEdit._id,formData)
+    await editCategory(categoryForEdit._id,formData)
     setEditModal(false)
     toast.success("category edited")
   }

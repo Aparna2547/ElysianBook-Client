@@ -53,7 +53,7 @@ const Banners = () => {
     arr.splice(arr.indexOf(banner),1)
 
     setBanners([...arr])
-    const res = await deleteBanner(banner)
+    await deleteBanner(banner)
   }
 
 

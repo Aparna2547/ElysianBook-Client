@@ -31,7 +31,7 @@ const Sidebar = () => {
 
   const handleLogout = async ()=>{
     try{
-      const res = await vendorLogout()
+   await vendorLogout()
       dispatch(parlourLogout());
     }catch(error){
     }

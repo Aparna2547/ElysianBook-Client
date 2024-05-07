@@ -17,7 +17,7 @@ const CancelModal = ({setCancelModal,bookingId}:modalProps) => {
           toast.error("Enter the reason")
           return
         }
-        const res = await cancelBooking(bookingId,reason)
+       await cancelBooking(bookingId,reason)
         setCancelModal(false)
         toast.success("Booking Cancelled successfully you will get your refund within 7 days")
     }

@@ -14,7 +14,7 @@ const CancelBooking: React.FC<CancelBookingProps> = ({setCancelModal,bookingId}:
     const handleCancelBooking = async(e:FormEvent<HTMLFormElement>) =>{
 
         e.preventDefault()
-        const res = await cancelBookingByParlour(bookingId,reason)
+       await cancelBookingByParlour(bookingId,reason)
         setCancelModal(false)
         toast.success("booking cancelled by parlour")
     }

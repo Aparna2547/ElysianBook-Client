@@ -16,7 +16,7 @@ const FacilityModal = ({setShowModal}:facilityProps) => {
             return
         }
 
-        const res = await addFacility(facility);
+        await addFacility(facility);
         setShowModal(false)
     }
   return (
