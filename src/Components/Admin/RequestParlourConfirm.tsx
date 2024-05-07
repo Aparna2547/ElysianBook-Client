@@ -28,11 +28,9 @@ const { id } = useParams<{ id: string }>();
             try{
                     const res = await getParlourDetails(id as string)
                     setParlourDetails(res.data.data)
-                    console.log('faf',res.data.data)
                 
                 
             }catch(error){
-                console.log(error)
             }
         }
         if (id) {

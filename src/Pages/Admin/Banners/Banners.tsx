@@ -14,7 +14,6 @@ const Banners = () => {
   useEffect(()=>{
    const fetchData  = async () =>{
     const res = await getBanners()
-    console.log('sss',res.data.data[0].banners)
     setBanners(res.data.data[0].banners)
    }
    fetchData()
@@ -29,11 +28,9 @@ const Banners = () => {
 
     setBanners([...banners,imageURL])
     setBannerToUpload([...bannerToUpload,file])
-    console.log('jhj',bannerToUpload)
   }
 
   const handleSubmit = async (e:any) => {
-    console.log('inside handlesubmit')
     e.preventDefault()
    
     const formData = new FormData();
@@ -43,7 +40,6 @@ const Banners = () => {
     
     
     const res = await addBanners(formData)
-    console.log('jjhgj',res)
 
     if(res?.data.data){
       return toast.success('banner upload successfully')
@@ -53,15 +49,11 @@ const Banners = () => {
 
   const handleDelete = async(banner:string) =>{
     let arr = banners;
-    console.log('fanhr',arr)
 
     arr.splice(arr.indexOf(banner),1)
-    console.log('far',arr)
 
     setBanners([...arr])
-    console.log('dkfsf')
     const res = await deleteBanner(banner)
-    console.log(res)
   }
 
 

@@ -34,7 +34,6 @@ const Otp = () => {
       setResendOtp(false)
       setSeconds(59)
       const res = await Api.post("/parlour/signup",{otp})
-      console.log(res)
       if(res.data.status){
         toast.success("registrtion successfull.please login")
         navigate('/parlour/login')
@@ -45,7 +44,6 @@ const Otp = () => {
 
     const handleSubmit = async (e:any) => {
      e.preventDefault();
-        console.log('ihhh')
         try {
          if (otp.trim().length !== 4) {
   
@@ -55,7 +53,6 @@ const Otp = () => {
   
   
           const res = await verifyOtp(otp)
-          console.log(res);
           if(res.data.status){
             toast.success("signed up successfully..Please Login")
             navigate('/parlour')
@@ -65,7 +62,6 @@ const Otp = () => {
           
           
         } catch (error) {
-          console.log(error);
         }
       };
   return (

@@ -26,7 +26,6 @@ const Parlour = () => {
       try {
         const res = await allParlours(searchTerm,currentPage);
         setParlourDetails(res.data.data.showVendors);
-        console.log("daks", res.data.data);
         setTotalPages(res.data.data.totalPages)
       } catch (error) {
         console.error("Error fetching parlour details:", error);

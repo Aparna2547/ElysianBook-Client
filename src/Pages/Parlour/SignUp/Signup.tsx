@@ -23,7 +23,6 @@ const SignUp = () => {
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
-    console.log('hii');
     
 
     try {
@@ -44,7 +43,6 @@ const SignUp = () => {
       }
 
      const res = await signup(name,email,password)
-     console.log(res);
      if(!res.data.data){
       navigate('/parlour/verifyOtp')
      }else{

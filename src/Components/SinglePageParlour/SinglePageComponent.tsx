@@ -23,7 +23,6 @@
         
     }
     const SinglePageComponent = ({ParlourDetails}:parlourProps) => {
-        console.log('hiaiia',ParlourDetails)
 
 
     return (

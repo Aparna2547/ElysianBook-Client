@@ -11,14 +11,12 @@ const FacilityModal = ({setShowModal}:facilityProps) => {
 
     const handleSubmit = async(e:any)=>{
         e.preventDefault()
-        console.log(facility)
         if(facility.trim().length <4){
             toast.error("Enter the name of the facility")
             return
         }
 
         const res = await addFacility(facility);
-        console.log(res)
         setShowModal(false)
     }
   return (

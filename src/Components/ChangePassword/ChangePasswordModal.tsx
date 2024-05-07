@@ -41,24 +41,17 @@ const ChangePasswordModal = ({ setPasswordModal,user }: ModalProps) => {
 
       if(!user){
         const res = await changePasswordProfile(currentPassword,newPassword)
-        console.log(res.data.data)
-        console.log('password changed')
+     
         if(res.data.data){
           toast.success('password changed successfully.Please Login');
           (parlourLogout())
           navigate('/parlour')
         }
-      // }else{
-      //   const res = await userPasswordChange(currentPassword,newPassword)
-      //   if(res.data.data){
-      //     toast.success('password changed successfully.Please Login')
-      //     navigate('/')
-      //   }
+      
       }
 
 
     } catch (error) {
-      console.log(error);
       
     }
   }

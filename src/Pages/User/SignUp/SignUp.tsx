@@ -23,7 +23,6 @@ const SignUp = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    console.log("kdfpo");
     try {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -52,7 +51,6 @@ const SignUp = () => {
       }
 
       const res = await signup(name, email, password);
-      console.log(res);
       if (!res.data.data) {
         navigate("/verifyOtp");
       }
@@ -229,8 +227,8 @@ const SignUp = () => {
                 <input
                   type="email"
                   className="block border-b border-grey-light w-full p-3 rounded mb-4 outline-none"
-                  name="lastName"
-                  placeholder="Last Name"
+                  name="email"
+                  placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />

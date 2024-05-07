@@ -99,7 +99,6 @@ const SinglePageParlourDetails = ({ ParlourDetails }: parlourProps) => {
 const handleConversation =async () =>{
   setChatBox(true)
   const response  = await newConversation(id as string)
-  console.log('dfji',response)
   setConversationId(response.data.data._id)
 
 }
@@ -256,7 +255,7 @@ const handleConversation =async () =>{
             </>
 
           ) : page === "review" ? (
-            <h1 className="p-4">Booking section</h1>
+            <h1 className="p-4">No reviews</h1>
           // ) : page === "wallet" ? (
           //   <h1>Wallet</h1>
           ) : null}

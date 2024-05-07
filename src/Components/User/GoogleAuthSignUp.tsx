@@ -17,7 +17,6 @@ const GoogleAuthSignUp = ({ login ,user}: googleAuthProps) => {
   const navigate = useNavigate();
   const gSignUp = async (res: CredentialResponse) => {
     const result: any = jwtDecode(res.credential as string);
-    console.log(result);
     const data = {
       name: result.name,
       email: result.email,
@@ -29,7 +28,6 @@ const GoogleAuthSignUp = ({ login ,user}: googleAuthProps) => {
     //user login signup
     if (!login) {
         const response = await gsignup(data.name, data.email, data.password);
-        console.log('jgj',response);
         if (!response.data.data) {
           toast.error("email already exist. Please login");
           navigate("/login");
@@ -40,7 +38,6 @@ const GoogleAuthSignUp = ({ login ,user}: googleAuthProps) => {
       }
       else{
           const response = await userLogin(data.email,data.password)
-          console.log('jjj',response)
           if(!response.data.success){
               toast.error("User not found. Please sign up")
               navigate('/signup')
@@ -56,7 +53,6 @@ const GoogleAuthSignUp = ({ login ,user}: googleAuthProps) => {
     //parllour login and signup
     if (!login) {
         const response = await gParlourSignup(data.name, data.email, data.password);
-        console.log(response);
         if (!response.data.data) {
           toast.error("email already exist. Please login");
           navigate("/parlour");
@@ -67,7 +63,6 @@ const GoogleAuthSignUp = ({ login ,user}: googleAuthProps) => {
       }
       else{
           const response = await parlourLogin(data.email,data.password)
-          console.log('jj',response)
           if(!response.data.success){
               toast.error("Parlour not found. Please sign up")
               navigate('/parlour/signup')
@@ -88,7 +83,7 @@ const GoogleAuthSignUp = ({ login ,user}: googleAuthProps) => {
             gSignUp(credentialsResponse);
           }}
           onError={() => {
-            console.log("login failed");
+            toast.error("login failed")
           }}
         />
       </div>

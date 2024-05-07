@@ -24,7 +24,6 @@ export const signup = async (name: string, email: string, password: string) => {
     const res = Api.post(UserRoutes.signup, { name, email, password });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -47,7 +46,6 @@ export const userLogin = async (email: string, password: string) => {
     const res = await Api.post(UserRoutes.userLogin, { email, password });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -57,7 +55,6 @@ export const ForgotPassword = async (email: string) => {
     const res = await Api.post(UserRoutes.forgotPassword, { email });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -67,7 +64,6 @@ export const verifyOtpForgotPassword = async (otp: string) => {
     const res = await Api.post(UserRoutes.verifyOtpForgotPassword, { otp });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -77,7 +73,6 @@ export const passwordChange = async (password: string) => {
     const res = await Api.post(UserRoutes.changePassword, { password });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -87,7 +82,6 @@ export const allParlours = async (currentPage: number,location:string) => {
     const res = await Api.get(`${UserRoutes.allParlours}?page=${currentPage}&location=${location}`);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -97,7 +91,6 @@ export const singleParlourDetails = async (id: string) => {
     const res = await Api.get(`${UserRoutes.parlourDetails}/${id}`);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -107,7 +100,6 @@ export const userprofile = async () => {
     const res = await Api.get(UserRoutes.profile);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -117,7 +109,6 @@ export const changeUserName = async (name: string) => {
     const res = await Api.put(UserRoutes.changeUserName, { name });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -133,7 +124,6 @@ export const changeUserPassword = async (
     });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -143,7 +133,6 @@ export const changeUserEmail = async (email: string) => {
     const res = await Api.put(UserRoutes.changeUserEmail, { email });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -153,7 +142,6 @@ export const changeUserEmailSave = async (otp: number) => {
     const res = await Api.put(UserRoutes.changeUserEmailSave, { otp });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -163,7 +151,6 @@ export const deleteProfilePicture = async () => {
     const res = await Api.put(UserRoutes.deleteProfilePicture);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -173,7 +160,6 @@ export const changeProfilePicture = async (formData: FormData) => {
     const res = await Api.put(UserRoutes.changeProfilePicture, formData);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -184,7 +170,6 @@ export const getAllCategories = async (id: string) => {
     const res = await Api.get(`${UserRoutes.getAllCategories}?id=${id}`);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -216,7 +201,7 @@ export const allUserBookings = async (page:number) =>{
     const res = await Api.get(`${UserRoutes.allUserBookings}?page=${page}`)
     return res
   }catch(error){
-    console.log(error)
+    errorHandle(error as Error)
   }
 }
 
@@ -225,7 +210,6 @@ export const cancelBooking = async (bookingId:string,reason:string) =>{
     const res = await Api.post(`${UserRoutes.cancelBooking}?bookingId=${bookingId}`,{reason})
     return res
   }catch(error){
-    console.log(error)
     errorHandle(error as Error)
   }
 }
@@ -246,7 +230,7 @@ export const newConversation = async (parlourId:string) =>{
    const res = await Api.post(`${UserRoutes.newConversation}?parlourId=${parlourId}`)
    return res
   }catch(error){
-    console.log(error)
+    errorHandle(error as Error)
   }
 }
 
@@ -257,7 +241,7 @@ export const getMessages = async(conversationId:string)=>{
       const res = await Api.get(`${UserRoutes.getMessages}?conversationId=${conversationId}`)
       return res
   } catch (error) {
-      console.log(error)
+    errorHandle(error as Error)
   }
 }
 
@@ -267,7 +251,7 @@ export const newMessage = async(text:string,conversationId:string,senderId:strin
       const res = await Api.post(UserRoutes.newMessage,{text,conversationId,senderId})
       return res
   } catch (error) {
-      console.log(error)
+    errorHandle(error as Error)
   }
 }
 
@@ -285,7 +269,8 @@ export const userLogout = async () => {
     const res = await Api.post(UserRoutes.userLogout);
     return res;
   } catch (error) {
-    console.log(error);
+    errorHandle(error as Error)
+
   }
 };
 

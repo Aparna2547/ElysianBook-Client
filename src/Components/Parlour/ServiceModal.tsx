@@ -23,16 +23,13 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
     image: [] as File[],
   });
 
-  console.log();
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await categoriesToShow();
-        console.log(response.data.data);
         setCategories(response.data.data);
       } catch (error) {
-        console.log(error);
       } 
     };
     fetchCategories();
@@ -41,7 +38,6 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      console.log(formData)
       if(formData.serviceName.trim().length<3){
         toast.error("Enter the name of service")
         return
@@ -75,10 +71,8 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
         });
       }
 
-      console.log("cat",formData);
 
           const res = await addService(formDataToSend);
-          console.log(res);
           if (res.data.data) {
             toast.success("Service added successfully");
             setShowModal(false);
@@ -100,7 +94,6 @@ const ServiceModal = ({ setShowModal }: serviceProps) => {
   };
 
   const handleCategoryChange = (e : React.ChangeEvent<HTMLSelectElement>)=>{
-    console.log('ppp',e.target.value)
     setFormData({...formData,category:e.target.value})
   }
 

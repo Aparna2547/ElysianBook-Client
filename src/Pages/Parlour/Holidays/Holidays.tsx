@@ -19,13 +19,11 @@ const Holidays = () => {
 
   const handleDateChange = (selectedDates:any) => {
     setSelectedDates(selectedDates);
-    console.log(selectedDates)
   };
 
 
   const handleAddHolidays = async () =>{
     const res = await addHolidays(selectedDates)
-    // console.log(res.status)
     if(res.status == 200){
       toast.success('Date added as holiday')
     }

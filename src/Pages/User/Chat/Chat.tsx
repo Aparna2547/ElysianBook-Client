@@ -59,7 +59,6 @@ const Chat = ({setChatBox,conversationId,parlourId}:props) => {
       } as MessageType);
     });
     socket.current.on("image", (imageData) => {
-      console.log('imageData', imageData);
       
       if (!images.some((img) => img === imageData)) {
         setImages((prevImages: string[]) => [...prevImages, imageData]);
@@ -82,7 +81,7 @@ const Chat = ({setChatBox,conversationId,parlourId}:props) => {
     const fetchData = async () => {
       try {
         const userInfo = JSON.parse(localStorage.getItem('userId') as string);
-        console.log('userInfo', userInfo);
+        console.log( userInfo);
   
         // Getting parlour details for showing the name
         // console.log(conversationId)
@@ -113,15 +112,12 @@ const Chat = ({setChatBox,conversationId,parlourId}:props) => {
 
   //taking userid 
   const {userId} = useSelector((state:RootState) =>state.auth)
-  console.log("userid is",userId)
   
   const sendMessage =async(e:React.FormEvent<HTMLFormElement>) =>{
   try{
     e.preventDefault();
-    console.log('looooo')
 
     if(message.trim().length !==0 && message[0]!==' '){
-      console.log('jjhjhd')
       const res = await newMessage(message,conversationId,userId)
       socket.current?.emit("sendMessage",{
         senderId:userId,
@@ -130,7 +126,6 @@ const Chat = ({setChatBox,conversationId,parlourId}:props) => {
       })
 
       if(res?.data){
-        console.log(res.data.data)
         setMessages([...messages,res.data])
         setMessage('')
       }

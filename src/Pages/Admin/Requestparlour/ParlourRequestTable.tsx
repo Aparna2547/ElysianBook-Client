@@ -25,11 +25,9 @@ const ParlourRequest = () => {
    const fetchParlours = async ()=>{
     try {
       const res = await allParlours(searchTerm,currentPage);
-      console.log(res.data.data)
       setParlourDetails(res.data.data.showVendors)
       setTotalPages(res.data.data.totalPages)
     } catch (error) {
-      console.log(error);
       
     }
    }

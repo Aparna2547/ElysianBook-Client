@@ -52,7 +52,6 @@ const Email = ({ user }: forgotPasswordInterface) => {
 
       if (user) {
         const res = await ForgotPassword(email);
-        console.log(res);
         if (res.data.data) {
           setShowOtpInput(true);
         } else if (!res.data.status) {
@@ -60,7 +59,6 @@ const Email = ({ user }: forgotPasswordInterface) => {
         }
       } else {
         const res = await vendorForgotPassword(email);
-        console.log(res);
         if (res.data.data) {
           setShowOtpInput(true);
         } else {
@@ -68,18 +66,15 @@ const Email = ({ user }: forgotPasswordInterface) => {
         }
       }
     } catch (error) {
-      console.log(error);
     }
   };
 
   const verifyOtp = async (e: any) => {
     e.preventDefault();
     try {
-      console.log("hey");
 
       if (user) {
         const res = await verifyOtpForgotPassword(otp);
-        console.log(res);
         if (!res.data) {
           toast.error("Invalid otp");
         } else {
@@ -87,7 +82,6 @@ const Email = ({ user }: forgotPasswordInterface) => {
         }
       } else {
         const res = await vendorverifyOtpForgotPassword(otp);
-        console.log(res);
         if (res.data) {
           navigate("/parlour/changePassword");
         } else {
@@ -95,7 +89,6 @@ const Email = ({ user }: forgotPasswordInterface) => {
         }
       }
     } catch (error) {
-      console.log(error);
     }
   };
 

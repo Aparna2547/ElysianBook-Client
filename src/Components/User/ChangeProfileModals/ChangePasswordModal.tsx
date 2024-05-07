@@ -40,8 +40,7 @@ const ChangePasswordModal = ({setPasswordModal}:ModalProps) => {
 
   
         const res = await changeUserPassword(currentPassword,newPassword)
-        console.log(res.data.data)
-        console.log('password changed')
+   
         if(res.data.data){
           toast.success('password changed successfully.Please Login')
           dispatch(logout())
@@ -50,7 +49,6 @@ const ChangePasswordModal = ({setPasswordModal}:ModalProps) => {
     
 
     } catch (error) {
-      console.log(error);
       
     }
   }

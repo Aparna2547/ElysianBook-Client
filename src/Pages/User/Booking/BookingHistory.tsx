@@ -33,9 +33,7 @@ const BookingHistory = () => {
 
     useEffect(()=>{
         const fetchBookings  = async () =>{
-          console.log(currentPage)
             const res = await allUserBookings(currentPage)
-            console.log(res.data.data)
             setBookings(res.data.data.bookingDetails)
             setTotalPages(res.data.data.totalPages)
         } 
@@ -44,7 +42,6 @@ const BookingHistory = () => {
 
 
     const handleCancelClick = (bookingId:string) => {
-      console.log('bookingId',bookingId)
       setSelectedBookingId(bookingId);
       setCancelModal(true);
   };
@@ -53,7 +50,7 @@ const BookingHistory = () => {
   return (
     <>
     <NavBar/>
-    {bookings.length > 0 ?(
+    {bookings.reverse().length > 0 ?(
   <div className='block w-full '>
   { bookings.map((booking)=>(
 <div className='border border-gray-400 mt-5 p-3 mx-10'>

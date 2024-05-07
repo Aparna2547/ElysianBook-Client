@@ -17,7 +17,6 @@ const ChangeNameModal = ({setNameModal}:ModalProps) => {
                 return
             }
 
-            console.log(name)
 
             const res = await changeUserName(name)
             if(res.data.data){
@@ -25,7 +24,6 @@ const ChangeNameModal = ({setNameModal}:ModalProps) => {
                 toast.success("Name changed")
             }
         }catch(error){
-            console.log(error)
         }
     }
 

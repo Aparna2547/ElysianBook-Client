@@ -39,8 +39,7 @@ const SlotAvailability = ({bookingDetails,setBookingDetails,convertTo12HourForma
 
   useEffect(() => {
     const fetchSlots = async () => {
-      console.log('idl', id);
-      console.log('ksgd', bookingDetails.date);
+    
       
       const selectedDate = new Date(bookingDetails.date);
       
@@ -49,10 +48,8 @@ const SlotAvailability = ({bookingDetails,setBookingDetails,convertTo12HourForma
       
       // Format the updated date to ISO string
       const formattedDate = selectedDate.toISOString();
-      console.log(formattedDate);
       
       const res = await bookedSlots(id as string, formattedDate);
-      console.log('helo jab',res.data.data);
       if(res.data.data.holiday.length >0){
         toast.error('Parlour is closed on this day. Please choose other dates.')
       }else{

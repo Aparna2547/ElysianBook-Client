@@ -31,9 +31,7 @@ const ParlourList = () => {
   useEffect(() => {
     const fetchParlours = async () => {
       try {
-        console.log('seledre',location);
         const res = await allParlours(currentPage,location);
-        console.log(res.data.data);
         if(res.data.data.parlours){
           setTimeout(()=>{
               setIsLoading(false);
@@ -43,7 +41,6 @@ const ParlourList = () => {
         setTotalPages(res.data.data.totalPages);
 
       } catch (error) {
-        console.log(error);
       }
     };
     fetchParlours();
@@ -88,30 +85,7 @@ const ParlourList = () => {
                           <span className="font-medium text-gray-900">
                             Main services
                           </span>
-                          <span className="ml-6 flex items-center">
-                            {/* Expand icon, show/hide based on section open state. */}
-                            <svg
-                              className="h-5 w-5"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                              aria-hidden="true"
-                            >
-                              <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                            </svg>
-                            {/* Collapse icon, show/hide based on section open state. */}
-                            <svg
-                              className="h-5 w-5"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
-                              aria-hidden="true"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                          </span>
+                          
                         </button>
                       </h3>
                       {/* Filter section, show/hide based on section state. */}

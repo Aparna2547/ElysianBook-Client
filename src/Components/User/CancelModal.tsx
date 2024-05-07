@@ -12,14 +12,12 @@ const CancelModal = ({setCancelModal,bookingId}:modalProps) => {
 
     const handleCancelBooking = async (e:FormEvent<HTMLFormElement>) =>{
         e.preventDefault()
-        console.log('reason',reason)
-        console.log('id',bookingId)
+        
         if(reason.trim().length ==0){
           toast.error("Enter the reason")
           return
         }
         const res = await cancelBooking(bookingId,reason)
-        console.log(res)
         setCancelModal(false)
         toast.success("Booking Cancelled successfully you will get your refund within 7 days")
     }

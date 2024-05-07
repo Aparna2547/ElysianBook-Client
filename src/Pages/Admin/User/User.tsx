@@ -31,11 +31,9 @@ const User = () => {
         const response = await Api.get(
           `/admin/users?search=${searchTerm}&page=${currentPage}`
         );
-        console.log(response.data.showUser);
         setUsers(response.data.showUser);
         setTotalPages(response.data.totalPages);
       } catch (error) {
-        console.log(error);
       }
     };
     fetchUsers();
@@ -45,19 +43,14 @@ const User = () => {
     try {
       setModal(true);
       setListId(id);
-      console.log(id);
     } catch (error) {
-      console.log(error);
     }
   };
 
   const userStatusChangeHandle = async () => {
     try {
       const res = await listUser(listId);
-      console.log("resd", listId);
 
-      console.log('res',res.data.data);
-      console.log("User listed successfully");
       if (res) {
         setModal(false);
         toast.success("User permission changed");
@@ -65,7 +58,6 @@ const User = () => {
         toast.error("something error");
       }
     } catch (error) {
-      console.log(error);
     }
   };
 

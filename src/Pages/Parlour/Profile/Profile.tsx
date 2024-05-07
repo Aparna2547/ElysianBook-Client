@@ -26,7 +26,6 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const res = await vendorProfile();
-        console.log(res.data.data);
           setEmail(res.data.data.email)
     
         setProfile(res.data.data);

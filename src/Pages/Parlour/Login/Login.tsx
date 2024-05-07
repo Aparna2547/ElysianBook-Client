@@ -30,12 +30,10 @@ const Login = () => {
 
 
         const res = await parlourLogin(email,password)
-        console.log(res);
         if (res.data.success) {
           dispatch(setParlourCredentials(res.data.token))
           dispatch(setParlourId(res.data.vendorId))
           toast.success("Signed in...");
-          console.log("Navigating to '/'...");
           navigate('/parlour/dashboard')
         }else if(!res.data.status){
           toast.error(res.data.message)

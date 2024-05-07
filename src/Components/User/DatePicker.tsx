@@ -11,7 +11,6 @@ const DatePicker = () => {
     const toggleAccordion = (index:any) => {
         setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
     };
-    console.log(selected)
 
     let items = ['','','','']
 

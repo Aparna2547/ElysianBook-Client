@@ -57,10 +57,8 @@ const Form = () => {
     const fetchFacilities = async () => {
       try {
         const response = await Api.get("/admin/facilities");
-        // console.log(response);
         setFacilities(response.data);
       } catch (error) {
-        console.log(error);
       }
     };
     fetchFacilities();
@@ -75,9 +73,7 @@ const Form = () => {
     }
   };
 
-  // const api = process.env.REACT_APP_GEOPIFY_API;
 
-  // console.log('api',api)
   const [locationCheckBox, setLocationSetBox] = useState(false);
 
 
@@ -123,14 +119,12 @@ const Form = () => {
       }else if(formData.banners[0]){
         const fileType = formData.banners[0].type ;
         if(!fileType.startsWith('image/')){
-          console.log('imsge');
           toast.error('select image')
           return; 
           
       }
       }
 
-      console.log(formData);
 
       const formDataToSend = new FormData();
       formDataToSend.append("parlourName", formData.parlourName);
@@ -179,15 +173,11 @@ const Form = () => {
       setLocationSetBox(e.target);
       let currentLocation;
       if (!locationCheckBox) {
-        console.log("selected");
         navigator.geolocation.getCurrentPosition(async (position) => {
-          console.log(position);
           const location = await axios.get(
             `https://api.geoapify.com/v1/geocode/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json&apiKey=${import.meta.env.VITE_APP_GEOPIFY_API}`
           );
           currentLocation = location.data.results[0];
-          console.log(currentLocation);
-          console.log(currentLocation.city, currentLocation.road);
           setFormData({
             ...formData,
             landMark: currentLocation.city,
@@ -199,7 +189,6 @@ const Form = () => {
         });
       }
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -210,9 +199,7 @@ const Form = () => {
       return 
     }
     const response = await axios.get(`https://api.geoapify.com/v1/geocode/search?text=${formData.landMark}&lang=en&limit=1&type=amenity&format=json&apiKey=${import.meta.env.VITE_APP_GEOPIFY_API}`)
-    // console.log('res',response)
     let getLocation = response.data.results[0]
-    console.log("df",getLocation)
     if(!getLocation){
       toast.error('Landmark not found. Try with different nearby location')
     }

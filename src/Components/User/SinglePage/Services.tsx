@@ -51,23 +51,19 @@ const Services = ({ bookingDetails, setBookingDetails ,convertTo12HourFormat,clo
   useEffect(() => {
     const fetchServices = async () => {
       const res = await getAllServices(id as string);
-      // console.log("hello", res.data.data[0]);
-      // console.log('parloyr',parlourName)
+
       setServices(res.data.data);
       setCategorySelected(res.data.data[0].services);
     };
     fetchServices();
   }, []);
 
-  console.log('booing',bookingDetails);
 
   //pushing selectedservices
   const handleSelectedServices = async (service: ServiceProps) => {
-    // console.log(service)
     const isAlreadySelected = selectedServices.some(
       (s) => s.serviceName  === service.serviceName
     );
-    // console.log('isalready',isAlreadySelected,service.id)
     if (!isAlreadySelected) {
       if (!bookingDetails.startingTime) {
         return toast.error("Please select date and time");
@@ -110,15 +106,9 @@ const Services = ({ bookingDetails, setBookingDetails ,convertTo12HourFormat,clo
   const handleDelete = async (index: number) => {
     setSelectedServices((prevSelectedServices) => {
       const updatedServices = prevSelectedServices.filter((_, i) => i !== index);
-      console.log("deleted");
       return updatedServices;
     });
-    // console.log('index',index)
-    // let service = selectedServices
-    // console.log('service',service)
-    // service.splice(index,1)
-    // console.log('after splice',service)
-    // setSelectedServices(service)
+  
   };
 
   //calculating ending time
@@ -154,25 +144,21 @@ const Services = ({ bookingDetails, setBookingDetails ,convertTo12HourFormat,clo
   const { totalTime, totalPrice } = calculateTotal();
   const endingTime = calculateEndingTime(bookingDetails.startingTime,totalTime)
 
-  console.log('totaltime',totalTime,endingTime)
 
 
 
 
   //booking services
   const handleBooking = async () => {
-    console.log("services", bookingDetails);
 
     if(endingTime>closingTime){
       toast.error(`parlour will close ${closingTime}`)
     }
     else{
       const stripe = await loadStripe(import.meta.env.VITE_APP_LOADSTRIPE  )
-      console.log('stripe',stripe);
       
        
       const response = await proceedForPayment(bookingDetails,id);
-      console.log(response);
       let sessionId = response.data
        
       stripe?.redirectToCheckout({
@@ -200,7 +186,6 @@ const Services = ({ bookingDetails, setBookingDetails ,convertTo12HourFormat,clo
     console.error('Invalid date format or value:', bookingDetails.date);
   }
   
-console.log('Formatted date:', formattedDate);
 
 
   return (
@@ -214,7 +199,7 @@ console.log('Formatted date:', formattedDate);
             />
 
             <div className="w-full lg:flex block ">
-              {categorySelected.map((service: ServiceProps, index) => (
+              {categorySelected.length==0 ? categorySelected.map((service: ServiceProps, index) => (
                 <div className=" border-w-gray-200 bg-white rounded  p-3 m-2 lg:w-1/2 w-full">
                   <div key={index} className="flex gap-2 rounded-lg">
                     <div className="w-1/4">
@@ -246,7 +231,11 @@ console.log('Formatted date:', formattedDate);
                     </button>
                   </div>
                 </div>
-              ))}
+              )):(
+                <div>
+                  No services
+                  </div>
+              )}
             </div>
           </div>
         </div>

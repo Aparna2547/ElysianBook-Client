@@ -30,7 +30,6 @@ const ChangeEmailVerifyOtp = () => {
 
     const handleSubmit = async (e:any) => {
      e.preventDefault();
-        console.log('ihhh')
         try {
          if (otp.trim().length !== 4) {
   
@@ -39,18 +38,8 @@ const ChangeEmailVerifyOtp = () => {
           }
   
   
-        //   const res = await verifyOtp(otp)
-        //   console.log(res);
-        //   if(res.data.status){
-        //     toast.success("signed up successfully..Please Login")
-        //     navigate('/parlour')
-        //   }else if(!res.data.status){
-        //     toast.error(res.data.message)
-        //   }
-          
           
         } catch (error) {
-          console.log(error);
         }
       };
 
@@ -59,7 +48,6 @@ const ChangeEmailVerifyOtp = () => {
         setResendOtp(false)
         setSeconds(59)
         const res = await Api.post("/parlour/signup",{otp})
-        console.log(res)
         if(res.data.status){
           toast.success("registrtion successfull.please login")
           navigate('/parlour/login')

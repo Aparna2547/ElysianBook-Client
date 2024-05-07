@@ -16,7 +16,6 @@ const UserHome = () => {
     useEffect(()=>{
         const fetchBanners = async () =>{
             const res = await getBanners()
-            console.log(res.data.data[0].banners)
             setBanners(res.data.data[0].banners)
         }
         fetchBanners()

@@ -14,7 +14,6 @@ const CategoryModal = ({setShowModal}:categoryProps) => {
 
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(category,image);
 
         if (category.trim().length<4) {
 
@@ -26,7 +25,6 @@ const CategoryModal = ({setShowModal}:categoryProps) => {
         }else if(image){
             const fileType = image.type;
             if(!fileType.startsWith('image/')){
-                console.log('imsge');
                 toast.error('select image')
                 return; 
                 
@@ -39,7 +37,6 @@ const CategoryModal = ({setShowModal}:categoryProps) => {
         formData.append('category',category);
 
         const res = await addCategory(formData);
-        console.log(res);
         if(res.data.data){
             toast.success('category added..');
             setShowModal(false)

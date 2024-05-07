@@ -35,11 +35,9 @@ const ProfileDetails = () => {
         const fetchProfile = async () =>{
             try{
                 const res = await userprofile();
-                console.log(res)
                 setProfile(res.data.data)
                 setEmailProps(res.data.data.email)
             }catch(error){
-                console.log(error)
             }
         }
         fetchProfile()
@@ -51,7 +49,6 @@ const ProfileDetails = () => {
             dispatch(logout())
             return res
         }catch(error){
-            console.log(error)
         }
     }
 

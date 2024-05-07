@@ -59,9 +59,7 @@ const fetchParlour = async () =>{
   try{
     const res = await getParlourDetails();
     setFormData(res.data.data)
-    console.log('jii',res.data.data)
       setCheckedItems(res.data.data.facilities);
-      console.log('ao',formData.banners)
   }catch(error){    
     console.log(error)
   }
@@ -74,7 +72,6 @@ fetchParlour()
     const fetchFacilities = async () => {
       try {
         const response = await Api.get("/admin/facilities");
-        // console.log(response);
         setFacilities(response.data);
       } catch (error) {
         console.log(error);
@@ -98,15 +95,12 @@ fetchParlour()
   };
   
 
-  // const api = process.env.REACT_APP_GEOPIFY_API;
 
-  // console.log('api',api)
   const [locationCheckBox, setLocationSetBox] = useState(false);
   const handleSubmit = async (e: any) => {
     try {
       e.preventDefault();
 
-      console.log('formdata',formData);
 
       const formDataToSend = new FormData();
       formDataToSend.append("parlourName", formData.parlourName);
@@ -125,7 +119,6 @@ fetchParlour()
           formDataToSend.append("facilities", facility);
         }
       });
-      // formDataToSend.append('facilities', formData.facilities);
 
       formData.banners.forEach((banner) => {
         if (typeof banner !== "string") {
@@ -135,7 +128,6 @@ fetchParlour()
 
 
       const res = await editParlour(formDataToSend);
-      // console.log(res.data)
       const data = res?.data;
       if (data.status) {
         toast.success("parlour edited");
@@ -154,15 +146,12 @@ fetchParlour()
       setLocationSetBox(e.target);
       let currentLocation;
       if (!locationCheckBox) {
-        console.log("selected");
         navigator.geolocation.getCurrentPosition(async (position) => {
-          console.log(position);
           const location = await axios.get(
             `https://api.geoapify.com/v1/geocode/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json&apiKey=be59a58f88694f3994f62b14e0211717`
           );
           currentLocation = location.data.results[0];
-          console.log(currentLocation);
-          console.log(currentLocation.city, currentLocation.road);
+   
           setFormData({
             ...formData,
             landMark: currentLocation.city,

@@ -32,10 +32,8 @@ const Sidebar = () => {
   const handleLogout = async ()=>{
     try{
       const res = await vendorLogout()
-      console.log(res)
       dispatch(parlourLogout());
     }catch(error){
-      console.log(error)
     }
   }
   return (

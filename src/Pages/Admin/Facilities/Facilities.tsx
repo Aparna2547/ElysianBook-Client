@@ -17,10 +17,8 @@ const Facilities = () => {
     const fetchFacilities = async () => {
       try {
         const response = await Api.get("/admin/facilities");
-        console.log(response);
         setFacilities(response.data);
       } catch (error) {
-        console.log(error);
       }
     };
     fetchFacilities();

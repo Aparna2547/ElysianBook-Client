@@ -33,7 +33,6 @@ export default function ChartComp() {
     useEffect(() => {
       const fetchData = async () => {
         const response = await monthlyProfit(year.toString());
-        console.log('fhdsjh',response.data.data)
         setChartData(response.data.data);
       };
   
@@ -46,7 +45,6 @@ export default function ChartComp() {
    let data  = []
    let j=0
    for(let i=0;i<months.length;i++){
-    console.log('sda',chartData[i]?.month,i+1)
     if( i+1 == chartData[j]?.month ){
       data.push({
         name: months[i],
@@ -63,7 +61,6 @@ export default function ChartComp() {
       })
     }
    }
-//    console.log('data',data)
    setData(data)
 
    },[chartData])

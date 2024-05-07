@@ -27,7 +27,6 @@ const EditProfile  = () => {
     const fetchProfile = async () => {
       try {
         const res = await vendorProfile();
-        console.log(res.data.data);
         setProfile(res.data.data);
         setFormData((prevFormData) => ({
           ...prevFormData,
@@ -35,7 +34,6 @@ const EditProfile  = () => {
           vendorImage: res.data.data.vendorImage || [], 
         }));
       } catch (error) {
-        console.log(error);
       }
     }
     fetchProfile();
@@ -57,9 +55,7 @@ const EditProfile  = () => {
         })
       }
 
-      console.log('profile',formData)
     }catch(error){
-    console.log(error)
     }
   }
 

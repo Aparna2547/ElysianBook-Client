@@ -62,10 +62,8 @@ const EditService = ({
     const fetchCategories = async () => {
       try {
         const response = await categoriesToShow();
-        console.log(response.data.data);
         setCategories(response.data.data);
       } catch (error) {
-        console.log(error);
       } finally {
       }
     };

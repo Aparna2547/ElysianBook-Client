@@ -23,12 +23,10 @@ const ChangeEmailModal = ({setEmailModal,user,emailProps}:ModalProps) => {
         try{
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailRegex.test(email)) {
-            console.log('hi')
             toast.error("Enter valid email");
             return;
           }
           if (emailProps.toLowerCase() === email.toLowerCase()) {
-            console.log('jj',emailProps.toLowerCase(),email.toLowerCase())
             toast.error("This is the current email");
             return;
           }
@@ -42,7 +40,6 @@ const ChangeEmailModal = ({setEmailModal,user,emailProps}:ModalProps) => {
                    }
             }
         }catch(error){
-            console.log(error)
         }
     }
 
@@ -53,14 +50,12 @@ const ChangeEmailModal = ({setEmailModal,user,emailProps}:ModalProps) => {
             toast.error('Enter valid otp')
           }
             const res = await changeEmailVerifyOtp(otp)
-            console.log(res)
             if(res.data.data){
                 setEmailModal(false)
                 toast.success('Email changed successfully.')
             }
         }
         catch(error){
-            console.log(error)
         }
     }
 

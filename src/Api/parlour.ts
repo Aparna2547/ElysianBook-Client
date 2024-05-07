@@ -8,7 +8,6 @@ export const signup = async (name: string, email: string, password: string) => {
     const res = await Api.post(parlourRoutes.signup, { name, email, password });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -17,10 +16,8 @@ export const signup = async (name: string, email: string, password: string) => {
 export const verifyOtp = async (otp: string) => {
   try {
     const res = await Api.post(parlourRoutes.otp, { otp });
-    console.log(res);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -29,10 +26,8 @@ export const verifyOtp = async (otp: string) => {
 export const parlourLogin = async (email: string, password: string) => {
   try {
     const res = await Api.post(parlourRoutes.parlourLogin, { email, password });
-    console.log(res);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -51,7 +46,6 @@ export const gParlourSignup = async (
     });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -62,7 +56,6 @@ export const vendorForgotPassword = async (email: string) => {
     const res = await Api.post(parlourRoutes.vendorForgotPassword, { email });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -75,7 +68,6 @@ export const vendorverifyOtpForgotPassword = async (otp: string) => {
     });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -88,7 +80,6 @@ export const vendorChangePassword = async (password: string) => {
     });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -99,7 +90,6 @@ export const addParlour = async (parlour: FormData) => {
     const res = await Api.post(parlourRoutes.addParlour, parlour);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -110,7 +100,6 @@ export const getParlourDetails = async () => {
     const res = await Api.get(parlourRoutes.getParlourDetails);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -122,7 +111,6 @@ export const editParlour = async (formData:FormData) => {
     const res = await Api.put(parlourRoutes.editParlour,formData);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -133,7 +121,6 @@ export const categoriesToShow = async () => {
     const res = await Api.get(parlourRoutes.categoriesToShow);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -144,7 +131,6 @@ export const addService = async (formData: FormData) => {
     const res = await Api.post(parlourRoutes.addService, formData);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -157,7 +143,6 @@ export const allService = async (search: string, page: number) => {
     );
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -169,10 +154,8 @@ export const editService = async (id: string, formData: FormData) => {
       `${parlourRoutes.editService}?id=${id}`,
       formData
     );
-    console.log("hai");
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -183,10 +166,8 @@ export const editService = async (id: string, formData: FormData) => {
 export const listService = async (id: string) => {
   try {
     const res = await Api.put(`${parlourRoutes.listService}?id=${id}`);
-    console.log("deyy");
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -197,7 +178,6 @@ export const vendorProfile = async () => {
     const res = await Api.get(parlourRoutes.vendorProfile);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -208,7 +188,6 @@ export const changeName = async (name: string) => {
     const res = await Api.put(parlourRoutes.editVendorName, name);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -225,7 +204,6 @@ export const changePasswordProfile = async (
     });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -236,7 +214,6 @@ export const changeEmailProfile = async (email: string) => {
     const res = await Api.put(parlourRoutes.editVendorEmail, { email });
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
 
   }
@@ -248,7 +225,6 @@ export const changeEmailVerifyOtp = async(otp:string)=>{
         const res = await Api.put(parlourRoutes.emailChangeVerifyOtp,{otp})
         return res 
     } catch (error) {
-        console.log(error)
         errorHandle(error as Error)
 
     }
@@ -259,7 +235,6 @@ export const allBookings = async (page:number) =>{
   const res = await Api.get(`${parlourRoutes.allBookings}?page=${page}`)
   return res
  }catch(error){
-  console.log(error)
   errorHandle(error as Error)
  }
 }
@@ -272,7 +247,6 @@ export const getParlourConversations = async (parlourId: string) => {
     const res = await Api.get(`${parlourRoutes.getConversations}?parlourId=${parlourId}`);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error);
   }
 };
@@ -331,7 +305,6 @@ export const vendorLogout = async () => {
     const res = await Api.post(parlourRoutes.vendorLogout);
     return res;
   } catch (error) {
-    console.log(error);
     errorHandle(error as Error)
     
   }

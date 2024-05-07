@@ -36,9 +36,7 @@ const Login: React.FC = () => {
 
 
         const res = await Api.post("/user/login",{email,password})
-        console.log(res);
         if(res.data.success){
-          console.log(res.data)
           dispatch(setCredentials(res.data.accessToken))
           dispatch(setUserId(res.data.userId))
           toast.success("signed in...")
@@ -196,13 +194,22 @@ const Login: React.FC = () => {
                         >
                             Sign In
                         </button>
-                        <Link to={'/signup'}>
-                        <div
-                            className="w-full text-center py-3 font-semibold border-2 border-[#3A244A] rounded-xl bg-white text-[#3A244A] hover:bg-green-dark focus:outline-none my-1"
-                        >
-                            Sign Up
-                        </div>
-                        </Link>
+                        <div className="flex justify-between">
+                        <div className="w-1/2">
+                      <Link to ={"/forgotpassword"}className="text-gray-900">
+                        <small>Forgot password?</small>
+                      </Link>
+                      </div>
+
+                      <Link
+                    to={"/signup"}
+                    className="flex gap-1 text-lg font-semibold cursor-pointer underline"
+                  >
+                    <h1 className="text-[#3A244A]">Sign</h1>
+                    <h1 className="text-[#D72638]">Up</h1>
+                  </Link>
+                    </div>
+                      
                     </form>
                 </div>
             </div>

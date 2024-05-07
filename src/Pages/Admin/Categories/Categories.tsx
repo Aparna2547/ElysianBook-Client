@@ -50,9 +50,7 @@ const [categoryForEdit, setCategoryForEdit] = useState<categoriesType>();
         const response = await allCategory(searchTerm,currentPage);
         setCategories(response.data.categories);
         setTotalPages(response.data.totalPages)
-        console.log('abc',response.data)
       } catch (error) {
-        console.log(error);
       }
     };
     fetchCategories();
@@ -63,24 +61,19 @@ const [categoryForEdit, setCategoryForEdit] = useState<categoriesType>();
     try {
       setListId(id);
       setModal(true)
-      console.log(id)
     } catch (error) {
-      console.log(error);
     }
   };
 
   const handleEdit= async (index:number)=>{
     try{
-      console.log('hadh')
       
       setCategoryForEdit(categories[index])
       setEditModal(true)
 
 
-      // const res = await editCategory(id)
-      // console.log(res)
+      
     }catch(error){
-      console.log(error);
       
     }
   }
@@ -89,13 +82,11 @@ const [categoryForEdit, setCategoryForEdit] = useState<categoriesType>();
 
   const handleEditSubmit = async (e:any)=>{
     e.preventDefault()
-    console.log(categoryForEdit,imageForEdit) 
     let nameExist;
     if(categoryForEdit){
      nameExist = categories.filter((e)=>(e.catName==categoryForEdit.catName && e._id != categoryForEdit._id))
       
     
-    console.log('sdd',nameExist)
     if(nameExist.length != 0){
       toast.error("category already exist")
     }
@@ -107,7 +98,6 @@ const [categoryForEdit, setCategoryForEdit] = useState<categoriesType>();
     }
 
     const res = await editCategory(categoryForEdit._id,formData)
-    console.log(res)
     setEditModal(false)
     toast.success("category edited")
   }
@@ -117,13 +107,11 @@ const [categoryForEdit, setCategoryForEdit] = useState<categoriesType>();
   const listCategory = async ()=>{
     try {
         const res = await hideCategory(listId)
-        console.log(res)
         if(res.data.data){
             setModal(false)
             toast.success("Category listing permission changed")
         }
     } catch (error) {
-        console.log(error);
         
     }
   }

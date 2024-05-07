@@ -36,12 +36,10 @@ const Home = () => {
 
   const handleLogout= async ()=>{
     try{
-      const res = await adminLogout()
-      console.log(res)
+      await adminLogout()
       dispatch(adminLogout())
       navigate('/admin')
     }catch(error){
-      console.log(error);
       
     }
   }

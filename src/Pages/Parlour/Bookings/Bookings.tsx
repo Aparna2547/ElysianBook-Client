@@ -36,7 +36,6 @@ const Bookings = () => {
     setLoading(true)
     const fetchBookings = async () => {
       const res = await allBookings(currentPage);
-      console.log(res.data.data.bookingDetails);
       setBookings(res.data.data.bookingDetails);
       setTotalPages(res.data.data.totalPages);
       setLoading(false)
@@ -45,7 +44,6 @@ const Bookings = () => {
   }, [currentPage]);
 
   const handleCancelClick = (bookingId:string) =>{
-    console.log('kasdk',bookingId)
     setSelectedBookingId(bookingId)
     setCancelModal(true)
   }

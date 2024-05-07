@@ -14,7 +14,6 @@ const Dashboard = () => {
   useEffect(()=>{
     const fetchDetails = async () =>{
       const res = await totalDetails()
-      // console.log(res.data.data)
       setUsers(res.data.data.allUsers)
       setParlour(res.data.data.allParlours)
       setRevenue(res.data.data.revenue)

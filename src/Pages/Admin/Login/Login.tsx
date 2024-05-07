@@ -31,7 +31,6 @@ const Login = () => {
   
   
           const res = await login(email,password)
-          console.log(res);
           if (res.data.success) {
             dispatch(setAdminCredentials(res.data.token))
             toast.success("Signed in...");
@@ -42,7 +41,6 @@ const Login = () => {
           
           
         } catch (error) {
-          console.log(error);
         }
       };
   

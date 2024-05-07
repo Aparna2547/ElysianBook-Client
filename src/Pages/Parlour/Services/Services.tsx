@@ -51,7 +51,6 @@ const Services = () => {
       try {
         setLoading(true);
         const res = await allService(searchTerm, currentPage);
-        console.log("this", res.data.data);
         if(res.data){
           setServices(res.data.data.allservices);
           setTotalPages(res.data.data.totalPages);
@@ -71,21 +70,17 @@ const Services = () => {
     try {
       setListId(id);
       setModal(true);
-      console.log(id);
     } catch (error) {
-      console.log(error);
     }
   };
 
   const listServices = async () => {
     try {
       const res = await listService(listId);
-      console.log("list", res);
       if (res.data) {
         setModal(false);
         toast.success("service list changed");
       }
-      console.log("hey");
     } catch (error) {
       console.log(error);
     }
@@ -93,7 +88,6 @@ const Services = () => {
 
   const handleEdit = async (index: number) => {
     try {
-      console.log("kii");
       // Assuming services is an array of serviceType
       const selectedService = services[index];
       if (selectedService) {
@@ -120,7 +114,6 @@ const Services = () => {
         e.serviceName == serviceForEdit.serviceName &&
         e._id !== serviceForEdit._id
     );
-    console.log(serviceNameExist);
     if (serviceNameExist.length !== 0) {
       toast.error("Service exists");
       return;
@@ -136,15 +129,14 @@ const Services = () => {
       formData.append("image", imageForEdit);
     }
 
-    console.log("serviceForedit", serviceForEdit, imageForEdit);
 
     try {
       const res = await editService(serviceForEdit._id, formData);
-      console.log(res);
       setEditModal(false);
-      toast.success("Service edited successfully");
+      if(res){
+        toast.success("Service edited successfully");
+      }
     } catch (error) {
-      console.log(error);
       toast.error("Failed to edit service");
     }
   };

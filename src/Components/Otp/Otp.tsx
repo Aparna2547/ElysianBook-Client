@@ -35,7 +35,6 @@ const Otp = () => {
     setResendOtp(false)
     setSeconds(59)
     const res = await Api.post("/user/resendotp",{otp})
-    console.log(res);
     if(res.data.status){
       toast.success("Registration successfull. Please login")
       navigate('/login')
@@ -54,7 +53,6 @@ const Otp = () => {
   
   
           const res = await Api.post("/user/signup",{otp})
-          console.log(res);
           if(res.data.status){
             toast.success("Registration successfull. Please login")
             navigate('/login')
@@ -64,7 +62,6 @@ const Otp = () => {
           
           
         } catch (error) {
-          console.log(error);
         }
       };
   return (

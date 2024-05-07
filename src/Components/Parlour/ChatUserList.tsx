@@ -35,17 +35,7 @@ interface Props{
 
     const {parlourId} = useSelector((state:RootState)=>state.auth)
 
-    // useEffect(()=>{
-    //     const fetchData = async () =>{
-    //         const filteredMembers = conversation.members.filter(mem => mem !==parlourId)
-    //         // console.log('this is',filteredMembers)
-    //         const res = await findUserById(filteredMembers)
-    //         console.log('jdfks',res.data.data);
-    //         setUsers(res.data.data)
-    //     }
-    //     fetchData()
-    // },[conversation, parlourId])
-
+  
     useEffect(() => {
       const fetchData = async () => {
           const usersData = await Promise.all(filteredMembers.map(async mem => {

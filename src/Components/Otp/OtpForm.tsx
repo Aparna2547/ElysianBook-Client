@@ -38,7 +38,6 @@ const OtpForm = () => {
         toast.error('Enter a valid otp')
     }
     const res = await Api.post("/user/resendotp", { otp });
-    console.log(res);
     if (res.data.status) {
       toast.success("Registration successfull. Please login");
       navigate("/login");
@@ -82,7 +81,6 @@ const OtpForm = () => {
     }
 
     const res = await  Api.post("/user/signup",{otp})
-    console.log("res orp", res);
     if (res.data.status) {
         toast.success("Registration successfull. Please login")
         navigate("/login");

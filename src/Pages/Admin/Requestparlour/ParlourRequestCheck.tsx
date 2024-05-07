@@ -7,19 +7,16 @@ import { ParlourRequestConfirmation } from "../../../Api/admin";
 
 const ParlourRequestCheck = () => {
   const { id } = useParams<{ id: string }>();
-    console.log(id);
     const navigate = useNavigate()
     
     const handleRequestConfirmation = async (value: string) => {
       try {
-        console.log('confirmation value:', value);
-        console.log('id:', id);
+    
         const res = await ParlourRequestConfirmation(value, id as string);
         navigate('/admin/parlourRequest')
         return res;
 
       } catch (error) {
-        console.log(error);
       }
     };
 

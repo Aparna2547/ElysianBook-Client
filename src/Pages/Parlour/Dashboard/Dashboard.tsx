@@ -21,7 +21,6 @@ const Dashboard = () => {
     useEffect(()=>{
         const fetchDetails = async () =>{
             const res = await dashboardDetails()
-            console.log(res.data.data)
             setDetails(res.data.data)
         }
         fetchDetails()

@@ -20,17 +20,13 @@
             contact:''
         });
         const {id} = useParams()
-        console.log(id);
         
         useEffect(()=>{
             const fetchParlour = async (id:string) =>{
                 try{
-                    console.log('id',id)
                     const res = await singleParlourDetails(id as string)
-                    console.log(res.data.data)
                     setParlourDetails(res.data.data)
                 }catch(error){
-                    console.log(error)
                 }
             }
             fetchParlour(id as string)

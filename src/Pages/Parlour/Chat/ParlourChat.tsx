@@ -39,7 +39,6 @@ const ParlourChat = () => {
   const [user, setUser] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const { parlourId } = useSelector((state: RootState) => state.auth);
-  console.log("parlour", parlourId);
   const [images, setImages] = useState<string[]>([]);
   const socket = useRef<Socket | undefined>();
 
@@ -66,14 +65,12 @@ const ParlourChat = () => {
 
   useEffect(() => {
     const parlour = JSON.parse(localStorage.getItem("vendorId") as string);
-    console.log("parlourgfg", parlour);
     socket.current?.emit("addUser", parlour);
   }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getParlourConversations(parlourId);
-      console.log("dsdsd", res.data);
       setConversation(res.data);
     };
     fetchData();
@@ -87,7 +84,6 @@ const ParlourChat = () => {
     setConversationId(conversationId);
     setSelectedConversation(conversationId);
     const res = await getMessages(conversationId);
-    console.log("sdkjsjk", res);
     setMessages(res.data);
     setClicked(!clicked);
   };
@@ -97,9 +93,7 @@ const ParlourChat = () => {
       e.preventDefault();
 
       if (message.trim().length !== 0 && message[0] !== " ") {
-        console.log("parlourchat send message");
         const res = await newMessage(message, conversationId, parlourId);
-        console.log("res new", res);
 
         socket.current?.emit("sendMessage", {
           sendorId: parlourId,
@@ -113,15 +107,12 @@ const ParlourChat = () => {
         }
       }
     } catch (error) {
-      console.log(error);
     }
   };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
-      console.log("adljdladjfl");
       const file = e.target.files && e.target.files[0];
-      console.log("adljdladjfl", file);
 
       if (!file) return;
 
@@ -132,7 +123,6 @@ const ParlourChat = () => {
       };
       reader.readAsDataURL(file);
     } catch (error) {
-      console.log(error);
     }
   };
 

@@ -14,8 +14,6 @@ interface RootState{
     }
 }
 const Navbar = () => {
-    // const [isTooltip, setIsTooltip] = useState<Boolean>(false);
-//  const [searchQuery, setSearchQuery] = useState('');
     const {userInfo} = useSelector((state:RootState)=>state.auth)
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -45,20 +43,16 @@ const Navbar = () => {
     //   }
 
     const showNearBy = async () =>{
-        console.log('onclick')
         let currentLocation;
         navigator.geolocation.getCurrentPosition(async (position) => {
-            console.log(position);
             const location = await axios.get(
               `https://api.geoapify.com/v1/geocode/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json&apiKey=be59a58f88694f3994f62b14e0211717`
             );
             currentLocation = location.data.results[0];
-            console.log(currentLocation);
          dispatch(setLocation(currentLocation.county))
 
         }
         )
-        // setIsTooltip(false)
 
     }
     const showParlours = async () =>{

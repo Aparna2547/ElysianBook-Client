@@ -22,12 +22,10 @@ const ChangeEmailModal = ({setEmailModal,emailProps}:ModalProps) => {
     try {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            console.log('hi')
             toast.error("Enter valid email");
             return;
           }
           if (emailProps.toLowerCase() === email.toLowerCase()) {
-            console.log('jj',emailProps.toLowerCase(),email.toLowerCase())
             toast.error("This is the current email");
             return;
           }
@@ -38,10 +36,8 @@ const ChangeEmailModal = ({setEmailModal,emailProps}:ModalProps) => {
       }else{
         toast.error('email already exist')
       }
-      console.log(email)
 
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -60,7 +56,6 @@ const ChangeEmailModal = ({setEmailModal,emailProps}:ModalProps) => {
         toast.error('wrong otp')
       }
     }catch(error){
-      console.log(error)
     }
   }
 
