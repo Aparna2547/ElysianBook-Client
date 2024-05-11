@@ -51,7 +51,7 @@ const Services = ({ bookingDetails, setBookingDetails ,convertTo12HourFormat,clo
   useEffect(() => {
     const fetchServices = async () => {
       const res = await getAllServices(id as string);
-
+      console.log(res.data.data)
       setServices(res.data.data);
       setCategorySelected(res.data.data[0].services);
     };
@@ -199,7 +199,7 @@ const Services = ({ bookingDetails, setBookingDetails ,convertTo12HourFormat,clo
             />
 
             <div className="w-full lg:flex block ">
-              {categorySelected.length==0 ? categorySelected.map((service: ServiceProps, index) => (
+              {categorySelected.length>0 && categorySelected.map((service: ServiceProps, index) => (
                 <div className=" border-w-gray-200 bg-white rounded  p-3 m-2 lg:w-1/2 w-full">
                   <div key={index} className="flex gap-2 rounded-lg">
                     <div className="w-1/4">
@@ -231,11 +231,7 @@ const Services = ({ bookingDetails, setBookingDetails ,convertTo12HourFormat,clo
                     </button>
                   </div>
                 </div>
-              )):(
-                <div>
-                  No services
-                  </div>
-              )}
+              )  )}
             </div>
           </div>
         </div>
